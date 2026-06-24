@@ -58,11 +58,7 @@ export default function GameBoard({ G, ctx, moves }) {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        backgroundColor: "#2e86ab",
-        padding: "60px",
-        borderRadius: "20px",
         width: "fit-content",
-        margin: "0 auto",
       }}
     >
       {ROW_CONFIG.map((count, rowIndex) => (

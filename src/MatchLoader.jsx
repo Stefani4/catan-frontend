@@ -16,7 +16,7 @@ export default function MatchLoader() {
       game: CatanGame,
       board: Board,
       multiplayer: SocketIO({ server: "http://localhost:8000" }),
-      debug: true,
+      debug: false,
       loading: () => <div>Syncing with server...</div>,
     });
   }, []);

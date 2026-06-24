@@ -1,6 +1,12 @@
 export default function PlayerStats({ G, ctx }) {
   return (
-    <div style={{ padding: "20px", color: "#333" }}>
+    <div style={{ 
+      padding: "20px",
+      color: "#333",
+      
+      //  flexShrink: 0,      // 👈 ADD THIS
+      //       //minHeight: "120px"  // 👈 ADD THIS (prevents collapse)
+      }}>
       <h2 style={{ color: "#fff" }}>Players</h2>
       {Object.entries(G.players).map(([playerId, player]) => (
         <div
@@ -16,6 +22,8 @@ export default function PlayerStats({ G, ctx }) {
             borderRadius: "10px",
             boxShadow: "0 4px 6px rgba(0,0,0,0.3)",
             color: "#222",
+
+           
           }}
         >
           <h3 style={{ margin: "0 0 10px 0" }}>Player {playerId}</h3>

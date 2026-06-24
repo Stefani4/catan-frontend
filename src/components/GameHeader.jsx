@@ -65,148 +65,93 @@ export default function GameHeader({ G, ctx, moves, playerID }) {
   const turnsUntilChange = 5 - ((G.turnCount ?? 0) % 5);
   const nextSeason = SEASONS[(SEASONS.indexOf(G.season) + 1) % 4];
 
-  return (
-    <div
-      style={{
-        marginBottom: "20px",
-        borderRadius: "14px",
-        overflow: "hidden",
-        border: `2px solid ${cfg.border}`,
-        boxShadow: `0 0 18px ${cfg.border}55`,
-        color: "white",
-        fontFamily: "sans-serif",
-      }}
-    >
-      <div
-        style={{
-          background: cfg.bg,
-          padding: "10px 20px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-          <span style={{ fontSize: "2rem" }}>{cfg.icon}</span>
-          <div>
-            <div
-              style={{
-                fontWeight: "bold",
-                fontSize: "1.1rem",
-                letterSpacing: "0.5px",
-              }}
-            >
-              {cfg.label}
-            </div>
-            <div style={{ fontSize: "0.78rem", opacity: 0.9 }}>{cfg.desc}</div>
+ return (
+    
+    <div style={{
+      borderRadius: "12px",
+      overflow: "hidden",
+      border: `2px solid ${cfg.border}`,
+      fontFamily: "Georgia, serif",
+
+      // flexShrink: 0, // added for side bar
+      // minHeight: "120px" // added for sidebar 
+    }}>
+      {/* Season strip */}
+      <div style={{
+        background: cfg.bg,
+        padding: "10px 14px",
+        display: "flex",
+        alignItems: "center",
+        gap: "10px",
+      }}>
+        <span style={{ fontSize: "1.6rem" }}>{cfg.icon}</span>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontWeight: "bold", fontSize: "1rem", color: "white", textShadow: "1px 1px 4px rgba(0,0,0,0.6)" }}>
+            {cfg.label}
+          </div>
+          <div style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.8)", fontStyle: "italic" }}>
+            {cfg.desc}
           </div>
         </div>
-
         {ctx.phase !== "setup" && (
-          <div
-            style={{
-              textAlign: "right",
-              background: "rgba(0,0,0,0.35)",
-              borderRadius: "8px",
-              padding: "6px 12px",
-            }}
-          >
-            <div
-              style={{
-                fontSize: "0.7rem",
-                opacity: 0.75,
-                textTransform: "uppercase",
-                letterSpacing: "1px",
-              }}
-            >
-              Next season in
-            </div>
-            <div
-              style={{ fontSize: "1.4rem", fontWeight: "bold", lineHeight: 1 }}
-            >
-              {turnsUntilChange} {turnsUntilChange === 1 ? "turn" : "turns"}
-            </div>
-            <div style={{ fontSize: "0.7rem", opacity: 0.75 }}>
-              → {nextSeason}
-            </div>
+          <div style={{ textAlign: "right", fontSize: "0.7rem", color: "rgba(255,255,255,0.8)" }}>
+            <div>{turnsUntilChange} {turnsUntilChange === 1 ? "turn" : "turns"}</div>
+            <div>→ {nextSeason}</div>
           </div>
         )}
       </div>
 
-      <div
-        style={{
-          backgroundColor: "#1a1a1a",
-          padding: "14px 20px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
+      {/* Bottom bar */}
+      <div style={{
+        background: "linear-gradient(135deg, #1c1208, #2c1e0e)",
+        padding: "10px 14px",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        borderTop: `1px solid ${cfg.border}55`,
+      }}>
+        {/* Phase + player */}
         <div>
-          <div
-            style={{
-              color: "#00d4ff",
-              fontWeight: "bold",
-              fontSize: "1rem",
-              textTransform: "uppercase",
-            }}
-          >
+          <div style={{ color: cfg.border, fontWeight: "bold", fontSize: "0.75rem", textTransform: "uppercase" }}>
             {ctx.phase}
           </div>
-          <div style={{ color: "#aaa", fontSize: "0.85rem", marginTop: "2px" }}>
-            Player {ctx.currentPlayer}'s turn
+          <div style={{ color: "#c9a96e", fontSize: "0.8rem" }}>
+            ⚔️ Player {ctx.currentPlayer}
           </div>
         </div>
 
+        {/* Last roll */}
         <div style={{ textAlign: "center" }}>
-          <div
-            style={{
-              fontSize: "0.65rem",
-              color: "#888",
-              textTransform: "uppercase",
-              letterSpacing: "1px",
-            }}
-          >
-            Last Roll
-          </div>
-          <div
-            style={{
-              fontSize: "2.8rem",
-              fontWeight: "bold",
-              color: "#ffd700",
-              lineHeight: 1,
-            }}
-          >
-            {G.diceValue || "--"}
+          <div style={{ fontSize: "0.6rem", color: "#888", textTransform: "uppercase" }}>Last Roll</div>
+          <div style={{ fontSize: "2rem", fontWeight: "bold", color: "#ffd700", lineHeight: 1 }}>
+            {G.diceValue || "—"}
           </div>
         </div>
 
-        <div style={{ textAlign: "right" }}>
+        {/* Roll / setup */}
+        <div>
           {ctx.phase === "setup" ? (
-            <span style={{ color: "#ffc107", fontSize: "0.9rem" }}>
+            <span style={{ color: "#ffc107", fontSize: "0.75rem", fontStyle: "italic" }}>
               {getSetupInstruction()}
             </span>
           ) : (
             <button
-              disabled={
-                G.diceRolled ||
-                (playerID !== undefined && ctx.currentPlayer !== playerID)
-              }
+              disabled={G.diceRolled || (playerID !== undefined && ctx.currentPlayer !== playerID)}
               onClick={() => moves.rollDice()}
               style={{
-                padding: "10px 22px",
+                padding: "8px 14px",
                 fontWeight: "bold",
-                fontSize: "0.95rem",
+                fontSize: "0.85rem",
                 cursor: G.diceRolled ? "not-allowed" : "pointer",
-                backgroundColor: G.diceRolled ? "#444" : cfg.badge,
+                backgroundColor: G.diceRolled ? "#333" : cfg.badge,
                 color: "white",
-                border: "none",
+                border: `2px solid ${G.diceRolled ? "#555" : cfg.border}`,
                 borderRadius: "8px",
                 opacity: G.diceRolled ? 0.5 : 1,
-                transition: "all 0.2s",
+                fontFamily: "Georgia, serif",
               }}
             >
-              🎲 ROLL DICE
+              🎲 Roll
             </button>
           )}
         </div>

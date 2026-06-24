@@ -29,6 +29,8 @@ export default function TradingPost({ G, ctx, moves, playerID }) {
           borderRadius: "10px",
           color: "white",
           border: "3px solid white",
+
+          
         }}
       >
         <h3 style={{ margin: "0 0 10px 0" }}>⚠️ Incoming Trade!</h3>
@@ -86,6 +88,9 @@ export default function TradingPost({ G, ctx, moves, playerID }) {
         display: "flex",
         flexDirection: "column",
         gap: "20px",
+
+        // flexShrink: 0,      // 👈 ADD THIS
+        //   //minHeight: "120px"  // 👈 ADD THIS (prevents collapse) 
       }}
     >
       <section

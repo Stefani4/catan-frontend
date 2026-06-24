@@ -1,3 +1,72 @@
+// Settlements
+import cyanS from "../../images/cyanS.png";
+import dblueS from "../../images/dblueS.png";
+import greenS from "../../images/greenS.png";
+import orangeS from "../../images/orangeS.png";
+import pinkS from "../../images/pinkS.png";
+import lavanderS from "../../images/lavanderS.png";
+import purpleS from "../../images/purpleS.png";
+import redS from "../../images/redS.png";
+import yellowS from "../../images/yellowS.png";
+
+// Roads
+import cyanR from "../../images/cyanR.png";
+import dblueR from "../../images/dblueR.png";
+import greenR from "../../images/greenR.png";
+import orangeR from "../../images/orangeR.png";
+import pinkR from "../../images/pinkR.png";
+import lavanderR from "../../images/lavanderR.png";
+import purpleR from "../../images/purpleR.png";
+import redR from "../../images/redR.png";
+import yellowR from "../../images/yellowR.png";
+
+// Cities
+import cyanC from "../../images/cyanC.png";
+import dblueC from "../../images/dblueC.png";
+import greenC from "../../images/greenC.png";
+import orangeC from "../../images/orangeC.png";
+import pinkC from "../../images/pinkC.png";
+import lavanderC from "../../images/lavanderC.png";
+import purpleC from "../../images/purpleC.png";
+import redC from "../../images/redC.png";
+import yellowC from "../../images/yellowC.png";
+
+const settlementImages = {
+  0: redS,
+  1: dblueS,
+  2: greenS,
+  3: orangeS,
+  4: yellowS,
+  5: purpleS,
+  6: pinkS,
+  7: cyanS,
+  8: lavanderS,
+};
+
+const cityImages = {
+  0: redC,
+  1: dblueC,
+  2: greenC,
+  3: orangeC,
+  4: yellowC,
+  5: purpleC,
+  6: pinkC,
+  7: cyanC,
+  8: lavanderC,
+};
+
+const roadImages = {
+  0: redR,
+  1: dblueR,
+  2: greenR,
+  3: orangeR,
+  4: yellowR,
+  5: purpleR,
+  6: pinkR,
+  7: cyanR,
+  8: lavanderR,
+};
+
 export const BuildingSpot = ({ id, G, ctx, moves, onClick, style }) => {
   if (!G || !G.players || !G.board.intersections[id]) return null;
 
@@ -30,40 +99,70 @@ export const BuildingSpot = ({ id, G, ctx, moves, onClick, style }) => {
     }
   };
 
-  return (
+  // return (
+  //   <div
+  //     onClick={handleSpotClick}
+  //     style={{
+  //       position: "absolute",
+  //       width: isCity ? "26px" : "20px",
+  //       height: isCity ? "26px" : "20px",
+  //       backgroundColor: ownerId
+  //         ? playerColors[parseInt(ownerId)]
+  //         : "rgba(255, 255, 255, 0.4)",
+  //       border: ownerId ? "2px solid black" : "1px dashed #666",
+  //       borderRadius: isCity ? "2px" : "50%",
+  //       cursor: "pointer",
+  //       zIndex: 100,
+  //       transform: "translate(-50%, -50%)",
+  //       display: "flex",
+  //       alignItems: "center",
+  //       justifyContent: "center",
+  //       ...style,
+  //     }}
+  //   >
+  //     {ownerId && (
+  //       <span
+  //         style={{
+  //           fontSize: "10px",
+  //           fontWeight: "bold",
+  //           color: ownerId === "2" ? "black" : "white",
+  //         }}
+  //       >
+  //         {isCity ? "C" : "H"}
+  //       </span>
+  //     )}
+  //   </div>
+  // );
+return (
     <div
       onClick={handleSpotClick}
       style={{
         position: "absolute",
-        width: isCity ? "26px" : "20px",
-        height: isCity ? "26px" : "20px",
-        backgroundColor: ownerId
-          ? playerColors[parseInt(ownerId)]
-          : "rgba(255, 255, 255, 0.4)",
-        border: ownerId ? "2px solid black" : "1px dashed #666",
-        borderRadius: isCity ? "2px" : "50%",
+        width: isCity ? "36px" : "28px",
+        height: isCity ? "36px" : "28px",
         cursor: "pointer",
         zIndex: 100,
         transform: "translate(-50%, -50%)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
         ...style,
       }}
     >
-      {ownerId && (
-        <span
-          style={{
-            fontSize: "10px",
-            fontWeight: "bold",
-            color: ownerId === "2" ? "black" : "white",
-          }}
-        >
-          {isCity ? "C" : "H"}
-        </span>
+      {ownerId ? (
+        <img
+          src={isCity ? cityImages[parseInt(ownerId)] : settlementImages[parseInt(ownerId)]}
+          style={{ width: "100%", height: "100%", objectFit: "contain" }}
+        />
+      ) : (
+        <div style={{
+          width: "100%",
+          height: "100%",
+          borderRadius: "50%",
+          backgroundColor: "rgba(255,255,255,0.35)",
+          border: "1px dashed #666",
+        }} />
       )}
     </div>
   );
+
 };
 
 export const RoadSpot = ({ id, G, ctx, onClick, style, rotation }) => {
@@ -98,23 +197,61 @@ export const RoadSpot = ({ id, G, ctx, onClick, style, rotation }) => {
     onClick(actualId);
   };
 
+  // return (
+  //   <div
+  //     onClick={handleRoadClick}
+  //     style={{
+  //       position: "absolute",
+  //       width: "40px",
+  //       height: ownerId ? "10px" : "7px",
+  //       backgroundColor: ownerId
+  //         ? playerColors[parseInt(ownerId)]
+  //         : "rgba(255, 255, 255, 0.6)",
+  //       borderRadius: "4px",
+  //       cursor: "pointer",
+  //       zIndex: 15,
+  //       transform: `translate(-50%, -50%) rotate(${rotation}deg)`,
+  //       border: ownerId ? "1px solid black" : "2px dashed #222",
+  //       ...style,
+  //     }}
+  //   />
   return (
     <div
       onClick={handleRoadClick}
-      style={{
-        position: "absolute",
-        width: "40px",
-        height: ownerId ? "10px" : "7px",
-        backgroundColor: ownerId
-          ? playerColors[parseInt(ownerId)]
-          : "rgba(255, 255, 255, 0.6)",
-        borderRadius: "4px",
-        cursor: "pointer",
-        zIndex: 15,
-        transform: `translate(-50%, -50%) rotate(${rotation}deg)`,
-        border: ownerId ? "1px solid black" : "2px dashed #222",
-        ...style,
-      }}
-    />
+        style={{
+          position: "absolute",
+          width: "50px",
+          height: "30px",
+          cursor: "pointer",
+          zIndex: 15,
+          transform: `translate(-50%, -50%) rotate(${rotation}deg)`,
+          ...style,
+        }}
+      
+    >
+      {ownerId ? (
+        <img
+          src={roadImages[parseInt(ownerId)]}
+          style={{ 
+            width: "100%", 
+            height: "100%", 
+            objectFit: "fill",
+            paddingTop: "9px",
+            paddingBottom: "9px",
+            boxSizing: "border-box",
+            
+          }}
+        />
+      ) : (
+        <div style={{
+          width: "100%",
+          height: "7px",
+          marginTop: "6px",
+          backgroundColor: "rgba(255,255,255,0.6)",
+          borderRadius: "4px",
+          border: "2px dashed #222",
+        }} />
+      )}
+    </div>
   );
 };
