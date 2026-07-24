@@ -16,14 +16,14 @@ const images = {
 };
 
 const Robber = () => (
-  <div style={{ 
-    position: "absolute", 
-    top: "50%", 
-    left: "50%", 
-    transform: "translate(-50%, -50%)", 
-    zIndex: 100 
+  <div style={{
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    zIndex: 100
   }}>
-    <img 
+    <img
       src={robberimg}
       alt="Robber"
       style={{ width: "40px", height: "40px", objectFit: "contain" }}
@@ -31,15 +31,22 @@ const Robber = () => (
   </div>
 );
 
-export default function Hex({ hex, G, moves, children }) {
-  console.log("terrain value:", hex.terrain);
-
+export default function Hex({ hex, G, moves, width, height }) {
   return (
-    <div style={{ position: "relative", width: "100px", height: "110px", margin: "0 2px" }}>
+    <div
+      style={{
+        position: "absolute",
+        left: `${hex.x}px`,
+        top: `${hex.y}px`,
+        width: `${width}px`,
+        height: `${height}px`,
+        transform: "translate(-50%, -50%)",
+      }}
+    >
       <div
         style={{
-          width: "100px",
-          height: "110px",
+          width: "100%",
+          height: "100%",
           backgroundImage: `url(${images[hex.terrain]})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -48,6 +55,7 @@ export default function Hex({ hex, G, moves, children }) {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          position: "relative",
         }}
       >
         <span style={{ fontWeight: "bold", fontSize: "0.8rem", color: "white", textShadow: "1px 1px 2px black" }}>
@@ -71,7 +79,6 @@ export default function Hex({ hex, G, moves, children }) {
           </button>
         )}
       </div>
-      {children}
     </div>
   );
 }
