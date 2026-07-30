@@ -4,15 +4,14 @@ import { SocketIO } from "boardgame.io/multiplayer";
 import Board from "./components/Board";
 import { CatanGame } from "../game/CatanGame.js";
 import { normalizeGameSettings } from "../game/constants.js";
-import MainMenu, { getSavedPlayerName } from "./MainMenu.jsx";
+import MainMenu from "./MainMenu.jsx";
+import { encodePlayerIdentity, subscribeToProfile } from "./profileStore.js";
 import LobbyRoom from "./LobbyRoom.jsx";
 import GameSetupModal from "./GameSetupModal.jsx";
 import { toMatchDefaults } from "./settingsStore.js";
 import { saveMatchSession, loadMatchSession, clearMatchSession } from "./matchSession.js";
+import BotManager from "./bots/BotManager.jsx";
 
-// Set VITE_SERVER_URL in a .env file (or your hosting provider's env vars)
-// to point this at a publicly reachable server instead of localhost —
-// required for anyone outside your own machine to join a match.
 const SERVER = import.meta.env.VITE_SERVER_URL || "http://localhost:8000";
 
 function extractMatchID(input) {
@@ -21,13 +20,11 @@ function extractMatchID(input) {
     const fromQuery = new URLSearchParams(url.search).get("matchID");
     if (fromQuery) return fromQuery;
   } catch {
-    // not a URL — fall through and treat input as a raw match code
   }
   return input.trim();
 }
 
 export default function MatchLoader() {
-  // "menu" | "creating" | "lobby" | "game"
   const [screen, setScreen] = useState("menu");
   const [error, setError] = useState(null);
   const [matchID, setMatchID] = useState(null);
@@ -36,9 +33,35 @@ export default function MatchLoader() {
   const [credentials, setCredentials] = useState(null);
   const [createPickerOpen, setCreatePickerOpen] = useState(false);
   const [pendingPlayerCount, setPendingPlayerCount] = useState(null);
+  const [bots, setBots] = useState([]);
   const [matchSettings, setMatchSettings] = useState(() =>
       normalizeGameSettings(toMatchDefaults()),
   );
+
+  useEffect(() => {
+    if (!matchID || mySeat === null || !credentials) return undefined;
+
+    let debounceTimer = null;
+    const unsubscribe = subscribeToProfile((profile) => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        fetch(`${SERVER}/games/catan/${matchID}/update`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            playerID: mySeat,
+            credentials,
+            newName: encodePlayerIdentity(profile),
+          }),
+        }).catch(() => {});
+      }, 400);
+    });
+
+    return () => {
+      clearTimeout(debounceTimer);
+      unsubscribe();
+    };
+  }, [matchID, mySeat, credentials]);
 
   const CatanClient = useMemo(() => {
     return Client({
@@ -60,7 +83,7 @@ export default function MatchLoader() {
       const res = await fetch(`${SERVER}/games/catan/${id}/join`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ playerID: seat, playerName: getSavedPlayerName() }),
+        body: JSON.stringify({ playerID: seat, playerName: encodePlayerIdentity() }),
       });
       if (!res.ok) return null;
       const data = await res.json();
@@ -77,10 +100,14 @@ export default function MatchLoader() {
     setCredentials(creds);
     updateUrl(id, seat);
     setScreen(screen);
-    saveMatchSession({ matchID: id, numPlayers: total, mySeat: seat, credentials: creds, screen });
+    saveMatchSession({ matchID: id, numPlayers: total, mySeat: seat, credentials: creds, screen, bots: [] });
   };
 
-  // Auto-assign the next open seat, used for generic "just the matchID" links.
+  const updateBots = (nextBots) => {
+    setBots(nextBots);
+    saveMatchSession({ matchID, numPlayers, mySeat, credentials, screen, bots: nextBots });
+  };
+
   const joinNextOpenSeat = async (id) => {
     setError(null);
     try {
@@ -107,7 +134,6 @@ export default function MatchLoader() {
     }
   };
 
-  // Join an exact seat, used for real per-seat links (?matchID=&player=).
   const joinExactSeat = async (id, seat) => {
     setError(null);
     const infoRes = await fetch(`${SERVER}/games/catan/${id}`).catch(() => null);
@@ -121,11 +147,6 @@ export default function MatchLoader() {
     enterMatch(id, result.seat, result.credentials, total || 4);
   };
 
-  // On first mount: prefer resuming a session we already hold credentials
-  // for (survives a reload) over re-running the join flow, which the
-  // server would reject since the seat is already ours. A URL matchID that
-  // doesn't match the saved session (e.g. a fresh invite link opened in
-  // the same tab) still goes through the normal join flow below.
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const urlMatchID = params.get("matchID");
@@ -134,9 +155,6 @@ export default function MatchLoader() {
     const session = loadMatchSession();
     if (session && (!urlMatchID || urlMatchID === session.matchID)) {
       (async () => {
-        // Confirm the match still exists on the server before trusting
-        // stale credentials — handles the server having restarted/lost
-        // in-memory state since we last saved this session.
         const infoRes = await fetch(`${SERVER}/games/catan/${session.matchID}`).catch(() => null);
         if (!infoRes || !infoRes.ok) {
           clearMatchSession();
@@ -147,6 +165,7 @@ export default function MatchLoader() {
         setNumPlayers(session.numPlayers);
         setMySeat(session.mySeat);
         setCredentials(session.credentials);
+        setBots(session.bots || []);
         updateUrl(session.matchID, session.mySeat);
         setScreen(session.screen === "game" ? "game" : "lobby");
       })();
@@ -159,7 +178,6 @@ export default function MatchLoader() {
     } else {
       joinNextOpenSeat(urlMatchID);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const createMatch = async (players, settings) => {
@@ -189,13 +207,19 @@ export default function MatchLoader() {
     setMatchID(null);
     setMySeat(null);
     setCredentials(null);
+    setBots([]);
     setError(null);
     window.history.replaceState({}, "", window.location.pathname);
     setScreen("menu");
   };
 
   if (screen === "game" && matchID && mySeat !== null) {
-    return <CatanClient matchID={matchID} playerID={mySeat} credentials={credentials} />;
+    return (
+        <>
+          <CatanClient matchID={matchID} playerID={mySeat} credentials={credentials} />
+          <BotManager matchID={matchID} bots={bots} />
+        </>
+    );
   }
 
   if (screen === "lobby" && matchID) {
@@ -204,10 +228,13 @@ export default function MatchLoader() {
             matchID={matchID}
             numPlayers={numPlayers}
             mySeat={mySeat}
+            credentials={credentials}
             onLeave={leaveToMenu}
+            bots={bots}
+            onBotsChange={updateBots}
             onStart={() => {
               setScreen("game");
-              saveMatchSession({ matchID, numPlayers, mySeat, credentials, screen: "game" });
+              saveMatchSession({ matchID, numPlayers, mySeat, credentials, screen: "game", bots });
             }}
         />
     );

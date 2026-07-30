@@ -100,11 +100,6 @@ function Toggle({ label, checked, onChange, disabled, hint }) {
     );
 }
 
-// `settings` follows the shape of GAME_SETTINGS_DEFAULTS in game/constants.js.
-// Pass `onChange` for an editable panel (lobby creation); omit it (or pass
-// `readOnly`) to render the same panel as a locked-in summary. Deliberately
-// compact (short labels, tight spacing) so the whole thing fits on screen
-// without scrolling at typical window sizes.
 export default function GameSetupModal({ settings, onChange, readOnly }) {
     const set = (patch) => onChange && onChange({ ...settings, ...patch });
     const disabled = readOnly || !onChange;

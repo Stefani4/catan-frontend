@@ -3,8 +3,11 @@ import { createBoard } from "./board.js";
 import {
   DEV_CARD_DECK_COMPOSITION,
   VP_CARD_NAMES,
+  RESOURCES,
   normalizeGameSettings,
 } from "./constants.js";
+
+const STANDARD_BANK_SUPPLY = 19;
 
 function buildDevCardDeck() {
   const deck = [];
@@ -22,6 +25,13 @@ function buildDevCardDeck() {
   return deck;
 }
 
+function buildBank() {
+  return RESOURCES.reduce((acc, r) => {
+    acc[r] = STANDARD_BANK_SUPPLY;
+    return acc;
+  }, {});
+}
+
 export const setup = ({ ctx }, setupData) => {
   const players = {};
   const settings = normalizeGameSettings(setupData);
@@ -34,6 +44,7 @@ export const setup = ({ ctx }, setupData) => {
     players,
     settings,
     board: createBoard(settings.mapType),
+    bank: buildBank(),
     diceValue: null,
     diceRolled: false,
     turnCount: 0,

@@ -1,4 +1,8 @@
-export default function GameHeader({ G, ctx, moves, playerID }) {
+import { usePlayerIdentities } from "../hooks/usePlayerIdentities.js";
+
+export default function GameHeader({ G, ctx, moves, playerID, matchID }) {
+  const identities = usePlayerIdentities(matchID);
+  const currentPlayerName = identities[String(ctx.currentPlayer)]?.name || `Player ${ctx.currentPlayer}`;
   const SEASONS = ["Spring", "Summer", "Autumn", "Winter"];
 
   const getSeasonConfig = (season) => {
@@ -158,7 +162,7 @@ export default function GameHeader({ G, ctx, moves, playerID }) {
               {ctx.phase}
             </div>
             <div style={{ color: "#c9a96e", fontSize: "0.8rem" }}>
-              ⚔️ Player {ctx.currentPlayer}
+              ⚔️ {currentPlayerName}
             </div>
           </div>
 

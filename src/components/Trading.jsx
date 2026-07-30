@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { getBestBankRatio } from "../../game/moves.js";
+import { usePlayerIdentities } from "../hooks/usePlayerIdentities.js";
 
-export default function TradingPost({ G, ctx, moves, playerID }) {
+export default function TradingPost({ G, ctx, moves, playerID, matchID }) {
     const otherPlayers = Object.keys(G.players).filter((id) => id !== playerID);
+    const identities = usePlayerIdentities(matchID);
+    const nameFor = (pid) => identities[String(pid)]?.name || `Player ${pid}`;
 
     const [bankTrade, setBankTrade] = useState({
         give: "lumber",
@@ -41,7 +44,7 @@ export default function TradingPost({ G, ctx, moves, playerID }) {
             >
                 <h3 style={{ margin: "0 0 10px 0" }}>⚠️ Incoming Trade!</h3>
                 <p>
-                    Player {offer.from} offers{" "}
+                    {nameFor(offer.from)} offers{" "}
                     <b>
                         {offer.give.amount} {offer.give.type}
                     </b>
@@ -214,7 +217,7 @@ export default function TradingPost({ G, ctx, moves, playerID }) {
                         >
                             {otherPlayers.map((id) => (
                                 <option key={id} value={id}>
-                                    Player {id}
+                                    {nameFor(id)}
                                 </option>
                             ))}
                         </select>

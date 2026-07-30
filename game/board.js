@@ -71,6 +71,10 @@ function generateNumberPool(landCount) {
 }
 
 const HEX_SIZE = 57;
+const HEX_SIZE_BY_MAP_TYPE = {
+  standard: HEX_SIZE,
+  large: 42,
+};
 const ROUND_PRECISION = 3;
 
 function round(n) {
@@ -134,7 +138,7 @@ function orderBoundaryLoop(boundaryEdges) {
     ordered.push(current);
     const nextVertex = current.endpoints.find((v) => v !== cameFromVertex);
     const nextEdgeId = (byVertex[nextVertex] || []).find(
-      (id) => id !== current.id,
+        (id) => id !== current.id,
     );
     current = nextEdgeId ? edgeById[nextEdgeId] : null;
     cameFromVertex = nextVertex;
@@ -209,12 +213,12 @@ function generateConstrainedTerrains(hexAdjacency, terrainCounts) {
     if (pos === hexCount) return true;
 
     const candidates = shuffle(
-      Object.keys(remaining).filter((t) => remaining[t] > 0),
+        Object.keys(remaining).filter((t) => remaining[t] > 0),
     );
 
     for (const terrain of candidates) {
       const hasConflict = hexAdjacency[pos].some(
-        (n) => assignment[n] === terrain,
+          (n) => assignment[n] === terrain,
       );
       if (hasConflict) continue;
 
@@ -236,6 +240,7 @@ function generateConstrainedTerrains(hexAdjacency, terrainCounts) {
 
 export const createBoard = (mapType = "standard") => {
   const { hexRadius } = MAP_TYPES[mapType] || MAP_TYPES.standard;
+  const hexSize = HEX_SIZE_BY_MAP_TYPE[mapType] ?? HEX_SIZE;
   const axialCoords = generateHexagonAxialCoords(hexRadius);
   const hexAdjacency = computeHexAdjacency(axialCoords);
   const hexCount = axialCoords.length;
@@ -250,7 +255,7 @@ export const createBoard = (mapType = "standard") => {
   const hexes = terrains.map((terrain, index) => {
     const isDesert = terrain === "desert";
     const { q, r } = axialCoords[index];
-    const { x, y } = axialToPixel(q, r, HEX_SIZE);
+    const { x, y } = axialToPixel(q, r, hexSize);
     return {
       id: `hex_${index}`,
       terrain,
@@ -270,7 +275,7 @@ export const createBoard = (mapType = "standard") => {
   const edges = {};
 
   hexes.forEach((hex) => {
-    const corners = hexCorners(hex._rawX, hex._rawY, HEX_SIZE);
+    const corners = hexCorners(hex._rawX, hex._rawY, hexSize);
     const cornerIds = corners.map(({ x, y }) => {
       const id = vertexKey(x, y);
       if (!intersections[id]) {
@@ -319,7 +324,7 @@ export const createBoard = (mapType = "standard") => {
   const minY = Math.min(...allY);
   const maxX = Math.max(...allX);
   const maxY = Math.max(...allY);
-  const padding = HEX_SIZE * 0.5;
+  const padding = hexSize * 0.5;
 
   const shiftX = -minX + padding;
   const shiftY = -minY + padding;
@@ -348,9 +353,9 @@ export const createBoard = (mapType = "standard") => {
     harbors,
     robberPosition: hexes.find((h) => h.terrain === "desert")?.id || "hex_0",
     layout: {
-      hexSize: HEX_SIZE,
-      hexWidth: HEX_SIZE * Math.sqrt(3),
-      hexHeight: HEX_SIZE * 2,
+      hexSize: hexSize,
+      hexWidth: hexSize * Math.sqrt(3),
+      hexHeight: hexSize * 2,
       width: round(maxX - minX + padding * 2),
       height: round(maxY - minY + padding * 2),
     },

@@ -1,11 +1,13 @@
 import { useEffect, useState, useRef } from "react";
 import catanLogo from "../images/catanlogo.png";
-import { getPlayerColor } from "./constants/playerColors.js";
-import { getSavedPlayerName } from "./MainMenu.jsx";
+import { getColorByIndex, PLAYER_COLORS } from "./constants/playerColors.js";
+import { loadProfile, subscribeToProfile, decodePlayerIdentity, encodePlayerIdentity } from "./profileStore.js";
+import { getAvatarById, AVATARS } from "./constants/avatars.jsx";
 import GameSetupModal from "./GameSetupModal.jsx";
 import { GAME_SETTINGS_DEFAULTS } from "../game/constants.js";
 import { getThemeImage } from "./theme.js";
 import { subscribeToSettings } from "./settingsStore.js";
+import { botDisplayName } from "./bots/botNames.js";
 
 const SERVER = import.meta.env.VITE_SERVER_URL || "http://localhost:8000";
 
@@ -18,8 +20,6 @@ function AdvancedRulesPanel({ matchID }) {
             .then((res) => (res.ok ? res.json() : null))
             .then((data) => {
                 if (!cancelled && data) {
-                    // Falls back to defaults for older/local matches created before
-                    // this match had setupData at all.
                     setSettings({ ...GAME_SETTINGS_DEFAULTS, ...(data.setupData || {}) });
                 }
             })
@@ -107,7 +107,9 @@ function SettlersPanel({ matchID, numPlayers, mySeat, players, onCopyLink }) {
             <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                 {Array.from({ length: numPlayers }, (_, i) => String(i)).map((seat) => {
                     const joined = players.find((p) => String(p.id) === seat && p.name);
-                    const color = getPlayerColor(seat);
+                    const identity = joined ? decodePlayerIdentity(joined.name, seat) : null;
+                    const color = getColorByIndex(identity ? identity.colorIndex : (parseInt(seat, 10) % 9));
+                    const AvatarIcon = identity?.avatarId ? getAvatarById(identity.avatarId).Icon : null;
                     const isMe = seat === mySeat;
                     return (
                         <div
@@ -123,16 +125,21 @@ function SettlersPanel({ matchID, numPlayers, mySeat, players, onCopyLink }) {
                         >
               <span
                   style={{
-                      width: "14px",
-                      height: "14px",
+                      width: "22px",
+                      height: "22px",
                       borderRadius: "50%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                       background: joined
                           ? `radial-gradient(circle at 30% 30%, ${color.soft}, ${color.accent})`
                           : "rgba(0,0,0,0.15)",
                       border: "1px solid rgba(0,0,0,0.3)",
                       flexShrink: 0,
                   }}
-              />
+              >
+                  {joined && AvatarIcon && <AvatarIcon size={13} color="#f2e6c9" />}
+              </span>
                             <span
                                 style={{
                                     fontSize: "0.9rem",
@@ -141,7 +148,7 @@ function SettlersPanel({ matchID, numPlayers, mySeat, players, onCopyLink }) {
                                     fontWeight: isMe ? "bold" : "normal",
                                 }}
                             >
-                {joined ? joined.name : `Waiting for player ${seat}…`}
+                {joined ? identity.name : `Waiting for player ${seat}…`}
                                 {isMe ? " (you)" : ""}
               </span>
                         </div>
@@ -170,13 +177,107 @@ function SettlersPanel({ matchID, numPlayers, mySeat, players, onCopyLink }) {
     );
 }
 
-// NOTE: this is a local-only placeholder — messages are not sent to other
-// players yet. Real synced pre-game chat is intentionally left for later.
+function BotsPanel({ matchID, openSeats, botCount, addingBots, onAddBots }) {
+    const [selected, setSelected] = useState(0);
+    const maxBots = openSeats.length;
+
+    useEffect(() => {
+        setSelected((s) => Math.min(s, maxBots));
+    }, [maxBots]);
+
+    if (maxBots === 0) return null;
+
+    return (
+        <div
+            style={{
+                width: "230px",
+                borderRadius: "14px",
+                border: "3px solid #7a5320",
+                background: "linear-gradient(160deg, #e8d9b0, #d8c391)",
+                boxShadow: "0 8px 20px rgba(0,0,0,0.5)",
+                padding: "16px",
+                fontFamily: "Georgia, serif",
+                color: "#3a2409",
+            }}
+        >
+            <div
+                style={{
+                    textAlign: "center",
+                    fontWeight: "bold",
+                    fontSize: "1.05rem",
+                    marginBottom: "10px",
+                    borderBottom: "2px solid #7a5320",
+                    paddingBottom: "8px",
+                }}
+            >
+                🤖 Play vs Bots
+            </div>
+
+            <p style={{ fontSize: "0.72rem", color: "#5a4326", marginTop: 0 }}>
+                No one to play with? Fill the {maxBots} open seat{maxBots === 1 ? "" : "s"} with AI opponents.
+            </p>
+
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", margin: "10px 0" }}>
+                {Array.from({ length: maxBots + 1 }, (_, i) => i).map((n) => (
+                    <button
+                        key={n}
+                        onClick={() => setSelected(n)}
+                        disabled={addingBots}
+                        style={{
+                            width: "34px",
+                            height: "34px",
+                            borderRadius: "8px",
+                            border: `2px solid ${selected === n ? "#7a5320" : "rgba(122,83,32,0.4)"}`,
+                            background: selected === n
+                                ? "linear-gradient(135deg, #8a5a20, #c9922f)"
+                                : "rgba(255,255,255,0.4)",
+                            color: selected === n ? "white" : "#5a4326",
+                            fontWeight: "bold",
+                            cursor: addingBots ? "default" : "pointer",
+                        }}
+                    >
+                        {n}
+                    </button>
+                ))}
+            </div>
+
+            <button
+                onClick={() => onAddBots(selected)}
+                disabled={selected === 0 || addingBots}
+                style={{
+                    width: "100%",
+                    padding: "9px",
+                    borderRadius: "8px",
+                    border: "2px solid #7a5320",
+                    background: selected === 0 || addingBots ? "#4a4a4a" : "#7a5320",
+                    color: "white",
+                    fontWeight: "bold",
+                    cursor: selected === 0 || addingBots ? "not-allowed" : "pointer",
+                    fontFamily: "Georgia, serif",
+                    opacity: selected === 0 || addingBots ? 0.65 : 1,
+                }}
+            >
+                {addingBots
+                    ? "Adding…"
+                    : `Add ${selected || ""} Bot${selected === 1 ? "" : "s"}`.trim()}
+            </button>
+
+            {botCount > 0 && (
+                <p style={{ fontSize: "0.68rem", color: "#5a4326", textAlign: "center", marginBottom: 0 }}>
+                    {botCount} bot{botCount === 1 ? "" : "s"} seated.
+                </p>
+            )}
+        </div>
+    );
+}
+
 function LobbyChatPlaceholder() {
     const [messages, setMessages] = useState([]);
     const [draft, setDraft] = useState("");
     const listRef = useRef(null);
-    const name = getSavedPlayerName();
+    const [profile, setProfile] = useState(loadProfile());
+
+    useEffect(() => subscribeToProfile(setProfile), []);
 
     useEffect(() => {
         if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
@@ -185,7 +286,7 @@ function LobbyChatPlaceholder() {
     const send = () => {
         const text = draft.trim();
         if (!text) return;
-        setMessages((m) => [...m, { name, text }]);
+        setMessages((m) => [...m, { name: profile.name, text }]);
         setDraft("");
     };
 
@@ -269,11 +370,13 @@ function LobbyChatPlaceholder() {
     );
 }
 
-export default function LobbyRoom({ matchID, numPlayers, mySeat, onLeave, onStart }) {
-    const name = getSavedPlayerName();
+export default function LobbyRoom({ matchID, numPlayers, mySeat, onLeave, onStart, bots, onBotsChange }) {
+    const [profile, setProfile] = useState(loadProfile());
     const [players, setPlayers] = useState([]);
     const [theme, setTheme] = useState("sunset");
+    const [addingBots, setAddingBots] = useState(false);
 
+    useEffect(() => subscribeToProfile(setProfile), []);
     useEffect(() => subscribeToSettings((s) => setTheme(s.theme)), []);
 
     useEffect(() => {
@@ -286,7 +389,6 @@ export default function LobbyRoom({ matchID, numPlayers, mySeat, onLeave, onStar
                 const data = await res.json();
                 if (!cancelled) setPlayers(data.players || []);
             } catch (e) {
-                // server unreachable — leave the last known list showing
             }
         }
 
@@ -300,6 +402,71 @@ export default function LobbyRoom({ matchID, numPlayers, mySeat, onLeave, onStar
 
     const joinedCount = players.filter((p) => p.name).length;
     const canStart = joinedCount >= 2;
+
+    const takenSeats = new Set(players.filter((p) => p.name).map((p) => String(p.id)));
+    const openSeats = Array.from({ length: numPlayers }, (_, i) => String(i)).filter(
+        (seat) => !takenSeats.has(seat),
+    );
+
+    const addBots = async (count) => {
+        if (count <= 0 || addingBots) return;
+        setAddingBots(true);
+        const seatsToFill = openSeats.slice(0, count);
+        const existingBots = bots || [];
+        const newBots = [];
+
+        const usedColorIdx = new Set();
+        const usedAvatarId = new Set();
+        players.filter((p) => p.name).forEach((p) => {
+            const identity = decodePlayerIdentity(p.name, p.id);
+            usedColorIdx.add(identity.colorIndex);
+            if (identity.avatarId) usedAvatarId.add(identity.avatarId);
+        });
+        existingBots.forEach((b) => {
+            const identity = decodePlayerIdentity(b.name, b.seat);
+            usedColorIdx.add(identity.colorIndex);
+            if (identity.avatarId) usedAvatarId.add(identity.avatarId);
+        });
+
+        const pickRandomColorIndex = (used) => {
+            const allIdx = PLAYER_COLORS.map((_, idx) => idx);
+            const free = allIdx.filter((idx) => !used.has(idx));
+            const pool = free.length > 0 ? free : allIdx;
+            return pool[Math.floor(Math.random() * pool.length)];
+        };
+        const pickRandomAvatar = () => {
+            const free = AVATARS.filter((a) => !usedAvatarId.has(a.id));
+            const pool = free.length > 0 ? free : AVATARS;
+            return pool[Math.floor(Math.random() * pool.length)];
+        };
+
+        for (let i = 0; i < seatsToFill.length; i++) {
+            const seat = seatsToFill[i];
+            const botName = botDisplayName(existingBots.length + i);
+            const colorIndex = pickRandomColorIndex(usedColorIdx);
+            usedColorIdx.add(colorIndex);
+            const avatar = pickRandomAvatar();
+            usedAvatarId.add(avatar.id);
+            const identity = encodePlayerIdentity({ name: botName, colorIndex, avatarId: avatar.id });
+            try {
+                const res = await fetch(`${SERVER}/games/catan/${matchID}/join`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ playerID: seat, playerName: identity }),
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    newBots.push({ seat, name: identity, credentials: data.playerCredentials });
+                }
+            } catch {
+            }
+        }
+
+        if (newBots.length > 0) {
+            onBotsChange?.([...existingBots, ...newBots]);
+        }
+        setAddingBots(false);
+    };
 
     const copyLink = () => {
         const url = `${window.location.origin}${window.location.pathname}?matchID=${matchID}`;
@@ -342,18 +509,20 @@ export default function LobbyRoom({ matchID, numPlayers, mySeat, onLeave, onStar
                         width: "34px",
                         height: "34px",
                         borderRadius: "50%",
-                        background: "linear-gradient(135deg, #8a5a20, #c9922f)",
+                        background: `radial-gradient(circle at 30% 30%, ${getColorByIndex(profile.colorIndex).soft}, ${getColorByIndex(profile.colorIndex).accent})`,
                         border: "2px solid #f1d38a",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        fontSize: "1.1rem",
                     }}
                 >
-                    👤
+                    {(() => {
+                        const AvatarIcon = getAvatarById(profile.avatarId).Icon;
+                        return <AvatarIcon size={18} color="#f2e6c9" />;
+                    })()}
                 </div>
                 <span style={{ color: "#f2e6c9", fontWeight: "bold", fontFamily: "Georgia, serif" }}>
-          {name}
+          {profile.name}
         </span>
             </div>
 
@@ -376,6 +545,13 @@ export default function LobbyRoom({ matchID, numPlayers, mySeat, onLeave, onStar
                 <LobbyChatPlaceholder />
                 <AdvancedRulesPanel matchID={matchID} />
                 <SettlersPanel matchID={matchID} numPlayers={numPlayers} mySeat={mySeat} players={players} onCopyLink={copyLink} />
+                <BotsPanel
+                    matchID={matchID}
+                    openSeats={openSeats}
+                    botCount={(bots || []).length}
+                    addingBots={addingBots}
+                    onAddBots={addBots}
+                />
             </div>
 
             <div

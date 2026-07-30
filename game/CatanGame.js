@@ -36,9 +36,9 @@ export const CatanGame = {
           next: ({ G, ctx }) => {
             const n = ctx.numPlayers;
             const turnsSoFar = G.setupTurnCount || 1;
-            if (turnsSoFar < n) return ctx.playOrderPos + 1; // forward lap
-            if (turnsSoFar === n) return ctx.playOrderPos; // reverse in place
-            return Math.max(0, ctx.playOrderPos - 1); // backward lap
+            if (turnsSoFar < n) return ctx.playOrderPos + 1;
+            if (turnsSoFar === n) return ctx.playOrderPos;
+            return Math.max(0, ctx.playOrderPos - 1);
           },
         },
         activePlayers: { currentPlayer: "placing", others: "idle" },

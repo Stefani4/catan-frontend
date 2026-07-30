@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import catanLogo from "../images/catanlogo.png";
 import createLobbyImg from "../images/lobycreate.png";
 import joinLobbyImg from "../images/joinloby.png";
 import Settings from "./components/Settings";
 import { getThemeImage } from "./theme.js";
 import { subscribeToSettings } from "./settingsStore.js";
+import { loadProfile, saveProfile, subscribeToProfile } from "./profileStore.js";
+import { PLAYER_COLORS } from "./constants/playerColors.js";
+import { AVATARS, getAvatarById } from "./constants/avatars.jsx";
 
 const TUTORIAL_SEEN_KEY = "catan_tutorial_seen";
 
@@ -15,77 +18,178 @@ export function getSavedPlayerName() {
 }
 
 function ProfileChip() {
-    const [name, setName] = useState(getSavedPlayerName());
-    const [editing, setEditing] = useState(false);
+    const [profile, setProfile] = useState(loadProfile());
+    const [open, setOpen] = useState(false);
+    const containerRef = useRef(null);
+
+    useEffect(() => subscribeToProfile(setProfile), []);
 
     useEffect(() => {
-        localStorage.setItem(NAME_KEY, name);
-    }, [name]);
+        if (!open) return;
+        const handleClickOutside = (e) => {
+            if (containerRef.current && !containerRef.current.contains(e.target)) {
+                setOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [open]);
+
+    const color = PLAYER_COLORS[profile.colorIndex] ?? PLAYER_COLORS[0];
+    const AvatarIcon = getAvatarById(profile.avatarId).Icon;
+
+    return (
+        <div ref={containerRef} style={{ position: "absolute", top: "18px", left: "18px", zIndex: 20 }}>
+            <div
+                onClick={() => setOpen((o) => !o)}
+                title="Click to edit your profile"
+                style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                    background: "rgba(20,14,6,0.6)",
+                    border: `2px solid ${open ? color.soft : "#c9a96e"}`,
+                    borderRadius: "999px",
+                    padding: "6px 16px 6px 6px",
+                    cursor: "pointer",
+                    userSelect: "none",
+                }}
+            >
+                <div
+                    style={{
+                        width: "34px",
+                        height: "34px",
+                        borderRadius: "50%",
+                        background: `radial-gradient(circle at 30% 30%, ${color.soft}, ${color.accent})`,
+                        border: "2px solid #f1d38a",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        flexShrink: 0,
+                    }}
+                >
+                    <AvatarIcon size={18} color="#f2e6c9" />
+                </div>
+                <span style={{ color: "#f2e6c9", fontWeight: "bold", fontFamily: "Georgia, serif" }}>
+                    {profile.name} ✎
+                </span>
+            </div>
+
+            {open && (
+                <ProfileMenu
+                    profile={profile}
+                    onChange={(partial) => setProfile(saveProfile(partial))}
+                />
+            )}
+        </div>
+    );
+}
+
+function ProfileMenu({ profile, onChange }) {
+    const color = PLAYER_COLORS[profile.colorIndex] ?? PLAYER_COLORS[0];
 
     return (
         <div
+            onClick={(e) => e.stopPropagation()}
             style={{
-                position: "absolute",
-                top: "18px",
-                left: "18px",
-                zIndex: 20,
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-                background: "rgba(20,14,6,0.6)",
-                border: "2px solid #c9a96e",
-                borderRadius: "999px",
-                padding: "6px 16px 6px 6px",
+                marginTop: "10px",
+                width: "280px",
+                background: "linear-gradient(160deg, #e8d9b0, #d8c391)",
+                border: "3px solid #7a5320",
+                borderRadius: "14px",
+                boxShadow: "0 12px 26px rgba(0,0,0,0.55)",
+                padding: "16px",
+                fontFamily: "Georgia, serif",
+                color: "#3a2409",
             }}
         >
+            <div style={{ fontWeight: "bold", fontSize: "0.95rem", marginBottom: "8px" }}>
+                Your name
+            </div>
+            <input
+                autoFocus
+                value={profile.name}
+                maxLength={20}
+                onChange={(e) => onChange({ name: e.target.value })}
+                style={{
+                    width: "100%",
+                    boxSizing: "border-box",
+                    padding: "8px 10px",
+                    borderRadius: "6px",
+                    border: "1px solid #7a5320",
+                    background: "rgba(255,255,255,0.5)",
+                    color: "#3a2409",
+                    fontFamily: "Georgia, serif",
+                    fontWeight: "bold",
+                    marginBottom: "14px",
+                }}
+            />
+
+            <div style={{ fontWeight: "bold", fontSize: "0.95rem", marginBottom: "8px" }}>
+                Piece color
+            </div>
             <div
                 style={{
-                    width: "34px",
-                    height: "34px",
-                    borderRadius: "50%",
-                    background: "linear-gradient(135deg, #8a5a20, #c9922f)",
-                    border: "2px solid #f1d38a",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "1.1rem",
+                    display: "grid",
+                    gridTemplateColumns: "repeat(5, 1fr)",
+                    gap: "8px",
+                    marginBottom: "14px",
                 }}
             >
-                👤
+                {PLAYER_COLORS.map((c, idx) => (
+                    <div
+                        key={c.name}
+                        onClick={() => onChange({ colorIndex: idx })}
+                        title={c.name}
+                        style={{
+                            width: "100%",
+                            aspectRatio: "1",
+                            borderRadius: "8px",
+                            cursor: "pointer",
+                            background: `radial-gradient(circle at 30% 30%, ${c.soft}, ${c.accent})`,
+                            border: idx === profile.colorIndex ? "3px solid #3a2409" : "2px solid rgba(0,0,0,0.25)",
+                            boxShadow: idx === profile.colorIndex ? "0 0 0 2px #f1d38a inset" : "none",
+                        }}
+                    />
+                ))}
             </div>
-            {editing ? (
-                <input
-                    autoFocus
-                    value={name}
-                    maxLength={20}
-                    onChange={(e) => setName(e.target.value)}
-                    onBlur={() => setEditing(false)}
-                    onKeyDown={(e) => e.key === "Enter" && setEditing(false)}
-                    style={{
-                        background: "rgba(0,0,0,0.4)",
-                        border: "1px solid #c9a96e",
-                        borderRadius: "6px",
-                        color: "#f2e6c9",
-                        padding: "3px 8px",
-                        fontFamily: "Georgia, serif",
-                        fontWeight: "bold",
-                        width: "120px",
-                    }}
-                />
-            ) : (
-                <span
-                    onClick={() => setEditing(true)}
-                    title="Click to edit your name"
-                    style={{
-                        color: "#f2e6c9",
-                        fontWeight: "bold",
-                        fontFamily: "Georgia, serif",
-                        cursor: "pointer",
-                    }}
-                >
-          {name} ✎
-        </span>
-            )}
+
+            <div style={{ fontWeight: "bold", fontSize: "0.95rem", marginBottom: "8px" }}>
+                Avatar
+            </div>
+            <div
+                style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(5, 1fr)",
+                    gap: "8px",
+                }}
+            >
+                {AVATARS.map((a) => {
+                    const isSelected = a.id === profile.avatarId;
+                    return (
+                        <div
+                            key={a.id}
+                            onClick={() => onChange({ avatarId: a.id })}
+                            title={a.label}
+                            style={{
+                                width: "100%",
+                                aspectRatio: "1",
+                                borderRadius: "8px",
+                                cursor: "pointer",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                background: isSelected
+                                    ? `radial-gradient(circle at 30% 30%, ${color.soft}, ${color.accent})`
+                                    : "rgba(255,255,255,0.4)",
+                                border: isSelected ? "3px solid #3a2409" : "2px solid rgba(0,0,0,0.2)",
+                            }}
+                        >
+                            <a.Icon size={18} color={isSelected ? "#f2e6c9" : "#3a2409"} />
+                        </div>
+                    );
+                })}
+            </div>
         </div>
     );
 }
@@ -173,17 +277,6 @@ export default function MainMenu({ onCreateLobby, onJoinLobby }) {
     const [theme, setTheme] = useState("sunset");
 
     useEffect(() => subscribeToSettings((s) => setTheme(s.theme)), []);
-
-    // First-run tutorial: pops up once, only if the player hasn't turned
-    // "Tutorial Hints" off in Settings and hasn't already dismissed it.
-    useEffect(() => {
-        return subscribeToSettings((s) => {
-            if (s.tutorialHints && !localStorage.getItem(TUTORIAL_SEEN_KEY)) {
-                setInfoModal("Tutorial");
-            }
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     const closeInfoModal = () => {
         if (infoModal === "Tutorial") localStorage.setItem(TUTORIAL_SEEN_KEY, "1");

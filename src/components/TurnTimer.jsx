@@ -6,8 +6,6 @@ const DEFAULT_ACTION_SECONDS = 60;
 
 export default function TurnTimer({ G, moves }) {
     const isRollPhase = !G.diceRolled;
-    // Re-read each mount (Board.jsx remounts this via a `key` that changes
-    // every turn/roll, so a preference change takes effect on the next turn).
     const actionSeconds = useRef(
         Math.max(5, Number(loadSettings().turnTimer) || DEFAULT_ACTION_SECONDS),
     ).current;

@@ -1,5 +1,3 @@
-// Shared palette matching the index keys already used in GamePieces.jsx
-// (0: red, 1: dblue, 2: green, 3: orange, 4: yellow, 5: purple, 6: pink, 7: cyan, 8: lavender)
 export const PLAYER_COLORS = [
   { name: "Red", accent: "#c0392b", soft: "#e74c3c", bg: "#3a1512" },
   { name: "Blue", accent: "#1f5c99", soft: "#2f80c4", bg: "#0f2438" },
@@ -15,4 +13,8 @@ export const PLAYER_COLORS = [
 export function getPlayerColor(id) {
   const idx = Math.abs(parseInt(id, 10)) % PLAYER_COLORS.length;
   return PLAYER_COLORS[idx] ?? PLAYER_COLORS[0];
+}
+
+export function getColorByIndex(index) {
+  return PLAYER_COLORS[index] ?? PLAYER_COLORS[0];
 }

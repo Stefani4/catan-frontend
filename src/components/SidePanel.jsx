@@ -2,7 +2,7 @@ import { useState } from "react";
 import TradingPost from "./Trading.jsx";
 import Chat from "./Chat.jsx";
 
-export default function SidePanel({ G, ctx, moves, playerID, tab: controlledTab, onTabChange }) {
+export default function SidePanel({ G, ctx, moves, playerID, matchID, tab: controlledTab, onTabChange }) {
     const [internalTab, setInternalTab] = useState("trades");
     const tab = controlledTab ?? internalTab;
     const setTab = onTabChange ?? setInternalTab;
@@ -59,7 +59,7 @@ export default function SidePanel({ G, ctx, moves, playerID, tab: controlledTab,
             </div>
 
             <div style={{ display: tab === "trades" ? "block" : "none" }}>
-                <TradingPost G={G} ctx={ctx} moves={moves} playerID={playerID} />
+                <TradingPost G={G} ctx={ctx} moves={moves} playerID={playerID} matchID={matchID} />
             </div>
 
             <div
@@ -72,7 +72,7 @@ export default function SidePanel({ G, ctx, moves, playerID, tab: controlledTab,
                     background: "linear-gradient(180deg, #1c1208, #2c1e0e)",
                 }}
             >
-                <Chat G={G} ctx={ctx} moves={moves} playerID={playerID} />
+                <Chat G={G} ctx={ctx} moves={moves} playerID={playerID} matchID={matchID} />
             </div>
         </div>
     );

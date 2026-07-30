@@ -8,6 +8,7 @@ import ResourceHand from "./ResourceHand.jsx";
 import BuildCostsPanel from "./BuildCostsPanel.jsx";
 import VictoryModal from "./VictoryModal.jsx";
 import { useState, useEffect } from "react";
+import { clearMatchSession } from "../matchSession.js";
 import springBg from "../../images/springB.png";
 import summerBg from "../../images/summerB.png";
 import autumnBg from "../../images/autumnB.png";
@@ -78,6 +79,14 @@ export default function Board({ G, ctx, moves, events, playerID, matchID }) {
         return <div>Loading player data...</div>;
     }
 
+    const boardLayout = G.board?.layout || { width: 550, height: 513 };
+    const BOARD_AREA_BUDGET = { width: 620, height: 560 };
+    const boardScale = Math.min(
+        1,
+        BOARD_AREA_BUDGET.width / boardLayout.width,
+        BOARD_AREA_BUDGET.height / boardLayout.height,
+    );
+
     return (
         <div
             style={{
@@ -98,7 +107,6 @@ export default function Board({ G, ctx, moves, events, playerID, matchID }) {
                 left: 0,
             }}
         >
-            {/* Trade notification */}
             {notification && (
                 <div
                     style={{
@@ -124,7 +132,8 @@ export default function Board({ G, ctx, moves, events, playerID, matchID }) {
                     position: "absolute",
                     top: "50%",
                     left: "50%",
-                    transform: "translate(-50%, -50%)",
+                    transform: `translate(-50%, -50%) scale(${boardScale})`,
+                    transformOrigin: "center center",
                     zIndex: 10,
                 }}
             >
@@ -133,6 +142,7 @@ export default function Board({ G, ctx, moves, events, playerID, matchID }) {
                     ctx={ctx}
                     moves={moves}
                     playerID={playerID}
+                    matchID={matchID}
                     pendingCardAction={pendingCardAction}
                     setPendingCardAction={setPendingCardAction}
                 />
@@ -211,25 +221,17 @@ export default function Board({ G, ctx, moves, events, playerID, matchID }) {
                     top: "50px",
                     left: "20px",
                     zIndex: 20,
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "14px",
+                    maxHeight: "calc(100vh - 70px)",
+                    overflowY: "auto",
+                    paddingRight: "4px",
                 }}
             >
                 <PlayerStats G={G} ctx={ctx} matchID={matchID} />
+                {ctx.phase !== "setup" && <BuildCostsPanel G={G} playerID={playerID} />}
             </div>
-
-            {ctx.phase !== "setup" && (
-                <div
-                    style={{
-                        position: "absolute",
-                        top: "300px",
-                        left: "20px",
-                        zIndex: 20,
-                        maxHeight: "calc(100vh - 320px)",
-                        overflowY: "auto",
-                    }}
-                >
-                    <BuildCostsPanel G={G} playerID={playerID} />
-                </div>
-            )}
 
             <div
                 style={{
@@ -245,12 +247,13 @@ export default function Board({ G, ctx, moves, events, playerID, matchID }) {
                     alignItems: "stretch",
                 }}
             >
-                <GameHeader G={G} ctx={ctx} moves={moves} playerID={playerID} />
+                <GameHeader G={G} ctx={ctx} moves={moves} playerID={playerID} matchID={matchID} />
                 <SidePanel
                     G={G}
                     ctx={ctx}
                     moves={moves}
                     playerID={playerID}
+                    matchID={matchID}
                     tab={sidePanelTab}
                     onTabChange={setSidePanelTab}
                 />
@@ -312,7 +315,9 @@ export default function Board({ G, ctx, moves, events, playerID, matchID }) {
                 G={G}
                 ctx={ctx}
                 playerID={playerID}
+                matchID={matchID}
                 onLeave={() => {
+                    clearMatchSession();
                     window.location.href = window.location.pathname;
                 }}
             />

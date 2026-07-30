@@ -19,6 +19,36 @@ const TERRAIN_TO_RES = {
   mountains: "ore",
 };
 
+const RESOURCE_LABELS = {
+  brick: "Brick",
+  lumber: "Lumber",
+  grain: "Grain",
+  wool: "Wool",
+  ore: "Ore",
+};
+
+function resourceLabel(res) {
+  return RESOURCE_LABELS[res] || res;
+}
+
+function logAction(G, playerId, text, targetPlayerId) {
+  if (!G.chatMessages) G.chatMessages = [];
+  G.logCounter = (G.logCounter || 0) + 1;
+  const entry = {
+    id: `log_${G.logCounter}`,
+    playerId,
+    text,
+    system: true,
+  };
+  if (targetPlayerId !== undefined && targetPlayerId !== null) {
+    entry.targetPlayerId = String(targetPlayerId);
+  }
+  G.chatMessages.push(entry);
+  if (G.chatMessages.length > 200) {
+    G.chatMessages.splice(0, G.chatMessages.length - 200);
+  }
+}
+
 export const moves = {
   rollDice({ G, ctx, random, events }) {
     if (ctx.playerID && String(ctx.playerID) !== String(ctx.currentPlayer))
@@ -30,8 +60,8 @@ export const moves = {
     let roll;
 
     if (diceMode === "wheel") {
-      const WEIGHTS = [1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1]; // sums to 36, for rolls 2..12
-      const pick = random.Die(36); // 1..36
+      const WEIGHTS = [1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1];
+      const pick = random.Die(36);
       let cumulative = 0;
       roll = 2;
       for (let i = 0; i < WEIGHTS.length; i++) {
@@ -54,10 +84,12 @@ export const moves = {
     console.log(`Player ${ctx.currentPlayer} rolled ${roll} (mode: ${diceMode})`);
 
     if (roll === 7) {
+      logAction(G, ctx.currentPlayer, "rolled a 7 — the robber is on the move");
       handleRobberDiscard({ G, random });
       G.isRobberPlacing = true;
       events.setStage("placingRobber");
     } else {
+      logAction(G, ctx.currentPlayer, `rolled a ${roll}`);
       distributeResourcesLogic({ G, ctx, roll, random });
     }
   },
@@ -67,6 +99,7 @@ export const moves = {
     G.board.robberPosition = hexId;
     G.isRobberPlacing = false;
     events.setStage("playing");
+    logAction(G, ctx.currentPlayer, "moved the robber");
 
     const potentialVictims = Object.keys(G.players).filter((pid) => {
       if (pid === ctx.currentPlayer) return false;
@@ -81,7 +114,7 @@ export const moves = {
       const victimId = random.Shuffle(potentialVictims)[0];
       const victim = G.players[victimId];
       const heldResources = Object.keys(victim.resources).filter(
-        (k) => victim.resources[k] > 0,
+          (k) => victim.resources[k] > 0,
       );
 
       if (heldResources.length > 0) {
@@ -89,8 +122,9 @@ export const moves = {
         victim.resources[stolenRes]--;
         G.players[ctx.currentPlayer].resources[stolenRes]++;
         console.log(
-          `Robber: Player ${ctx.currentPlayer} stole ${stolenRes} from Player ${victimId}`,
+            `Robber: Player ${ctx.currentPlayer} stole ${stolenRes} from Player ${victimId}`,
         );
+        logAction(G, ctx.currentPlayer, "stole a card from {target}", victimId);
       }
     }
   },
@@ -103,26 +137,26 @@ export const moves = {
     const intersectionData = G.board.intersections[intersectionId];
     if (!intersectionData) {
       console.warn(
-        `buildSettlement rejected: "${intersectionId}" is not a known intersection on this board.`,
+          `buildSettlement rejected: "${intersectionId}" is not a known intersection on this board.`,
       );
       return "INVALID_MOVE";
     }
 
     if (!isDistanceRuleMet(G, intersectionId)) {
       console.warn(
-        `buildSettlement rejected: "${intersectionId}" is within one edge of an existing settlement/city (distance rule).`,
+          `buildSettlement rejected: "${intersectionId}" is within one edge of an existing settlement/city (distance rule).`,
       );
       return "INVALID_MOVE";
     }
 
     const isAlreadyOccupied = Object.values(G.players).some((p) =>
-      [...p.settlements, ...p.cities, ...(p.resorts || [])].some(
-        (b) => b.id === intersectionId,
-      ),
+        [...p.settlements, ...p.cities, ...(p.resorts || [])].some(
+            (b) => b.id === intersectionId,
+        ),
     );
     if (isAlreadyOccupied) {
       console.warn(
-        `buildSettlement rejected: "${intersectionId}" already has a building on it (Resorts can never be overwritten).`,
+          `buildSettlement rejected: "${intersectionId}" already has a building on it (Resorts can never be overwritten).`,
       );
       return "INVALID_MOVE";
     }
@@ -130,43 +164,43 @@ export const moves = {
     if (ctx.phase !== "setup") {
       if (player.settlements.length >= MAX_SETTLEMENTS) {
         console.warn(
-          `buildSettlement rejected: player ${ctx.currentPlayer} already has the max of ${MAX_SETTLEMENTS} settlements.`,
+            `buildSettlement rejected: player ${ctx.currentPlayer} already has the max of ${MAX_SETTLEMENTS} settlements.`,
         );
         return "INVALID_MOVE";
       }
 
       if (!hasEnoughResources(player, BUILD_COSTS.settlement)) {
         console.warn(
-          `buildSettlement rejected: player ${ctx.currentPlayer} lacks resources. Has:`,
-          player.resources,
-          "Needs:",
-          BUILD_COSTS.settlement,
+            `buildSettlement rejected: player ${ctx.currentPlayer} lacks resources. Has:`,
+            player.resources,
+            "Needs:",
+            BUILD_COSTS.settlement,
         );
         return "INVALID_MOVE";
       }
 
       if (
-        !isIntersectionConnectedToPlayerRoad(
-          G,
-          ctx.currentPlayer,
-          intersectionId,
-        )
+          !isIntersectionConnectedToPlayerRoad(
+              G,
+              ctx.currentPlayer,
+              intersectionId,
+          )
       ) {
         console.warn(
-          `buildSettlement rejected: "${intersectionId}" is not adjacent to any of player ${ctx.currentPlayer}'s roads. Player's roads:`,
-          player.roads.map((r) => r.id),
-          "Intersection's adjacent edges:",
-          intersectionData.adjacentEdges,
+            `buildSettlement rejected: "${intersectionId}" is not adjacent to any of player ${ctx.currentPlayer}'s roads. Player's roads:`,
+            player.roads.map((r) => r.id),
+            "Intersection's adjacent edges:",
+            intersectionData.adjacentEdges,
         );
         return "INVALID_MOVE";
       }
-      deductResources(player, BUILD_COSTS.settlement);
+      deductResources(G, player, BUILD_COSTS.settlement);
     } else if (
-      player.settlements.length >= 2 ||
-      player.settlements.length !== player.roads.length
+        player.settlements.length >= 2 ||
+        player.settlements.length !== player.roads.length
     ) {
       console.warn(
-        `buildSettlement rejected during setup: player ${ctx.currentPlayer} has ${player.settlements.length} settlements and ${player.roads.length} roads (must place a road before the next settlement, max 2 total).`,
+          `buildSettlement rejected during setup: player ${ctx.currentPlayer} has ${player.settlements.length} settlements and ${player.roads.length} roads (must place a road before the next settlement, max 2 total).`,
       );
       return "INVALID_MOVE";
     }
@@ -177,6 +211,7 @@ export const moves = {
       adjacentHexes: intersectionData.adjacentHexes || [],
     });
     player.victoryPoints += 1;
+    logAction(G, ctx.currentPlayer, "built a settlement");
 
     if (ctx.phase !== "setup") {
       updateLongestRoad(G);
@@ -184,7 +219,7 @@ export const moves = {
       (intersectionData.adjacentHexes || []).forEach((hexId) => {
         const hex = G.board.hexes.find((h) => h.id === hexId);
         const resType = hex && TERRAIN_TO_RES[hex.terrain];
-        if (resType) {
+        if (resType && takeFromBank(G, resType, 1)) {
           player.resources[resType] += 1;
         }
       });
@@ -198,7 +233,7 @@ export const moves = {
 
     if (player.cities.length >= MAX_CITIES) {
       console.warn(
-        `buildCity rejected: player ${ctx.currentPlayer} already has the max of ${MAX_CITIES} cities.`,
+          `buildCity rejected: player ${ctx.currentPlayer} already has the max of ${MAX_CITIES} cities.`,
       );
       return "INVALID_MOVE";
     }
@@ -208,7 +243,7 @@ export const moves = {
     const sIdx = player.settlements.findIndex((s) => s.id === intersectionId);
     if (sIdx === -1) return "INVALID_MOVE";
 
-    deductResources(player, BUILD_COSTS.city);
+    deductResources(G, player, BUILD_COSTS.city);
     const [originalSettlement] = player.settlements.splice(sIdx, 1);
 
     player.cities.push({
@@ -217,6 +252,7 @@ export const moves = {
       adjacentHexes: originalSettlement.adjacentHexes || [],
     });
     player.victoryPoints += 1;
+    logAction(G, ctx.currentPlayer, "upgraded a settlement to a city");
   },
 
   buildResort({ G, ctx }, intersectionId) {
@@ -231,10 +267,10 @@ export const moves = {
     const player = G.players[ctx.currentPlayer];
     if (!hasEnoughResources(player, BUILD_COSTS.resort)) {
       console.warn(
-        `buildResort rejected: player ${ctx.currentPlayer} lacks resources. Has:`,
-        player.resources,
-        "Needs:",
-        BUILD_COSTS.resort,
+          `buildResort rejected: player ${ctx.currentPlayer} lacks resources. Has:`,
+          player.resources,
+          "Needs:",
+          BUILD_COSTS.resort,
       );
       return "INVALID_MOVE";
     }
@@ -253,12 +289,12 @@ export const moves = {
 
     if (victimId === null) {
       console.warn(
-        `buildResort rejected: "${intersectionId}" is not an opponent's city (it may be empty, a settlement, your own city, or already a Resort).`,
+          `buildResort rejected: "${intersectionId}" is not an opponent's city (it may be empty, a settlement, your own city, or already a Resort).`,
       );
       return "INVALID_MOVE";
     }
 
-    deductResources(player, BUILD_COSTS.resort);
+    deductResources(G, player, BUILD_COSTS.resort);
 
     const victim = G.players[victimId];
     const [seizedCity] = victim.cities.splice(cityIdx, 1);
@@ -273,8 +309,9 @@ export const moves = {
     player.victoryPoints += 2;
 
     console.log(
-      `Player ${ctx.currentPlayer} seized Player ${victimId}'s city at "${intersectionId}" and built a Resort.`,
+        `Player ${ctx.currentPlayer} seized Player ${victimId}'s city at "${intersectionId}" and built a Resort.`,
     );
+    logAction(G, ctx.currentPlayer, "seized {target}'s city and built a Resort", victimId);
 
     updateLongestRoad(G);
   },
@@ -289,49 +326,60 @@ export const moves = {
 
     if (!boardEdge) {
       console.error(
-        `Road placement failed: Edge ID "${edgeId}" is not defined in G.board.edges.`,
+          `Road placement failed: Edge ID "${edgeId}" is not defined in G.board.edges.`,
+      );
+      return "INVALID_MOVE";
+    }
+
+    const isEdgeAlreadyClaimed = Object.values(G.players).some((p) =>
+        p.roads.some((r) => r.id === edgeId),
+    );
+    if (isEdgeAlreadyClaimed) {
+      console.warn(
+          `buildRoad rejected: edge "${edgeId}" already has a road on it.`,
       );
       return "INVALID_MOVE";
     }
 
     if (ctx.phase === "setup") {
       if (
-        player.roads.length >= 2 ||
-        player.roads.length >= player.settlements.length
+          player.roads.length >= 2 ||
+          player.roads.length >= player.settlements.length
       )
         return "INVALID_MOVE";
 
       const lastSettlement =
-        player.settlements[player.settlements.length - 1];
+          player.settlements[player.settlements.length - 1];
 
       if (
-        !lastSettlement ||
-        !isEdgeAdjacentToIntersection(G, edgeId, lastSettlement.id)
+          !lastSettlement ||
+          !isEdgeAdjacentToIntersection(G, edgeId, lastSettlement.id)
       ) {
         console.warn(
-          "Road placement failed: during setup the road must connect directly to the settlement you just placed.",
+            "Road placement failed: during setup the road must connect directly to the settlement you just placed.",
         );
         return "INVALID_MOVE";
       }
     } else {
       if (player.roads.length >= MAX_ROADS) {
         console.warn(
-          `buildRoad rejected: player ${ctx.currentPlayer} already has the max of ${MAX_ROADS} roads.`,
+            `buildRoad rejected: player ${ctx.currentPlayer} already has the max of ${MAX_ROADS} roads.`,
         );
         return "INVALID_MOVE";
       }
       if (!hasEnoughResources(player, cost)) return "INVALID_MOVE";
       if (!isConnectedToPlayer(G, ctx.currentPlayer, edgeId)) {
         console.warn(
-          "Road placement failed: Not connected to your existing buildings or roads.",
+            "Road placement failed: Not connected to your existing buildings or roads.",
         );
         return "INVALID_MOVE";
       }
 
-      deductResources(player, cost);
+      deductResources(G, player, cost);
     }
 
     player.roads.push({ id: edgeId, owner: ctx.currentPlayer });
+    logAction(G, ctx.currentPlayer, "built a road");
 
     if (ctx.phase === "setup") {
       events.endTurn();
@@ -351,18 +399,32 @@ export const moves = {
 
     const ratio = getBestBankRatio(G, ctx.currentPlayer, give);
 
-    if (player.resources[give] >= ratio) {
-      player.resources[give] -= ratio;
-      player.resources[receive] += 1;
-
+    if (player.resources[give] < ratio) {
       console.log(
-        `Player ${ctx.currentPlayer} traded ${ratio} ${give} for 1 ${receive} (ratio ${ratio}:1)`,
+          `Trade failed: Player ${ctx.currentPlayer} only has ${player.resources[give]} ${give}, needs ${ratio}`,
       );
-    } else {
-      console.log(
-        `Trade failed: Player ${ctx.currentPlayer} only has ${player.resources[give]} ${give}, needs ${ratio}`,
-      );
+      return;
     }
+
+    const bank = ensureBank(G);
+    if ((bank[receive] || 0) < 1) {
+      console.log(`Trade failed: the bank is out of ${receive}.`);
+      return;
+    }
+
+    player.resources[give] -= ratio;
+    player.resources[receive] += 1;
+    returnToBank(G, give, ratio);
+    bank[receive] -= 1;
+
+    console.log(
+        `Player ${ctx.currentPlayer} traded ${ratio} ${give} for 1 ${receive} (ratio ${ratio}:1)`,
+    );
+    logAction(
+        G,
+        ctx.currentPlayer,
+        `traded ${ratio} ${resourceLabel(give)} for 1 ${resourceLabel(receive)} with the bank`,
+    );
   },
 
   payToMoveRobber({ G, ctx }) {
@@ -377,9 +439,13 @@ export const moves = {
     const canAfford = costs.every((res) => player.resources[res] >= 1);
 
     if (canAfford) {
-      costs.forEach((res) => (player.resources[res] -= 1));
+      costs.forEach((res) => {
+        player.resources[res] -= 1;
+        returnToBank(G, res, 1);
+      });
       G.board.robberPosition = "neutral";
       console.log(`Player ${ctx.currentPlayer} paid to clear the Robber.`);
+      logAction(G, ctx.currentPlayer, "paid resources to clear the robber");
     }
   },
 
@@ -404,6 +470,7 @@ export const moves = {
       });
 
       console.log(`Trade offered: P${ctx.currentPlayer} -> P${targetPlayerId}`);
+      logAction(G, ctx.currentPlayer, "offered a trade to {target}", targetPlayerId);
     }
   },
 
@@ -435,8 +502,8 @@ export const moves = {
     if (!offer) return "INVALID_MOVE";
 
     if (
-      ctx.playerID !== undefined &&
-      String(ctx.playerID) !== String(offer.to)
+        ctx.playerID !== undefined &&
+        String(ctx.playerID) !== String(offer.to)
     ) {
       return "INVALID_MOVE";
     }
@@ -445,13 +512,15 @@ export const moves = {
     const buyer = G.players[offer.to];
 
     if (
-      seller.resources[offer.give.type] >= offer.give.amount &&
-      buyer.resources[offer.receive.type] >= offer.receive.amount
+        seller.resources[offer.give.type] >= offer.give.amount &&
+        buyer.resources[offer.receive.type] >= offer.receive.amount
     ) {
       seller.resources[offer.give.type] -= offer.give.amount;
       seller.resources[offer.receive.type] += offer.receive.amount;
       buyer.resources[offer.receive.type] -= offer.receive.amount;
       buyer.resources[offer.give.type] += offer.give.amount;
+
+      logAction(G, offer.to, "accepted a trade with {target}", offer.from);
 
       G.activeOffer = null;
       events.setActivePlayers({ currentPlayer: "playing" });
@@ -462,13 +531,18 @@ export const moves = {
     if (!G.activeOffer) return "INVALID_MOVE";
     const offer = G.activeOffer;
     const actingPlayer = String(
-      ctx.playerID !== undefined ? ctx.playerID : ctx.currentPlayer,
+        ctx.playerID !== undefined ? ctx.playerID : ctx.currentPlayer,
     );
 
     if (
-      actingPlayer === String(offer.to) ||
-      actingPlayer === String(offer.from)
+        actingPlayer === String(offer.to) ||
+        actingPlayer === String(offer.from)
     ) {
+      if (actingPlayer === String(offer.to)) {
+        logAction(G, actingPlayer, "declined a trade offer from {target}", offer.from);
+      } else {
+        logAction(G, actingPlayer, "withdrew a trade offer");
+      }
       G.activeOffer = null;
       events.setActivePlayers({ currentPlayer: "playing" });
     }
@@ -476,6 +550,7 @@ export const moves = {
 
   endTurn({ G, ctx, events }) {
     if (G.isRobberPlacing) return "INVALID_MOVE";
+    logAction(G, ctx.currentPlayer, "ended their turn");
     G.diceRolled = false;
     G.diceValue = null;
     G.devCardPlayedThisTurn = false;
@@ -497,13 +572,14 @@ export const moves = {
     if (!G.devCardDeck || G.devCardDeck.length === 0) return "INVALID_MOVE";
     if (!hasEnoughResources(player, DEV_CARD_COST)) return "INVALID_MOVE";
 
-    deductResources(player, DEV_CARD_COST);
+    deductResources(G, player, DEV_CARD_COST);
 
     const shuffled = random.Shuffle(G.devCardDeck);
     const card = { ...shuffled[0], boughtTurn: G.turnCount };
     G.devCardDeck = shuffled.slice(1);
 
     player.developmentCards.push(card);
+    logAction(G, ctx.currentPlayer, "bought a development card");
 
     if (card.type === "victoryPoint") {
       player.victoryPoints += 1;
@@ -522,6 +598,7 @@ export const moves = {
     player.developmentCards.splice(idx, 1);
     player.knightsPlayed += 1;
     G.devCardPlayedThisTurn = true;
+    logAction(G, ctx.currentPlayer, "played a Knight card");
 
     checkLargestArmy(G, ctx.currentPlayer);
 
@@ -541,6 +618,7 @@ export const moves = {
 
     player.developmentCards.splice(idx, 1);
     G.devCardPlayedThisTurn = true;
+    logAction(G, ctx.currentPlayer, `played Monopoly and claimed all ${resourceLabel(resourceType)}`);
 
     let total = 0;
     Object.keys(G.players).forEach((pid) => {
@@ -563,7 +641,7 @@ export const moves = {
 
     if (player.roads.length + edgeIds.length > MAX_ROADS) {
       console.warn(
-        `playRoadBuilding rejected: player ${ctx.currentPlayer} would exceed the max of ${MAX_ROADS} roads.`,
+          `playRoadBuilding rejected: player ${ctx.currentPlayer} would exceed the max of ${MAX_ROADS} roads.`,
       );
       return "INVALID_MOVE";
     }
@@ -590,6 +668,11 @@ export const moves = {
 
     player.developmentCards.splice(idx, 1);
     G.devCardPlayedThisTurn = true;
+    logAction(
+        G,
+        ctx.currentPlayer,
+        `played Road Building and built ${placed.length} free road${placed.length > 1 ? "s" : ""}`,
+    );
     updateLongestRoad(G);
   },
 
@@ -598,8 +681,8 @@ export const moves = {
       return "INVALID_MOVE";
     if (G.devCardPlayedThisTurn) return "INVALID_MOVE";
     if (
-      !RESOURCES.includes(resourceType1) ||
-      !RESOURCES.includes(resourceType2)
+        !RESOURCES.includes(resourceType1) ||
+        !RESOURCES.includes(resourceType2)
     )
       return "INVALID_MOVE";
 
@@ -609,9 +692,21 @@ export const moves = {
 
     player.developmentCards.splice(idx, 1);
     G.devCardPlayedThisTurn = true;
+    logAction(
+        G,
+        ctx.currentPlayer,
+        `played Year of Plenty and took a ${resourceLabel(resourceType1)} and a ${resourceLabel(resourceType2)}`,
+    );
 
-    player.resources[resourceType1] += 1;
-    player.resources[resourceType2] += 1;
+    [resourceType1, resourceType2].forEach((resType) => {
+      if (takeFromBank(G, resType, 1)) {
+        player.resources[resType] += 1;
+      } else {
+        console.log(
+            `Year of Plenty: the bank is out of ${resType}, player ${ctx.currentPlayer} doesn't receive it.`,
+        );
+      }
+    });
   },
 };
 
@@ -634,9 +729,33 @@ export function getBestBankRatio(G, playerID, resource) {
   return best;
 }
 
-function deductResources(player, cost) {
+function ensureBank(G) {
+  if (!G.bank) {
+    G.bank = RESOURCES.reduce((acc, r) => {
+      acc[r] = 19;
+      return acc;
+    }, {});
+  }
+  return G.bank;
+}
+
+function returnToBank(G, resource, amount) {
+  if (amount <= 0) return;
+  const bank = ensureBank(G);
+  bank[resource] = (bank[resource] || 0) + amount;
+}
+
+function takeFromBank(G, resource, amount) {
+  const bank = ensureBank(G);
+  if ((bank[resource] || 0) < amount) return false;
+  bank[resource] -= amount;
+  return true;
+}
+
+function deductResources(G, player, cost) {
   Object.keys(cost).forEach((res) => {
     player.resources[res] -= cost[res];
+    returnToBank(G, res, cost[res]);
   });
 }
 
@@ -647,10 +766,11 @@ export function isIntersectionConnectedToPlayerRoad(G, playerID, intersectionId)
 }
 
 function distributeResourcesLogic({ G, roll, random }) {
+  const bank = ensureBank(G);
   const seasonsEnabled = !G.settings || G.settings.seasonsEnabled !== false;
   const season = seasonsEnabled ? G.season : null;
   console.log(
-    `--- Distributing Resources for Roll: ${roll} (Season: ${season ?? "disabled"}) ---`,
+      `--- Distributing Resources for Roll: ${roll} (Season: ${season ?? "disabled"}) ---`,
   );
 
   if (season === "Winter" && (roll === 2 || roll === 12)) {
@@ -662,22 +782,25 @@ function distributeResourcesLogic({ G, roll, random }) {
       Object.keys(G.players).forEach((pId) => {
         const player = G.players[pId];
         const isAdjacent = [...player.settlements, ...player.cities, ...(player.resorts || [])].some((b) =>
-          b.adjacentHexes.includes(activeHex.id),
+            b.adjacentHexes.includes(activeHex.id),
         );
 
         if (isAdjacent) {
           const held = Object.keys(player.resources).filter(
-            (r) => player.resources[r] > 0,
+              (r) => player.resources[r] > 0,
           );
           if (held.length > 0) {
             const toLose = random.Shuffle(held)[0];
             player.resources[toLose] -= 1;
+            returnToBank(G, toLose, 1);
           }
         }
       });
     }
     return;
   }
+
+  const earnings = {};
 
   G.board.hexes.forEach((hex) => {
     let shouldProduce = hex.number === roll;
@@ -707,44 +830,70 @@ function distributeResourcesLogic({ G, roll, random }) {
 
       const resType = TERRAIN_TO_RES[hex.terrain];
       if (!resType) return;
+      if (!earnings[resType]) earnings[resType] = {};
 
       Object.keys(G.players).forEach((pId) => {
         const p = G.players[pId];
+        let amount = 0;
+
         p.settlements.forEach((s) => {
-          if (s?.adjacentHexes?.includes(hex.id)) {
-            p.resources[resType] += sAmount;
-          }
+          if (s?.adjacentHexes?.includes(hex.id)) amount += sAmount;
         });
-
         p.cities.forEach((c) => {
-          if (c?.adjacentHexes?.includes(hex.id)) {
-            p.resources[resType] += cAmount;
-          }
+          if (c?.adjacentHexes?.includes(hex.id)) amount += cAmount;
+        });
+        (p.resorts || []).forEach((r) => {
+          if (r?.adjacentHexes?.includes(hex.id)) amount += cAmount;
         });
 
-        (p.resorts || []).forEach((r) => {
-          if (r?.adjacentHexes?.includes(hex.id)) {
-            p.resources[resType] += cAmount;
-          }
-        });
+        if (amount > 0) {
+          earnings[resType][pId] = (earnings[resType][pId] || 0) + amount;
+        }
       });
+    }
+  });
+
+  Object.entries(earnings).forEach(([resType, byPlayer]) => {
+    const recipients = Object.keys(byPlayer);
+    const totalDemand = recipients.reduce((sum, pid) => sum + byPlayer[pid], 0);
+    const supply = bank[resType] ?? 0;
+
+    if (supply >= totalDemand) {
+      recipients.forEach((pid) => {
+        G.players[pid].resources[resType] += byPlayer[pid];
+      });
+      bank[resType] = supply - totalDemand;
+    } else if (recipients.length === 1) {
+      const pid = recipients[0];
+      G.players[pid].resources[resType] += supply;
+      bank[resType] = 0;
+      console.log(
+          `Bank ran short on ${resType}: player ${pid} received ${supply} instead of ${totalDemand}.`,
+      );
+    } else {
+      console.log(
+          `Bank ran short on ${resType}: no one receives it this roll (demand ${totalDemand}, supply ${supply}).`,
+      );
     }
   });
 }
 
 function handleRobberDiscard({ G, random }) {
-  Object.values(G.players).forEach((player) => {
+  Object.entries(G.players).forEach(([pid, player]) => {
     const total = Object.values(player.resources).reduce((a, b) => a + b, 0);
     if (total > 7) {
       let discardCount = Math.floor(total / 2);
+      const discardedTotal = discardCount;
       while (discardCount > 0) {
         const available = Object.keys(player.resources).filter(
-          (k) => player.resources[k] > 0,
+            (k) => player.resources[k] > 0,
         );
         const resToDrop = random.Shuffle(available)[0];
         player.resources[resToDrop]--;
+        returnToBank(G, resToDrop, 1);
         discardCount--;
       }
+      logAction(G, pid, `discarded ${discardedTotal} cards to the robber`);
     }
   });
 }
@@ -752,9 +901,9 @@ function handleRobberDiscard({ G, random }) {
 export function isDistanceRuleMet(G, intId) {
   const neighbors = G.board.intersections[intId]?.neighbors || [];
   return !neighbors.some((nId) =>
-    Object.values(G.players).some((p) =>
-      [...p.settlements, ...p.cities, ...(p.resorts || [])].some((b) => b.id === nId),
-    ),
+      Object.values(G.players).some((p) =>
+          [...p.settlements, ...p.cities, ...(p.resorts || [])].some((b) => b.id === nId),
+      ),
   );
 }
 
@@ -769,15 +918,15 @@ function isConnectedToPlayer(G, playerID, edgeId) {
   }
 
   const touchesSettlement = player.settlements.some((s) =>
-    G.board.intersections[s.id]?.adjacentEdges?.includes(edgeId),
+      G.board.intersections[s.id]?.adjacentEdges?.includes(edgeId),
   );
 
   const touchesCity = player.cities.some((c) =>
-    G.board.intersections[c.id]?.adjacentEdges?.includes(edgeId),
+      G.board.intersections[c.id]?.adjacentEdges?.includes(edgeId),
   );
 
   const touchesResort = (player.resorts || []).some((r) =>
-    G.board.intersections[r.id]?.adjacentEdges?.includes(edgeId),
+      G.board.intersections[r.id]?.adjacentEdges?.includes(edgeId),
   );
 
   const touchesRoad = player.roads.some((r) => {
@@ -810,7 +959,7 @@ export function computeLongestRoad(G, playerId) {
     if (pid === playerId) return;
     const opponent = G.players[pid];
     [...opponent.settlements, ...opponent.cities, ...(opponent.resorts || [])].forEach((b) =>
-      opponentIntersections.add(b.id),
+        opponentIntersections.add(b.id),
     );
   });
 
@@ -830,7 +979,7 @@ export function computeLongestRoad(G, playerId) {
 
   function dfs(node, length) {
     if (length > best) best = length;
-    if (opponentIntersections.has(node)) return; // road severed here
+    if (opponentIntersections.has(node)) return;
     for (const { edgeId, next } of adjacency[node] || []) {
       if (visitedEdges.has(edgeId)) continue;
       visitedEdges.add(edgeId);
@@ -862,6 +1011,7 @@ function updateLongestRoad(G) {
       G.players[currentHolder].hasLongestRoad = false;
       G.longestRoadHolder = null;
       console.log(`Player ${currentHolder} lost Longest Road (road cut).`);
+      logAction(G, currentHolder, "lost Longest Road");
     }
     return;
   }
@@ -877,11 +1027,13 @@ function updateLongestRoad(G) {
     if (currentHolder) {
       G.players[currentHolder].victoryPoints -= 2;
       G.players[currentHolder].hasLongestRoad = false;
+      logAction(G, currentHolder, "lost Longest Road");
     }
     if (newHolder) {
       G.players[newHolder].victoryPoints += 2;
       G.players[newHolder].hasLongestRoad = true;
       console.log(`Player ${newHolder} claimed Longest Road (${maxLen} segments).`);
+      logAction(G, newHolder, "claimed Longest Road");
     }
     G.longestRoadHolder = newHolder;
   }
@@ -895,13 +1047,14 @@ function checkLargestArmy(G, playerID) {
   if (currentHolder === playerID) return;
 
   const currentHolderKnights = currentHolder
-    ? G.players[currentHolder].knightsPlayed
-    : 0;
+      ? G.players[currentHolder].knightsPlayed
+      : 0;
 
   if (player.knightsPlayed > currentHolderKnights) {
     if (currentHolder) {
       G.players[currentHolder].victoryPoints -= 2;
       G.players[currentHolder].hasLargestArmy = false;
+      logAction(G, currentHolder, "lost Largest Army");
     }
     G.largestArmyHolder = playerID;
     player.victoryPoints += 2;
@@ -909,11 +1062,12 @@ function checkLargestArmy(G, playerID) {
 
     advanceSeason(G);
     console.log(`Player ${playerID} claimed Largest Army. Season → ${G.season}`);
+    logAction(G, playerID, "claimed Largest Army");
   }
 }
 
 function findPlayableCardIndex(player, type, currentTurn) {
   return player.developmentCards.findIndex(
-    (c) => c.type === type && c.boughtTurn !== currentTurn,
+      (c) => c.type === type && c.boughtTurn !== currentTurn,
   );
 }

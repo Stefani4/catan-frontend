@@ -13,10 +13,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Pulsing glow used to highlight intersections where the current player is
-   legally allowed to place a settlement right now (empty spot, satisfies
-   the distance rule, and — outside setup — connected to one of their own
-   roads). See GamePieces.jsx's BuildingSpot / GameBoard.jsx. */
 @keyframes legal-spot-pulse {
   0% {
     box-shadow: 0 0 6px 2px rgba(46, 204, 113, 0.55);
@@ -59,9 +55,6 @@ a:hover {
   color: #535bf2;
 }
 
-/* Settings > General > Animations. App.jsx sets data-animations="off" on
-   <html> when the preference is disabled; !important is needed since most
-   animation/transition declarations in this app are inline styles. */
 html[data-animations="off"] *,
 html[data-animations="off"] *::before,
 html[data-animations="off"] *::after {

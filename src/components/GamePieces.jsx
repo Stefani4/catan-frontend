@@ -64,7 +64,7 @@ const roadImages = {
   8: lavanderR,
 };
 
-export const BuildingSpot = ({ id, G, ctx, moves, onClick, style, isLegalSpot, isLegalResortTarget }) => {
+export const BuildingSpot = ({ id, G, ctx, moves, onClick, style, isLegalSpot, isLegalResortTarget, colorIndexById }) => {
   if (!G || !G.players || !G.board.intersections[id]) return null;
 
   const ownerId = Object.keys(G.players).find(
@@ -73,6 +73,9 @@ export const BuildingSpot = ({ id, G, ctx, moves, onClick, style, isLegalSpot, i
           G.players[pid].cities?.some((c) => c.id === id) ||
           G.players[pid].resorts?.some((r) => r.id === id),
   );
+  const pieceColorIdx = ownerId
+      ? (colorIndexById && Number.isInteger(colorIndexById[ownerId]) ? colorIndexById[ownerId] : parseInt(ownerId))
+      : 0;
 
   const isCity = ownerId && G.players[ownerId].cities?.some((c) => c.id === id);
   const isResort = ownerId && G.players[ownerId].resorts?.some((r) => r.id === id);
@@ -130,8 +133,8 @@ export const BuildingSpot = ({ id, G, ctx, moves, onClick, style, isLegalSpot, i
               <img
                   src={
                     isCity || isResort
-                        ? cityImages[parseInt(ownerId)]
-                        : settlementImages[parseInt(ownerId)]
+                        ? cityImages[pieceColorIdx]
+                        : settlementImages[pieceColorIdx]
                   }
                   style={{ width: "100%", height: "100%", objectFit: "contain" }}
               />
@@ -169,7 +172,7 @@ export const BuildingSpot = ({ id, G, ctx, moves, onClick, style, isLegalSpot, i
   );
 };
 
-export const RoadSpot = ({ id, G, ctx, onClick, style, rotation, length = 50 }) => {
+export const RoadSpot = ({ id, G, ctx, onClick, style, rotation, length = 50, colorIndexById }) => {
   if (!G || !G.players || !G.board.edges || !G.board.edges[id]) return null;
 
   const edgeEntry =
@@ -191,6 +194,9 @@ export const RoadSpot = ({ id, G, ctx, onClick, style, rotation, length = 50 }) 
   );
 
   const PLAYER_COLORS = ["#f00", "#00f", "#fff", "#ffa500"];
+  const pieceColorIdx = ownerId
+      ? (colorIndexById && Number.isInteger(colorIndexById[ownerId]) ? colorIndexById[ownerId] : parseInt(ownerId))
+      : 0;
 
   const handleRoadClick = (e) => {
     e.stopPropagation();
@@ -216,7 +222,7 @@ export const RoadSpot = ({ id, G, ctx, onClick, style, rotation, length = 50 }) 
       >
         {ownerId ? (
             <img
-                src={roadImages[parseInt(ownerId)]}
+                src={roadImages[pieceColorIdx]}
                 style={{
                   width: "100%",
                   height: "100%",

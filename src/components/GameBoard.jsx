@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Hex from "./Hex.jsx";
 import { BuildingSpot, RoadSpot } from "./GamePieces.jsx";
 import HarborMarker from "./HarborMarker.jsx";
@@ -5,13 +6,48 @@ import {
   isDistanceRuleMet,
   isIntersectionConnectedToPlayerRoad,
 } from "../../game/moves.js";
+import { decodePlayerIdentity } from "../profileStore.js";
+
+const SERVER = import.meta.env.VITE_SERVER_URL || "http://localhost:8000";
+
+function useColorIndexById(matchID) {
+  const [colorIndexById, setColorIndexById] = useState({});
+
+  useEffect(() => {
+    if (!matchID) return;
+    let cancelled = false;
+
+    const fetchIdentities = () => {
+      fetch(`${SERVER}/games/catan/${matchID}`)
+          .then((res) => (res.ok ? res.json() : null))
+          .then((data) => {
+            if (cancelled || !data?.players) return;
+            const next = {};
+            data.players.forEach((p) => {
+              if (p.name) next[String(p.id)] = decodePlayerIdentity(p.name, p.id).colorIndex;
+            });
+            setColorIndexById(next);
+          })
+          .catch(() => {});
+    };
+
+    fetchIdentities();
+    const interval = setInterval(fetchIdentities, 4000);
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
+  }, [matchID]);
+
+  return colorIndexById;
+}
 
 const RESORT_COST = { ore: 3, lumber: 4, wool: 2, brick: 1 };
 
 function canAffordResort(player) {
   if (!player) return false;
   return Object.entries(RESORT_COST).every(
-    ([res, amt]) => (player.resources?.[res] ?? 0) >= amt,
+      ([res, amt]) => (player.resources?.[res] ?? 0) >= amt,
   );
 }
 
@@ -20,9 +56,12 @@ export default function GameBoard({
                                     ctx,
                                     moves,
                                     playerID,
+                                    matchID,
                                     pendingCardAction,
                                     setPendingCardAction,
                                   }) {
+  const colorIndexById = useColorIndexById(matchID);
+
   const handleIntersectionClick = (id) => {
     moves.buildSettlement(id);
   };
@@ -107,6 +146,7 @@ export default function GameBoard({
                 G={G}
                 ctx={ctx}
                 moves={moves}
+                colorIndexById={colorIndexById}
                 isLegalSpot={legalSettlementSpots.has(vertex.id)}
                 isLegalResortTarget={legalResortSpots.has(vertex.id)}
                 style={{ left: `${vertex.x}px`, top: `${vertex.y}px` }}
@@ -135,6 +175,7 @@ export default function GameBoard({
                   id={edge.id}
                   G={G}
                   ctx={ctx}
+                  colorIndexById={colorIndexById}
                   rotation={rotation}
                   length={length}
                   style={{

@@ -1,9 +1,3 @@
-// Backs the "Theme" selector in Settings > General. Reuses art already
-// shipped with the game (the default menu backdrop, plus the four seasonal
-// boards also used in-match — see src/components/Board.jsx) so picking a
-// theme actually changes what you see on the Main Menu and Lobby, instead
-// of being a purely cosmetic label.
-
 import sunsetBg from "../images/Sunset over a coastal village.png";
 import springBg from "../images/springB.png";
 import summerBg from "../images/summerB.png";

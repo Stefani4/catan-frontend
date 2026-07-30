@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
-import { getPlayerColor } from "../constants/playerColors.js";
-
-const SERVER = "http://localhost:8000";
+import { getColorByIndex } from "../constants/playerColors.js";
+import { getAvatarById } from "../constants/avatars.jsx";
+import { usePlayerIdentities } from "../hooks/usePlayerIdentities.js";
 
 function StatPill({ icon, value, title }) {
     return (
@@ -26,53 +25,40 @@ function StatPill({ icon, value, title }) {
     );
 }
 
-function usePlayerNames(matchID) {
-    const [names, setNames] = useState({});
-
-    useEffect(() => {
-        if (!matchID) return;
-        let cancelled = false;
-
-        const fetchNames = () => {
-            fetch(`${SERVER}/games/catan/${matchID}`)
-                .then((res) => (res.ok ? res.json() : null))
-                .then((data) => {
-                    if (cancelled || !data?.players) return;
-                    const next = {};
-                    data.players.forEach((p) => {
-                        if (p.name) next[String(p.id)] = p.name;
-                    });
-                    setNames(next);
-                })
-                .catch(() => {});
-        };
-
-        fetchNames();
-        const interval = setInterval(fetchNames, 4000);
-        return () => {
-            cancelled = true;
-            clearInterval(interval);
-        };
-    }, [matchID]);
-
-    return names;
-}
-
 export default function PlayerStats({ G, ctx, matchID }) {
-    const names = usePlayerNames(matchID);
+    const identities = usePlayerIdentities(matchID);
+    const playerIds = Object.keys(G.players);
+    const numPlayers = playerIds.length;
+
+    const useGrid = numPlayers >= 4;
+    const rows = useGrid ? Math.ceil(numPlayers / 2) : numPlayers;
 
     return (
         <div
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                gap: "10px",
-                fontFamily: "Georgia, serif",
-            }}
+            style={
+                useGrid
+                    ? {
+                        display: "grid",
+                        gridTemplateRows: `repeat(${rows}, auto)`,
+                        gridAutoFlow: "column",
+                        columnGap: "10px",
+                        rowGap: "10px",
+                        fontFamily: "Georgia, serif",
+                    }
+                    : {
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "10px",
+                        fontFamily: "Georgia, serif",
+                    }
+            }
         >
-            {Object.entries(G.players).map(([playerId, player]) => {
-                const color = getPlayerColor(playerId);
-                const displayName = names[playerId] || `Player ${playerId}`;
+            {playerIds.map((playerId) => {
+                const player = G.players[playerId];
+                const identity = identities[playerId];
+                const color = getColorByIndex(identity ? identity.colorIndex : (parseInt(playerId, 10) % 9));
+                const displayName = identity?.name || `Player ${playerId}`;
+                const AvatarIcon = identity?.avatarId ? getAvatarById(identity.avatarId).Icon : null;
                 const isCurrent = String(ctx.currentPlayer) === String(playerId);
                 const settlementCount = player.settlements?.length || 0;
                 const roadCount = player.roads?.length || 0;
@@ -109,11 +95,16 @@ export default function PlayerStats({ G, ctx, matchID }) {
                       width: "16px",
                       height: "16px",
                       borderRadius: "50%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
                       background: `radial-gradient(circle at 30% 30%, ${color.soft}, ${color.accent})`,
                       border: "1px solid rgba(255,255,255,0.6)",
                       flexShrink: 0,
                   }}
-              />
+              >
+                  {AvatarIcon && <AvatarIcon size={10} color="#f2e6c9" />}
+              </span>
                             <span
                                 title={color.name}
                                 style={{

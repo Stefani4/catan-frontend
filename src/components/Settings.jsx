@@ -310,7 +310,6 @@ function VideoSection({ settings, update }) {
         const onChange = () => update("fullscreen", Boolean(document.fullscreenElement));
         document.addEventListener("fullscreenchange", onChange);
         return () => document.removeEventListener("fullscreenchange", onChange);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleFullscreenToggle = async (next) => {
@@ -518,7 +517,6 @@ const applyBtnStyle = {
     cursor: "pointer",
 };
 
-/* ---------- nav ---------- */
 
 const NAV_ITEMS = [
     { key: "general", label: "General", icon: "⚙" },
@@ -616,7 +614,6 @@ export default function Settings({ onClose }) {
                     flexDirection: "column",
                 }}
             >
-                {/* header */}
                 <div
                     style={{
                         position: "relative",
