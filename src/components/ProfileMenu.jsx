@@ -59,6 +59,7 @@ export default function ProfileMenu({ profile, onChange }) {
                         title={c.name}
                         style={{
                             width: "100%",
+                            boxSizing: "border-box",
                             aspectRatio: "1",
                             borderRadius: "8px",
                             cursor: "pointer",
@@ -89,6 +90,7 @@ export default function ProfileMenu({ profile, onChange }) {
                             title={a.label}
                             style={{
                                 width: "100%",
+                                boxSizing: "border-box",
                                 aspectRatio: "1",
                                 borderRadius: "8px",
                                 cursor: "pointer",

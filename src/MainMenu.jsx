@@ -3,6 +3,8 @@ import catanLogo from "../images/catanlogo.png";
 import createLobbyImg from "../images/lobycreate.png";
 import joinLobbyImg from "../images/joinloby.png";
 import Settings from "./components/Settings";
+import RulesBook from "./components/RulesBook";
+import Tutorial from "./components/Tutorial";
 import { getThemeImage } from "./theme.js";
 import { subscribeToSettings } from "./settingsStore.js";
 import { loadProfile, saveProfile, subscribeToProfile } from "./profileStore.js";
@@ -143,6 +145,7 @@ function ProfileMenu({ profile, onChange }) {
                         title={c.name}
                         style={{
                             width: "100%",
+                            boxSizing: "border-box",
                             aspectRatio: "1",
                             borderRadius: "8px",
                             cursor: "pointer",
@@ -173,6 +176,7 @@ function ProfileMenu({ profile, onChange }) {
                             title={a.label}
                             style={{
                                 width: "100%",
+                                boxSizing: "border-box",
                                 aspectRatio: "1",
                                 borderRadius: "8px",
                                 cursor: "pointer",
@@ -382,7 +386,11 @@ export default function MainMenu({ onCreateLobby, onJoinLobby }) {
 
             {infoModal === "Settings" && <Settings onClose={() => setInfoModal(null)} />}
 
-            {infoModal && infoModal !== "Settings" && (
+            {infoModal === "Rules" && <RulesBook onClose={() => setInfoModal(null)} />}
+
+            {infoModal === "Tutorial" && <Tutorial onClose={closeInfoModal} />}
+
+            {infoModal && infoModal !== "Settings" && infoModal !== "Rules" && infoModal !== "Tutorial" && (
                 <div
                     onClick={() => setInfoModal(null)}
                     style={{

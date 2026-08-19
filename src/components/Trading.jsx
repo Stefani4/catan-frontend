@@ -179,16 +179,22 @@ export default function TradingPost({ G, ctx, moves, playerID, matchID }) {
                         onClick={() => moves.tradeWithBank(bankTrade)}
                         style={{
                             width: "100%",
-                            padding: "7px",
+                            padding: "8px",
                             cursor:
                                 isMyTurn && player && player.resources[bankTrade.give] >= bankRatio
                                     ? "pointer"
                                     : "not-allowed",
-                            backgroundColor: "#5dd7f5",
-                            border: "none",
+                            background: "linear-gradient(135deg, #e67e22, #a8560f)",
+                            color: "#f2e6c9",
+                            border: "1px solid #6b3a0d",
                             borderRadius: "6px",
                             fontWeight: "bold",
                             fontFamily: "Georgia, serif",
+                            textShadow: "0 1px 1px rgba(0,0,0,0.4)",
+                            opacity:
+                                isMyTurn && player && player.resources[bankTrade.give] >= bankRatio
+                                    ? 1
+                                    : 0.6,
                         }}
                     >
                         Trade with Bank ({bankRatio} {bankTrade.give} ➜ 1 {bankTrade.receive})
@@ -307,12 +313,14 @@ export default function TradingPost({ G, ctx, moves, playerID, matchID }) {
                         style={{
                             width: "100%",
                             padding: "8px",
-                            backgroundColor: "#f1c40f",
-                            border: "none",
+                            background: "linear-gradient(135deg, #e67e22, #a8560f)",
+                            color: "#f2e6c9",
+                            border: "1px solid #6b3a0d",
                             borderRadius: "6px",
                             cursor: isMyTurn && !G.activeOffer ? "pointer" : "not-allowed",
                             fontWeight: "bold",
                             fontFamily: "Georgia, serif",
+                            textShadow: "0 1px 1px rgba(0,0,0,0.4)",
                             opacity: isMyTurn && !G.activeOffer ? 1 : 0.6,
                         }}
                     >
