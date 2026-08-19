@@ -13,6 +13,39 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@keyframes legal-spot-pulse {
+  0% {
+    box-shadow: 0 0 6px 2px rgba(46, 204, 113, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 14px 6px rgba(46, 204, 113, 0.9);
+  }
+  100% {
+    box-shadow: 0 0 6px 2px rgba(46, 204, 113, 0.55);
+  }
+}
+
+.legal-spot-pulse {
+  animation: legal-spot-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes resort-target-pulse {
+  0% {
+    box-shadow: 0 0 6px 2px rgba(241, 196, 15, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 16px 7px rgba(241, 196, 15, 0.9);
+  }
+  100% {
+    box-shadow: 0 0 6px 2px rgba(241, 196, 15, 0.55);
+  }
+}
+
+.resort-target-pulse {
+  animation: resort-target-pulse 1.4s ease-in-out infinite;
+  border-radius: 6px;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -20,6 +53,13 @@ a {
 }
 a:hover {
   color: #535bf2;
+}
+
+html[data-animations="off"] *,
+html[data-animations="off"] *::before,
+html[data-animations="off"] *::after {
+  animation: none !important;
+  transition: none !important;
 }
 
 body {

@@ -1,145 +1,198 @@
+import { useEffect, useState } from "react";
 import Hex from "./Hex.jsx";
 import { BuildingSpot, RoadSpot } from "./GamePieces.jsx";
+import HarborMarker from "./HarborMarker.jsx";
+import {
+  isDistanceRuleMet,
+  isIntersectionConnectedToPlayerRoad,
+} from "../../game/moves.js";
+import { decodePlayerIdentity } from "../profileStore.js";
 
-const ROW_CONFIG = [3, 4, 5, 4, 3];
-const ROW_OFFSETS = [1, 0.5, 0, 0.5, 1];
+const SERVER = import.meta.env.VITE_SERVER_URL || "http://localhost:8000";
 
-const HEX_VISUAL_COL = {};
-let _idx = 0;
+function useColorIndexById(matchID) {
+  const [colorIndexById, setColorIndexById] = useState({});
 
-ROW_CONFIG.forEach((count, row) => {
-  for (let col = 0; col < count; col++) {
-    HEX_VISUAL_COL[`hex_${_idx++}`] = col + ROW_OFFSETS[row];
-  }
-});
+  useEffect(() => {
+    if (!matchID) return;
+    let cancelled = false;
 
-function edgeId(a, b) {
-  return [a, b].sort().join("--");
+    const fetchIdentities = () => {
+      fetch(`${SERVER}/games/catan/${matchID}`)
+          .then((res) => (res.ok ? res.json() : null))
+          .then((data) => {
+            if (cancelled || !data?.players) return;
+            const next = {};
+            data.players.forEach((p) => {
+              if (p.name) next[String(p.id)] = decodePlayerIdentity(p.name, p.id).colorIndex;
+            });
+            setColorIndexById(next);
+          })
+          .catch(() => {});
+    };
+
+    fetchIdentities();
+    const interval = setInterval(fetchIdentities, 4000);
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
+  }, [matchID]);
+
+  return colorIndexById;
 }
 
-function classifyAdjacentEdges(intId, hexId, board) {
-  const internalId = edgeId(`int_${hexId}_top`, `int_${hexId}_bottom`);
-  const vcN = HEX_VISUAL_COL[hexId] ?? 0;
-  let left = null,
-    right = null;
+const RESORT_COST = { ore: 3, lumber: 4, wool: 2, brick: 1 };
 
-  (board.intersections[intId]?.adjacentEdges ?? []).forEach((eId) => {
-    if (eId === internalId) return;
-    const edge = board.edges[eId];
-    if (!edge) return;
-    const otherInt = edge.endpoints.find((e) => e !== intId);
-    const hexMatch = otherInt?.match(/int_(hex_\d+)_/);
-    if (!hexMatch) return;
-    const vcOther = HEX_VISUAL_COL[hexMatch[1]] ?? 0;
-    if (vcOther > vcN) right = eId;
-    else left = eId;
-  });
-
-  return { left, right };
+function canAffordResort(player) {
+  if (!player) return false;
+  return Object.entries(RESORT_COST).every(
+      ([res, amt]) => (player.resources?.[res] ?? 0) >= amt,
+  );
 }
 
-export default function GameBoard({ G, ctx, moves }) {
-  let hexCount = 0;
+export default function GameBoard({
+                                    G,
+                                    ctx,
+                                    moves,
+                                    playerID,
+                                    matchID,
+                                    pendingCardAction,
+                                    setPendingCardAction,
+                                  }) {
+  const colorIndexById = useColorIndexById(matchID);
 
   const handleIntersectionClick = (id) => {
-    console.log("Clicked Intersection:", id);
     moves.buildSettlement(id);
   };
 
+  const isRoadBuildingActive = pendingCardAction?.type === "roadBuilding";
+
   const handleRoadClick = (id) => {
+    if (isRoadBuildingActive) {
+      const picks = pendingCardAction.picks || [];
+      if (picks.includes(id)) return;
+
+      const nextPicks = [...picks, id];
+      if (nextPicks.length >= 2) {
+        moves.playRoadBuilding(nextPicks);
+        setPendingCardAction(null);
+      } else {
+        setPendingCardAction({ ...pendingCardAction, picks: nextPicks });
+      }
+      return;
+    }
+
     moves.buildRoad(id);
   };
 
-  if (!G?.board?.edges || !G?.board?.intersections) return null;
+  if (!G?.board?.edges || !G?.board?.intersections || !G?.board?.hexes) {
+    return null;
+  }
+
+  const { hexes, intersections, edges, layout } = G.board;
+  const hexWidth = layout?.hexWidth ?? 99;
+  const hexHeight = layout?.hexHeight ?? 114;
+  const width = layout?.width ?? 550;
+  const height = layout?.height ?? 513;
+
+  const viewingPlayerId = String(
+      playerID !== undefined ? playerID : ctx.currentPlayer,
+  );
+  const isMyTurn = String(ctx.currentPlayer) === viewingPlayerId;
+  const canShowLegalSpots =
+      isMyTurn &&
+      !G.isRobberPlacing &&
+      !pendingCardAction &&
+      (ctx.phase === "setup" || ctx.phase === "main");
+
+  const legalSettlementSpots = new Set();
+  const legalResortSpots = new Set();
+  if (canShowLegalSpots) {
+    Object.keys(intersections).forEach((id) => {
+      const isOccupied = Object.values(G.players).some((p) =>
+          [...p.settlements, ...p.cities, ...(p.resorts || [])].some(
+              (b) => b.id === id,
+          ),
+      );
+      if (isOccupied) return;
+      if (!isDistanceRuleMet(G, id)) return;
+      if (
+          ctx.phase !== "setup" &&
+          !isIntersectionConnectedToPlayerRoad(G, ctx.currentPlayer, id)
+      )
+        return;
+      legalSettlementSpots.add(id);
+    });
+
+    if (ctx.phase !== "setup" && canAffordResort(G.players[viewingPlayerId])) {
+      Object.entries(G.players).forEach(([pid, p]) => {
+        if (pid === viewingPlayerId) return;
+        (p.cities || []).forEach((c) => legalResortSpots.add(c.id));
+      });
+    }
+  }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        backgroundColor: "#2e86ab",
-        padding: "60px",
-        borderRadius: "20px",
-        width: "fit-content",
-        margin: "0 auto",
-      }}
-    >
-      {ROW_CONFIG.map((count, rowIndex) => (
-        <div
-          key={rowIndex}
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "-28px",
-          }}
-        >
-          {Array.from({ length: count }).map(() => {
-            const hex = G.board.hexes[hexCount++];
-            if (!hex) return null;
-            const hId = hex.id;
-            const topInt = `int_${hId}_top`;
-            const botInt = `int_${hId}_bottom`;
+      <div style={{ position: "relative", width: `${width}px`, height: `${height}px` }}>
+        {hexes.map((hex) => (
+            <Hex key={hex.id} hex={hex} G={G} moves={moves} width={hexWidth} height={hexHeight} />
+        ))}
 
-            const internalId = edgeId(topInt, botInt);
+        {Object.values(intersections).map((vertex) => (
+            <BuildingSpot
+                key={vertex.id}
+                id={vertex.id}
+                G={G}
+                ctx={ctx}
+                moves={moves}
+                colorIndexById={colorIndexById}
+                isLegalSpot={legalSettlementSpots.has(vertex.id)}
+                isLegalResortTarget={legalResortSpots.has(vertex.id)}
+                style={{ left: `${vertex.x}px`, top: `${vertex.y}px` }}
+                onClick={handleIntersectionClick}
+            />
+        ))}
 
-            const { left: upperLeftId, right: upperRightId } =
-              classifyAdjacentEdges(topInt, hId, G.board);
+        {Object.values(edges).map((edge) => {
+          const [aId, bId] = edge.endpoints;
+          const a = intersections[aId];
+          const b = intersections[bId];
+          if (!a || !b) return null;
 
-            return (
-              <Hex key={hId} hex={hex} G={G} moves={moves}>
-                <BuildingSpot
-                  id={topInt}
+          const midX = (a.x + b.x) / 2;
+          const midY = (a.y + b.y) / 2;
+          const dx = b.x - a.x;
+          const dy = b.y - a.y;
+          const length = Math.hypot(dx, dy);
+          const rotation = (Math.atan2(dy, dx) * 180) / Math.PI;
+          const isPicked =
+              isRoadBuildingActive && (pendingCardAction.picks || []).includes(edge.id);
+
+          return (
+              <RoadSpot
+                  key={edge.id}
+                  id={edge.id}
                   G={G}
                   ctx={ctx}
-                  moves={moves}
-                  style={{ top: "0%", left: "50%" }}
-                  onClick={handleIntersectionClick}
-                />
-                <BuildingSpot
-                  id={botInt}
-                  G={G}
-                  ctx={ctx}
-                  moves={moves}
-                  style={{ top: "100%", left: "50%" }}
-                  onClick={handleIntersectionClick}
-                />
-
-                <RoadSpot
-                  id={internalId}
-                  G={G}
-                  ctx={ctx}
-                  rotation={90}
-                  style={{ top: "50%", left: "100%" }}
+                  colorIndexById={colorIndexById}
+                  rotation={rotation}
+                  length={length}
+                  style={{
+                    left: `${midX}px`,
+                    top: `${midY}px`,
+                    ...(isPicked
+                        ? { outline: "3px solid #ffd700", borderRadius: "4px" }
+                        : {}),
+                  }}
                   onClick={handleRoadClick}
-                />
+              />
+          );
+        })}
 
-                {upperRightId && (
-                  <RoadSpot
-                    id={upperRightId}
-                    G={G}
-                    ctx={ctx}
-                    rotation={30}
-                    style={{ top: "12.5%", left: "75%" }}
-                    onClick={handleRoadClick}
-                  />
-                )}
-
-                {upperLeftId && (
-                  <RoadSpot
-                    id={upperLeftId}
-                    G={G}
-                    ctx={ctx}
-                    rotation={150}
-                    style={{ top: "12.5%", left: "25%" }}
-                    onClick={handleRoadClick}
-                  />
-                )}
-              </Hex>
-            );
-          })}
-        </div>
-      ))}
-    </div>
+        {(G.board.harbors || []).map((harbor) => (
+            <HarborMarker key={harbor.id} harbor={harbor} />
+        ))}
+      </div>
   );
 }
