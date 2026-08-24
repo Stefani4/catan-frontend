@@ -271,7 +271,7 @@ function BotsPanel({ matchID, openSeats, botCount, addingBots, onAddBots }) {
     );
 }
 
-function LobbyChatPlaceholder() {
+function LobbyChat({ matchID }) {
     const [messages, setMessages] = useState([]);
     const [draft, setDraft] = useState("");
     const listRef = useRef(null);
@@ -283,11 +283,36 @@ function LobbyChatPlaceholder() {
         if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
     }, [messages.length]);
 
+    useEffect(() => {
+        if (!matchID) return;
+        let cancelled = false;
+
+        const poll = () => {
+            fetch(`${SERVER}/games/catan/${matchID}/chat`)
+                .then((res) => (res.ok ? res.json() : null))
+                .then((data) => {
+                    if (!cancelled && Array.isArray(data)) setMessages(data);
+                })
+                .catch(() => {});
+        };
+
+        poll();
+        const interval = setInterval(poll, 2000);
+        return () => {
+            cancelled = true;
+            clearInterval(interval);
+        };
+    }, [matchID]);
+
     const send = () => {
         const text = draft.trim();
-        if (!text) return;
-        setMessages((m) => [...m, { name: profile.name, text }]);
+        if (!text || !matchID) return;
         setDraft("");
+        fetch(`${SERVER}/games/catan/${matchID}/chat`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name: profile.name, text }),
+        }).catch(() => {});
     };
 
     return (
@@ -330,8 +355,8 @@ function LobbyChatPlaceholder() {
                         No messages yet — say hello!
                     </div>
                 )}
-                {messages.map((m, i) => (
-                    <div key={i} style={{ fontSize: "0.82rem" }}>
+                {messages.map((m) => (
+                    <div key={m.id} style={{ fontSize: "0.82rem" }}>
                         <b>{m.name}:</b> {m.text}
                     </div>
                 ))}
@@ -542,7 +567,7 @@ export default function LobbyRoom({ matchID, numPlayers, mySeat, onLeave, onStar
                     overflow: "hidden",
                 }}
             >
-                <LobbyChatPlaceholder />
+                <LobbyChat matchID={matchID} />
                 <AdvancedRulesPanel matchID={matchID} />
                 <SettlersPanel matchID={matchID} numPlayers={numPlayers} mySeat={mySeat} players={players} onCopyLink={copyLink} />
                 <BotsPanel
