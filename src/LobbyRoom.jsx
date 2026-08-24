@@ -1,15 +1,19 @@
 import { useEffect, useState, useRef } from "react";
 import catanLogo from "../images/catanlogo.png";
 import { getColorByIndex, PLAYER_COLORS } from "./constants/playerColors.js";
-import { loadProfile, subscribeToProfile, decodePlayerIdentity, encodePlayerIdentity } from "./profileStore.js";
+
 import { getAvatarById, AVATARS } from "./constants/avatars.jsx";
 import GameSetupModal from "./GameSetupModal.jsx";
 import { GAME_SETTINGS_DEFAULTS } from "../game/constants.js";
 import { getThemeImage } from "./theme.js";
 import { subscribeToSettings } from "./settingsStore.js";
 import { botDisplayName } from "./bots/botNames.js";
+import { loadProfile, subscribeToProfile, saveProfile, decodePlayerIdentity, encodePlayerIdentity } from "./profileStore.js";
+import ProfileMenu from "./components/ProfileMenu.jsx";
 
 const SERVER = import.meta.env.VITE_SERVER_URL || "http://localhost:8000";
+
+
 
 function AdvancedRulesPanel({ matchID }) {
     const [settings, setSettings] = useState(null);
@@ -400,6 +404,19 @@ export default function LobbyRoom({ matchID, numPlayers, mySeat, onLeave, onStar
     const [players, setPlayers] = useState([]);
     const [theme, setTheme] = useState("sunset");
     const [addingBots, setAddingBots] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+const profileChipRef = useRef(null);
+
+useEffect(() => {
+    if (!profileMenuOpen) return;
+    const handleClickOutside = (e) => {
+        if (profileChipRef.current && !profileChipRef.current.contains(e.target)) {
+            setProfileMenuOpen(false);
+        }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+}, [profileMenuOpen]);
 
     useEffect(() => subscribeToProfile(setProfile), []);
     useEffect(() => subscribeToSettings((s) => setTheme(s.theme)), []);
@@ -515,41 +532,52 @@ export default function LobbyRoom({ matchID, numPlayers, mySeat, onLeave, onStar
                 boxSizing: "border-box",
             }}
         >
-            <div
-                style={{
-                    position: "absolute",
-                    top: "18px",
-                    left: "18px",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "10px",
-                    background: "rgba(20,14,6,0.6)",
-                    border: "2px solid #c9a96e",
-                    borderRadius: "999px",
-                    padding: "6px 16px 6px 6px",
-                }}
-            >
-                <div
-                    style={{
-                        width: "34px",
-                        height: "34px",
-                        borderRadius: "50%",
-                        background: `radial-gradient(circle at 30% 30%, ${getColorByIndex(profile.colorIndex).soft}, ${getColorByIndex(profile.colorIndex).accent})`,
-                        border: "2px solid #f1d38a",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
-                >
-                    {(() => {
-                        const AvatarIcon = getAvatarById(profile.avatarId).Icon;
-                        return <AvatarIcon size={18} color="#f2e6c9" />;
-                    })()}
-                </div>
-                <span style={{ color: "#f2e6c9", fontWeight: "bold", fontFamily: "Georgia, serif" }}>
-          {profile.name}
+           <div ref={profileChipRef} style={{ position: "absolute", top: "18px", left: "18px", zIndex: 20 }}>
+    <div
+        onClick={() => setProfileMenuOpen((o) => !o)}
+        title="Click to edit your profile"
+        style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+            background: "rgba(20,14,6,0.6)",
+            border: `2px solid ${profileMenuOpen ? getColorByIndex(profile.colorIndex).soft : "#c9a96e"}`,
+            borderRadius: "999px",
+            padding: "6px 16px 6px 6px",
+            cursor: "pointer",
+            userSelect: "none",
+        }}
+    >
+        <div
+            style={{
+                width: "34px",
+                height: "34px",
+                borderRadius: "50%",
+                background: `radial-gradient(circle at 30% 30%, ${getColorByIndex(profile.colorIndex).soft}, ${getColorByIndex(profile.colorIndex).accent})`,
+                border: "2px solid #f1d38a",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+            }}
+        >
+            {(() => {
+                const AvatarIcon = getAvatarById(profile.avatarId).Icon;
+                return <AvatarIcon size={18} color="#f2e6c9" />;
+            })()}
+        </div>
+        <span style={{ color: "#f2e6c9", fontWeight: "bold", fontFamily: "Georgia, serif" }}>
+            {profile.name} ✎
         </span>
-            </div>
+    </div>
+
+    {profileMenuOpen && (
+        <ProfileMenu
+            profile={profile}
+            onChange={(partial) => setProfile(saveProfile(partial))}
+        />
+    )}
+</div>
 
             <img src={catanLogo} alt="Catan" style={{ width: "min(220px, 30vw)", marginBottom: "12px", flexShrink: 0 }} />
 
