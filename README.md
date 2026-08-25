@@ -74,3 +74,11 @@ VITE_SERVER_URL=https://your-backend-host
 ```
 
 Other scripts: `npm run build` (production build), `npm run preview` (preview the build), `npm run lint` (ESLint).
+
+## 🚀 Hosting
+
+This frontend is hosted on **[Vercel](https://vercel.com/)**.
+
+## 👤 Authors
+
+Stefani Akimovska 237014, Anastasija Mishevska 237029, Viktor Trajkovski 237019
