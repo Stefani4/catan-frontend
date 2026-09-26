@@ -1,4 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
+import { useTranslation } from "../i18n.js";
+
+const RES_KEY_MODULE = { lumber: "resLumber", brick: "resBrick", grain: "resGrain", wool: "resWool", ore: "resOre" };
 
 const SIZE = 54;
 const axialHexes = [
@@ -83,23 +86,25 @@ const SEASONS = [
     { name: "Autumn", icon: "🍂" },
     { name: "Winter", icon: "❄️" },
 ];
-const CHAPTERS = [
-    { id: "toc", icon: "📜", label: "Almanac" },
-    { id: "roads", icon: "🛣️", label: "Roads" },
-    { id: "settlements", icon: "🏠", label: "Settlements" },
-    { id: "cities", icon: "🏙️", label: "Cities" },
-    { id: "robber", icon: "🏴", label: "The Robber" },
-    { id: "seasons", icon: "🌸", label: "Seasons & Dice" },
-    { id: "resort", icon: "🏝️", label: "The Resort" },
-];
+function getChapters(t) {
+    return [
+        { id: "toc", icon: "📜", label: t("chapAlmanac") },
+        { id: "roads", icon: "🛣️", label: t("chapRoads") },
+        { id: "settlements", icon: "🏠", label: t("chapSettlements") },
+        { id: "cities", icon: "🏙️", label: t("chapCities") },
+        { id: "robber", icon: "🏴", label: t("chapRobber") },
+        { id: "seasons", icon: "🌸", label: t("chapSeasons") },
+        { id: "resort", icon: "🏝️", label: t("chapResort") },
+    ];
+}
 const ROMAN = ["I", "II", "III", "IV", "V", "VI"];
 const RES_ICON = { lumber: "🌲", brick: "🧱", grain: "🌾", wool: "🐑", ore: "⛰️" };
 const COST_NAMES = {
-    lumber: ["Lumber", "var(--lumber)"],
-    brick: ["Brick", "var(--brick)"],
-    grain: ["Grain", "var(--grain)"],
-    wool: ["Wool", "var(--wool)"],
-    ore: ["Ore", "var(--ore)"],
+    lumber: [null, "var(--lumber)"],
+    brick: [null, "var(--brick)"],
+    grain: [null, "var(--grain)"],
+    wool: [null, "var(--wool)"],
+    ore: [null, "var(--ore)"],
 };
 
 function canAfford(cost, resources) {
@@ -130,11 +135,12 @@ function edgeTouchesOwn(edgeId, roads, buildings) {
 }
 
 function CostPills({ cost }) {
+    const { t } = useTranslation();
     return (
         <div className="alm-cost-line">
             {Object.keys(cost).map((k) => (
                 <span key={k} className="alm-cost-pill" style={{ background: COST_NAMES[k][1] }}>
-                    {cost[k]} {COST_NAMES[k][0]}
+                    {cost[k]} {t(RES_KEY_MODULE[k])}
                 </span>
             ))}
         </div>
@@ -142,16 +148,17 @@ function CostPills({ cost }) {
 }
 
 function Legend() {
+    const { t } = useTranslation();
     return (
         <div className="alm-legend">
             <span>
-                <span className="alm-swatch" style={{ background: "#C0392B" }}></span>Yours
+                <span className="alm-swatch" style={{ background: "#C0392B" }}></span>{t("legendYours")}
             </span>
             <span>
-                <span className="alm-swatch" style={{ background: "#2A5D8C" }}></span>Rival
+                <span className="alm-swatch" style={{ background: "#2A5D8C" }}></span>{t("legendRival")}
             </span>
             <span>
-                <span className="alm-swatch" style={{ background: "#C9B37E" }}></span>Desert / Robber start
+                <span className="alm-swatch" style={{ background: "#C9B37E" }}></span>{t("legendDesertRobber")}
             </span>
         </div>
     );
@@ -306,6 +313,15 @@ function Board({ buildings, roads, robberHex, currentMode, resources, onCornerCl
 }
 
 export default function Tutorial({ onClose }) {
+    const { t } = useTranslation();
+    const CHAPTERS = useMemo(() => getChapters(t), [t]);
+    const RES_KEY = { lumber: "resLumber", brick: "resBrick", grain: "resGrain", wool: "resWool", ore: "resOre" };
+    const TERRAIN_KEY = {
+        desert: "terrainDesert", forest: "terrainForest", hills: "terrainHills",
+        fields: "terrainFields", pasture: "terrainPasture", mountains: "terrainMountains",
+    };
+    const terrainLabel = (h) => t(TERRAIN_KEY[h.resource] || "terrainForest");
+    const SEASON_KEY = { Spring: "seasonSpring", Summer: "seasonSummer", Autumn: "seasonAutumn", Winter: "seasonWinter" };
     const [resources, setResources] = useState({ lumber: 8, brick: 8, grain: 8, wool: 8, ore: 8 });
     const [buildings, setBuildings] = useState(() => {
         const RIVAL_CORNER = hexes[2].cornerIds[1];
@@ -355,18 +371,18 @@ export default function Tutorial({ onClose }) {
 
     useEffect(() => {
         setDiceResult(null);
-        if (currentTab === "roads") setMsg("Click a highlighted path on the map to build a road.");
+        if (currentTab === "roads") setMsg(t("tutMsgClickRoad"));
         else if (currentTab === "settlements")
             setMsg(
                 sMode === "setup"
-                    ? "Click a highlighted intersection to place a free starting settlement."
-                    : "Click a highlighted intersection connected to your road to build a settlement."
+                    ? t("tutMsgClickSettlementSetup")
+                    : t("tutMsgClickSettlementBuild")
             );
-        else if (currentTab === "cities") setMsg("Click one of your gold settlements to upgrade it into a City.");
-        else if (currentTab === "robber") setMsg("Click any tile to move the Robber there.");
-        else if (currentTab === "resort") setMsg("Click the rival's City to attempt a takeover.");
+        else if (currentTab === "cities") setMsg(t("tutMsgClickCity"));
+        else if (currentTab === "robber") setMsg(t("tutMsgClickRobber"));
+        else if (currentTab === "resort") setMsg(t("tutMsgClickResort"));
         else setMsg("");
-    }, [currentTab, sMode]);
+    }, [currentTab, sMode, t]);
 
     function flash(keys) {
         setFlashKeys(keys);
@@ -384,23 +400,23 @@ export default function Tutorial({ onClose }) {
     function onCornerClick(cid) {
         if (currentMode === "settlement-setup") {
             if (!distanceOk(cid, buildings)) {
-                setMsg("❌ Too close to another settlement — leave at least one empty intersection between them.");
+                setMsg(t("tutErrTooCloseSettlement"));
                 return;
             }
             setBuildings((prev) => ({ ...prev, [cid]: { owner: "you", level: "settlement" } }));
-            setMsg("🏠 Free starting settlement placed! During setup, settlements cost nothing — but the distance rule still applies.");
+            setMsg(t("tutMsgFreeSettlementSetup"));
         } else if (currentMode === "settlement-build") {
             if (!distanceOk(cid, buildings)) {
-                setMsg("❌ Too close to another settlement or city.");
+                setMsg(t("tutErrTooCloseSettlementCity"));
                 return;
             }
             if (!connectedToOwnRoad(cid, roads)) {
-                setMsg("❌ This spot isn't connected to one of your roads yet. Build a road here first (see the Roads chapter).");
+                setMsg(t("tutErrNotConnectedRoad"));
                 return;
             }
             const free = !firstUseDone.settlement;
             if (!free && !canAfford(COSTS.settlement, resources)) {
-                setMsg("❌ Not enough resources. A settlement costs 1 Lumber + 1 Brick + 1 Grain + 1 Wool.");
+                setMsg(t("tutErrCantAffordSettlement"));
                 return;
             }
             if (free) setFirstUseDone((prev) => ({ ...prev, settlement: true }));
@@ -408,18 +424,18 @@ export default function Tutorial({ onClose }) {
             setBuildings((prev) => ({ ...prev, [cid]: { owner: "you", level: "settlement" } }));
             setMsg(
                 free
-                    ? "🏠 Settlement built! Your first one's on the house — from now on, settlements cost 1 Lumber + 1 Brick + 1 Grain + 1 Wool. Earned +1 Victory Point."
-                    : "🏠 Settlement built! You paid 1 Lumber + 1 Brick + 1 Grain + 1 Wool, and earned +1 Victory Point."
+                    ? t("tutMsgSettlementBuiltFree")
+                    : t("tutMsgSettlementBuiltPaid")
             );
         } else if (currentMode === "city") {
             const b = buildings[cid];
             if (!b || b.owner !== "you" || b.level !== "settlement") {
-                setMsg("❌ Pick one of your own settlements to upgrade.");
+                setMsg(t("tutErrPickOwnSettlement"));
                 return;
             }
             const free = !firstUseDone.city;
             if (!free && !canAfford(COSTS.city, resources)) {
-                setMsg("❌ Not enough resources. A City costs 2 Grain + 3 Ore.");
+                setMsg(t("tutErrCantAffordCity"));
                 return;
             }
             if (free) setFirstUseDone((prev) => ({ ...prev, city: true }));
@@ -427,18 +443,18 @@ export default function Tutorial({ onClose }) {
             setBuildings((prev) => ({ ...prev, [cid]: { ...prev[cid], level: "city" } }));
             setMsg(
                 free
-                    ? "🏙️ Upgraded to a City! This first upgrade is free — after this, Cities cost 2 Grain + 3 Ore. It now produces 2 resources per roll and is worth 2 Victory Points."
-                    : "🏙️ Upgraded to a City! You paid 2 Grain + 3 Ore. It now produces 2 resources per roll instead of 1, and is worth 2 Victory Points."
+                    ? t("tutMsgCityBuiltFree")
+                    : t("tutMsgCityBuiltPaid")
             );
         } else if (currentMode === "resort") {
             const b = buildings[cid];
             if (!b || b.owner !== "rival" || b.level !== "city") {
-                setMsg("❌ You can only build a Resort on top of an opponent's City.");
+                setMsg(t("tutErrResortNeedsRivalCity"));
                 return;
             }
             const free = !firstUseDone.resort;
             if (!free && !canAfford(COSTS.resort, resources)) {
-                setMsg("❌ Not enough resources. A Resort costs 3 Ore + 4 Lumber + 2 Wool + 1 Brick.");
+                setMsg(t("tutErrCantAffordResort"));
                 return;
             }
             if (free) setFirstUseDone((prev) => ({ ...prev, resort: true }));
@@ -447,8 +463,8 @@ export default function Tutorial({ onClose }) {
             setBuildings((prev) => ({ ...prev, [cid]: { owner: "you", level: "resort" } }));
             setMsg(
                 free
-                    ? "🏝️ Resort built for free this first time! Afterwards, Resorts cost 3 Ore + 4 Lumber + 2 Wool + 1 Brick. The rival's City is removed and they lose the 2 Victory Points it was worth."
-                    : "🏝️ Resort built! You paid 3 Ore + 4 Lumber + 2 Wool + 1 Brick. The rival's City is removed and they lose the 2 Victory Points it was worth."
+                    ? t("tutMsgResortBuiltFree")
+                    : t("tutMsgResortBuiltPaid")
             );
         }
     }
@@ -456,17 +472,17 @@ export default function Tutorial({ onClose }) {
     function onEdgeClick(eid) {
         if (currentMode !== "road") return;
         if (roads[eid]) {
-            setMsg("❌ A road is already here.");
+            setMsg(t("tutErrRoadHere"));
             return;
         }
         const noRoadsYet = Object.keys(roads).length === 0;
         if (!noRoadsYet && !edgeTouchesOwn(eid, roads, buildings)) {
-            setMsg("❌ Roads must connect to one of your existing roads or buildings.");
+            setMsg(t("tutErrRoadMustConnect"));
             return;
         }
         const free = !firstUseDone.road;
         if (!free && !canAfford(COSTS.road, resources)) {
-            setMsg("❌ Not enough resources. A road costs 1 Lumber + 1 Brick.");
+            setMsg(t("tutErrCantAffordRoad"));
             return;
         }
         if (free) setFirstUseDone((prev) => ({ ...prev, road: true }));
@@ -474,24 +490,24 @@ export default function Tutorial({ onClose }) {
         setRoads((prev) => ({ ...prev, [eid]: { owner: "you" } }));
         setMsg(
             free
-                ? "🛣️ Road built! This first one's free — after this, roads cost 1 Lumber + 1 Brick. Roads must always connect to your existing network."
-                : "🛣️ Road built for 1 Lumber + 1 Brick. Roads must always connect to your existing network."
+                ? t("tutMsgRoadBuiltFree")
+                : t("tutMsgRoadBuiltPaid")
         );
     }
 
     function onHexClick(hid) {
         if (currentMode !== "robber") return;
         if (robberHex === hid) {
-            setMsg("The Robber is already sitting on this tile.");
+            setMsg(t("tutMsgRobberAlreadyHere"));
             return;
         }
         setRobberHex(hid);
         const h = hexes.find((x) => x.id === hid);
         const occupied = h.cornerIds.some((cid) => buildings[cid]);
         if (occupied) {
-            setMsg(`🏴 The Robber creeps onto the ${h.label} tile. It now blocks that tile from producing, and you may steal one random resource card from any player with a Settlement or City there.`);
+            setMsg(t("tutMsgRobberMovedOccupied", { tile: terrainLabel(h) }));
         } else {
-            setMsg(`🏴 The Robber moves to the ${h.label} tile. No one is settled there yet, so there's nothing to steal — but the tile is blocked until the Robber moves again.`);
+            setMsg(t("tutMsgRobberMovedEmpty", { tile: terrainLabel(h) }));
         }
     }
 
@@ -499,13 +515,13 @@ export default function Tutorial({ onClose }) {
         const h = hexes.find((x) => x.id === robberHex);
         const yoursHere = h && h.cornerIds.some((cid) => buildings[cid] && buildings[cid].owner === "you");
         if (!yoursHere) {
-            setMsg("Robber Peace only works when the Robber is sitting on a tile where you have a Settlement or City.");
+            setMsg(t("tutMsgRobberPeaceNeedsOwn"));
             return;
         }
         const fullCost = { lumber: 1, brick: 1, grain: 1, wool: 1, ore: 1 };
         const free = !firstUseDone.robberPeace;
         if (!free && !canAfford(fullCost, resources)) {
-            setMsg("❌ Robber Peace costs one of every resource (Lumber, Brick, Grain, Wool, Ore) — you don't have enough.");
+            setMsg(t("tutErrCantAffordRobberPeace"));
             return;
         }
         if (free) setFirstUseDone((prev) => ({ ...prev, robberPeace: true }));
@@ -513,8 +529,8 @@ export default function Tutorial({ onClose }) {
         setRobberHex("neutral");
         setMsg(
             free
-                ? "🕊️ Robber Peace used for free this first time! After this, it costs one of every resource. The Robber slinks back to the Neutral Zone — once per turn only."
-                : "🕊️ You paid one of every resource. The Robber slinks back to the Neutral Zone, off your land — once per turn only."
+                ? t("tutMsgRobberPeaceFree")
+                : t("tutMsgRobberPeacePaid")
         );
     }
 
@@ -531,16 +547,16 @@ export default function Tutorial({ onClose }) {
         const earned = {};
 
         if (total === 7) {
-            lines.push("🎲 You rolled a 7! No tile produces this turn — time to move the Robber and check for discards.");
+            lines.push(t("tutMsgRolled7"));
         } else if (season === 3 && (total === 2 || total === 12)) {
-            lines.push("❄️ Winter Hardship! On a 2 or 12, normal production is skipped entirely and the Robber creeps toward the active hex.");
+            lines.push(t("tutMsgWinterHardship"));
             const haveAny = Object.values(resources).some((v) => v > 0);
             if (haveAny) {
                 const keys = Object.keys(resources).filter((k) => resources[k] > 0);
                 const lose = keys[Math.floor(Math.random() * keys.length)];
                 setResources((prev) => ({ ...prev, [lose]: Math.max(0, prev[lose] - 1) }));
                 flash([lose]);
-                lines.push(`You lose 1 ${lose} to the hardship.`);
+                lines.push(t("tutMsgLoseToHardship", { resource: t(RES_KEY[lose]) }));
             }
         } else {
             hexes.forEach((h) => {
@@ -568,7 +584,7 @@ export default function Tutorial({ onClose }) {
                     const res = h.resource === "forest" ? "lumber" : h.resource === "hills" ? "brick" : h.resource === "fields" ? "grain" : h.resource === "pasture" ? "wool" : "ore";
                     earned[res] = (earned[res] || 0) + base;
                 });
-                if (autumnBonus) lines.push(`🍂 Autumn Abundance: the ${h.label} tile also produces on 3 and 11!`);
+                if (autumnBonus) lines.push(t("tutMsgAutumnBonus", { tile: terrainLabel(h) }));
             });
             if (Object.keys(earned).length) {
                 setResources((prev) => {
@@ -577,9 +593,9 @@ export default function Tutorial({ onClose }) {
                     return next;
                 });
                 flash(Object.keys(earned));
-                lines.push("You collect: " + Object.keys(earned).map((r) => `+${earned[r]} ${r}`).join(", "));
+                lines.push(t("tutMsgYouCollect", { list: Object.keys(earned).map((r) => `+${earned[r]} ${t(RES_KEY[r])}`).join(", ") }));
             } else {
-                lines.push("No resource lands on one of your buildings this roll.");
+                lines.push(t("tutMsgNoResourceLands"));
             }
         }
 
@@ -619,7 +635,7 @@ export default function Tutorial({ onClose }) {
                 <div className="alm-book">
                     <div className="alm-topbar">
                         <div className="alm-brand">
-                            <span className="alm-seal">🏝️</span> Island Almanac
+                            <span className="alm-seal">🏝️</span> {t("islandAlmanacBrand")}
                         </div>
                         <div className="alm-resources">
                             {Object.keys(resources).map((k) => (
@@ -629,9 +645,9 @@ export default function Tutorial({ onClose }) {
                             ))}
                         </div>
                         <div className="alm-vp-badge">
-                            Victory Points: <b>{vp}</b> / 10
+                            {t("victoryPointsLabel")} <b>{vp}</b> / 10
                         </div>
-                        <button className="alm-close-btn" onClick={onClose} aria-label="Close tutorial">
+                        <button className="alm-close-btn" onClick={onClose} aria-label={t("closeTutorialAria")}>
                             ✕
                         </button>
                     </div>
@@ -650,18 +666,16 @@ export default function Tutorial({ onClose }) {
                             {currentTab === "toc" && (
                                 <>
                                     <div className="alm-toc-hero">
-                                        <div className="alm-chapter-eyebrow">Welcome, Islander</div>
-                                        <h2>The Island Almanac</h2>
+                                        <div className="alm-chapter-eyebrow">{t("welcomeIslander")}</div>
+                                        <h2>{t("theIslandAlmanac")}</h2>
                                         <p>
-                                            Reach <b>10 Victory Points</b> before anyone else and the island is yours. Points come from Settlements, Cities, Resorts, the
-                                            Longest Road, and the Largest Army. This guide focuses on the hands-on mechanics — the ones you'll actually click, place, and
-                                            roll. Pick a chapter below, or use the shelf on the left.
+                                            {t("tutIntroParagraph", { vp: "10" })}
                                         </p>
                                     </div>
                                     <div className="alm-toc-grid">
                                         {CHAPTERS.filter((c) => c.id !== "toc").map((c, i) => (
                                             <div key={c.id} className="alm-toc-item" onClick={() => setCurrentTab(c.id)}>
-                                                <div className="alm-n">Chapter {ROMAN[i]}</div>
+                                                <div className="alm-n">{t("chapterLabel", { roman: ROMAN[i] })}</div>
                                                 <div className="alm-t">
                                                     {c.icon} {c.label}
                                                 </div>
@@ -673,23 +687,22 @@ export default function Tutorial({ onClose }) {
 
                             {currentTab === "roads" && (
                                 <>
-                                    <div className="alm-chapter-eyebrow">Chapter I</div>
+                                    <div className="alm-chapter-eyebrow">{t("chapterLabel", { roman: "I" })}</div>
                                     <div className="alm-chapter-title">
-                                        <span className="alm-em">🛣️</span>Roads
+                                        <span className="alm-em">🛣️</span>{t("chapRoads")}
                                     </div>
                                     <div className="alm-content-grid">
                                         <div className="alm-info-col">
                                             <p className="alm-lead">
-                                                Roads connect your territory. Every road must touch one of your existing roads, Settlements, or Cities — you can't build in
-                                                isolation.
+                                                {t("roadsLead")}
                                             </p>
                                             <div className="alm-card">
-                                                <b>Cost</b>
+                                                <b>{t("costLabel")}</b>
                                                 <CostPills cost={COSTS.road} />
-                                                A road may never be built through another player's Settlement or City.
+                                                {t("roadsRuleCard")}
                                             </div>
                                             <div className="alm-card">
-                                                Try it: click any glowing edge on the map to lay your first road, then keep extending your network from there.
+                                                {t("roadsTryIt")}
                                             </div>
                                             <div className="alm-message-box">{msg}</div>
                                         </div>
@@ -703,35 +716,33 @@ export default function Tutorial({ onClose }) {
 
                             {currentTab === "settlements" && (
                                 <>
-                                    <div className="alm-chapter-eyebrow">Chapter II</div>
+                                    <div className="alm-chapter-eyebrow">{t("chapterLabel", { roman: "II" })}</div>
                                     <div className="alm-chapter-title">
-                                        <span className="alm-em">🏠</span>Settlements
+                                        <span className="alm-em">🏠</span>{t("chapSettlements")}
                                     </div>
                                     <div className="alm-content-grid">
                                         <div className="alm-info-col">
-                                            <p className="alm-lead">Settlements come in two flavors depending on when you place them.</p>
+                                            <p className="alm-lead">{t("settlementsLead")}</p>
                                             <div className="alm-toggle-row">
                                                 <div className={`alm-toggle ${sMode === "setup" ? "alm-active" : ""}`} onClick={() => setSMode("setup")}>
-                                                    Setup Phase — Free
+                                                    {t("setupPhaseFree")}
                                                 </div>
                                                 <div className={`alm-toggle ${sMode === "build" ? "alm-active" : ""}`} onClick={() => setSMode("build")}>
-                                                    Building Phase — Costs Resources
+                                                    {t("buildingPhaseCosts")}
                                                 </div>
                                             </div>
                                             <div className="alm-card">
                                                 {sMode === "setup" ? (
                                                     <>
-                                                        <b>Setup Placement</b>
+                                                        <b>{t("setupPlacementTitle")}</b>
                                                         <br />
-                                                        At the start of the game, your first two Settlements are free. The Distance Rule still applies — you can't place
-                                                        one right next to another Settlement or City. After your second Settlement, you collect starting resources from
-                                                        its adjacent tiles.
+                                                        {t("setupPlacementText")}
                                                     </>
                                                 ) : (
                                                     <>
-                                                        <b>Building Phase</b>
+                                                        <b>{t("buildingPhaseTitle")}</b>
                                                         <br />
-                                                        Every Settlement after setup must be connected to one of your Roads and follow the Distance Rule.
+                                                        {t("buildingPhaseText")}
                                                         <CostPills cost={COSTS.settlement} />
                                                     </>
                                                 )}
@@ -748,19 +759,19 @@ export default function Tutorial({ onClose }) {
 
                             {currentTab === "cities" && (
                                 <>
-                                    <div className="alm-chapter-eyebrow">Chapter III</div>
+                                    <div className="alm-chapter-eyebrow">{t("chapterLabel", { roman: "III" })}</div>
                                     <div className="alm-chapter-title">
-                                        <span className="alm-em">🏙️</span>Cities
+                                        <span className="alm-em">🏙️</span>{t("chapCities")}
                                     </div>
                                     <div className="alm-content-grid">
                                         <div className="alm-info-col">
-                                            <p className="alm-lead">A City is a Settlement that's leveled up — it replaces the Settlement on the same spot and produces double.</p>
+                                            <p className="alm-lead">{t("citiesLead")}</p>
                                             <div className="alm-card">
-                                                <b>Cost</b>
+                                                <b>{t("costLabel")}</b>
                                                 <CostPills cost={COSTS.city} />
-                                                A Settlement produces 1 resource per roll; a City produces 2. Worth 2 Victory Points instead of 1.
+                                                {t("citiesCostCard")}
                                             </div>
-                                            <div className="alm-card">Need a Settlement to upgrade first. Head to Chapter II if your map doesn't have one of your own yet.</div>
+                                            <div className="alm-card">{t("citiesNeedSettlement")}</div>
                                             <div className="alm-message-box">{msg}</div>
                                         </div>
                                         <div className="alm-board-col">
@@ -773,24 +784,22 @@ export default function Tutorial({ onClose }) {
 
                             {currentTab === "robber" && (
                                 <>
-                                    <div className="alm-chapter-eyebrow">Chapter IV</div>
+                                    <div className="alm-chapter-eyebrow">{t("chapterLabel", { roman: "IV" })}</div>
                                     <div className="alm-chapter-title">
-                                        <span className="alm-em">🏴</span>The Robber
+                                        <span className="alm-em">🏴</span>{t("chapRobber")}
                                     </div>
                                     <div className="alm-content-grid">
                                         <div className="alm-info-col">
                                             <p className="alm-lead">
-                                                Roll a 7 and the Robber wakes up: no tile produces that turn, players with more than 7 cards discard half, and you move
-                                                the Robber onto a tile of your choice — blocking it and letting you steal a card from anyone settled there.
+                                                {t("robberLead")}
                                             </p>
                                             <div className="alm-card">
-                                                <b>🕊️ Robber Peace</b>
+                                                <b>{t("robberPeaceTitle")}</b>
                                                 <br />
-                                                If the Robber lands on a tile where you have a Settlement or City, you may pay one of every resource, once per turn, to
-                                                send it straight to the Neutral Zone.
+                                                {t("robberPeaceText")}
                                                 <CostPills cost={{ lumber: 1, brick: 1, grain: 1, wool: 1, ore: 1 }} />
                                                 <button className="alm-btn alm-secondary" onClick={robberPeace}>
-                                                    Pay &amp; Banish to Neutral Zone
+                                                    {t("robberPeaceBtn")}
                                                 </button>
                                             </div>
                                             <div className="alm-message-box">{msg}</div>
@@ -805,39 +814,38 @@ export default function Tutorial({ onClose }) {
 
                             {currentTab === "seasons" && (
                                 <>
-                                    <div className="alm-chapter-eyebrow">Chapter V</div>
+                                    <div className="alm-chapter-eyebrow">{t("chapterLabel", { roman: "V" })}</div>
                                     <div className="alm-chapter-title">
-                                        <span className="alm-em">🌸</span>Seasons &amp; Special Rolls
+                                        <span className="alm-em">🌸</span>{t("seasonsAmpTitle")}
                                     </div>
                                     <div className="alm-content-grid">
                                         <div className="alm-info-col">
                                             <p className="alm-lead">
-                                                The Season Track shifts every 5 turns, or the moment someone claims the Largest Army. Each season bends how the dice
-                                                behave.
+                                                {t("seasonsLead")}
                                             </p>
                                             <div className="alm-season-track">
                                                 {SEASONS.map((s, i) => (
                                                     <div key={s.name} className={`alm-season-chip ${i === season ? "alm-current" : ""}`}>
                                                         {s.icon}
                                                         <br />
-                                                        {s.name}
+                                                        {t(SEASON_KEY[s.name])}
                                                     </div>
                                                 ))}
                                             </div>
                                             <button className="alm-btn alm-secondary" onClick={advanceSeason}>
-                                                Advance to Next Season →
+                                                {t("advanceSeasonBtn")}
                                             </button>
                                             <div className="alm-card" style={{ marginTop: "12px" }}>
-                                                <b>🌸 Spring — Fertility:</b> rolling 6 or 8 gives Fields &amp; Pastures +1 extra resource.
+                                                {t("seasonSpringRule")}
                                                 <br />
-                                                <b>☀️ Summer — Harvest:</b> rolling 5 or 9 doubles that tile's production.
+                                                {t("seasonSummerRule")}
                                                 <br />
-                                                <b>🍂 Autumn — Abundance:</b> Forests &amp; Hills also produce on 3 and 11.
+                                                {t("seasonAutumnRule")}
                                                 <br />
-                                                <b>❄️ Winter — Hardship:</b> rolling 2 or 12 skips production and costs you a random resource.
+                                                {t("seasonWinterRule")}
                                             </div>
                                             <button className="alm-btn alm-gold" style={{ marginTop: "6px" }} onClick={rollDice}>
-                                                🎲 Roll the Dice
+                                                {t("rollDiceBtn")}
                                             </button>
                                             {diceResult && (
                                                 <>
@@ -845,7 +853,7 @@ export default function Tutorial({ onClose }) {
                                                         <div className="alm-die">{diceResult.d1}</div>
                                                         <div className="alm-die">{diceResult.d2}</div>
                                                         <div className="alm-total-badge">
-                                                            Total: {diceResult.total} · {SEASONS[season].name}
+                                                            {t("diceTotalLabel", { total: diceResult.total, season: t(SEASON_KEY[SEASONS[season].name]) })}
                                                         </div>
                                                     </div>
                                                     <div className="alm-message-box">
@@ -869,22 +877,21 @@ export default function Tutorial({ onClose }) {
 
                             {currentTab === "resort" && (
                                 <>
-                                    <div className="alm-chapter-eyebrow">Chapter VI</div>
+                                    <div className="alm-chapter-eyebrow">{t("chapterLabel", { roman: "VI" })}</div>
                                     <div className="alm-chapter-title">
-                                        <span className="alm-em">🏝️</span>The Resort
+                                        <span className="alm-em">🏝️</span>{t("chapResort")}
                                     </div>
                                     <div className="alm-content-grid">
                                         <div className="alm-info-col">
                                             <p className="alm-lead">
-                                                A Resort lets you seize an opponent's City outright. Their City is removed, your Resort takes its place, and they lose
-                                                the Victory Points that City was worth. A Resort can never be built over or replaced.
+                                                {t("resortLead")}
                                             </p>
                                             <div className="alm-card">
-                                                <b>Cost</b>
+                                                <b>{t("costLabel")}</b>
                                                 <CostPills cost={COSTS.resort} />
-                                                Can only overtake a City — never a plain Settlement.
+                                                {t("resortCostCard")}
                                             </div>
-                                            <div className="alm-card">The maroon marker on the map is a rival's City. Try taking it.</div>
+                                            <div className="alm-card">{t("resortTryIt")}</div>
                                             <div className="alm-message-box">{msg}</div>
                                         </div>
                                         <div className="alm-board-col">

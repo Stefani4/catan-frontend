@@ -1,0 +1,873 @@
+{
+  "createLobby": "Create Lobby",
+  "createLobbyDesc": "Create your own game, invite friends and start your journey.",
+  "joinLobby": "Join Lobby",
+  "joinLobbyDesc": "Jump into an open lobby and start playing online with other settlers.",
+  "joinPlaceholder": "Paste match link or code",
+  "go": "Go",
+  "tutorial": "Tutorial",
+  "rules": "Rules",
+  "settings": "Settings",
+  "yourName": "Your name",
+  "pieceColor": "Piece color",
+  "avatar": "Avatar",
+  "comingSoon": "Coming soon!",
+  "close": "Close",
+  "settingsTitle": "SETTINGS",
+  "navGeneral": "General",
+  "navGameplay": "Gameplay",
+  "navAudio": "Audio",
+  "navVideo": "Video",
+  "navControls": "Controls",
+  "navAccount": "Account",
+  "back": "‹ Back",
+  "apply": "✔ Apply",
+  "savedFlash": "Settings saved ✓",
+  "language": "Language",
+  "theme": "Theme",
+  "themeHint": "Sets the Main Menu & Lobby backdrop.",
+  "animations": "Animations",
+  "tutorialHints": "Tutorial Hints",
+  "advancedRules": "Advanced Rules",
+  "loadingRules": "Loading match rules…",
+  "lockedByHost": "Locked in by the host when this lobby was created.",
+  "settlers": "Settlers",
+  "waitingForPlayer": "Waiting for player {seat}…",
+  "you": "(you)",
+  "copyLink": "Copy Link",
+  "copied": "✓ Copied!",
+  "playVsBots": "🤖 Play vs Bots",
+  "fillOpenSeats": "No one to play with? Fill the {n} open seat{s} with AI opponents.",
+  "difficulty": "Difficulty",
+  "adding": "Adding…",
+  "addBots": "Add {n} Bot{s}",
+  "botsSeated": "{n} bot{s} seated.",
+  "chat": "Chat",
+  "noMessagesYet": "No messages yet — say hello!",
+  "typeMessageHere": "Type message here",
+  "leave": "Leave",
+  "startGame": "Start Game",
+  "needTwoPlayers": "Need at least 2 players to start",
+  "waitingForPlayers": "Waiting for at least 2 players to join ({joined}/{total} so far)…",
+  "botEasy": "Easy",
+  "botEasyBlurb": "Plays casually, trades on a whim.",
+  "botMedium": "Medium",
+  "botMediumBlurb": "Solid, goal-driven play.",
+  "botHard": "Hard",
+  "botHardBlurb": "Targets the leader, drives a hard bargain.",
+  "loadingPlayerData": "Loading player data...",
+  "tradeSuccessful": "Trade Successful!",
+  "payToClearRobber": "💰 Pay to Clear Robber",
+  "payToClearRobberHint": "Pay 1 of each resource to send the Robber back to the desert",
+  "payToClearRobberNeedsHint": "Needs 1 of every resource",
+  "endTurnNow": "⏩ End Turn Now",
+  "finishSetupFirst": "Finish setup first",
+  "notYourTurn": "Not your turn",
+  "alreadyRolled": "Already rolled this turn",
+  "spinTheWheel": "Spin the wheel",
+  "rollTheDice": "Roll the dice",
+  "rolled": "Rolled {value}",
+  "spin": "Spin",
+  "roll": "Roll",
+  "typeMessage": "Type message",
+  "youWin": "You win!",
+  "winnerWins": "{name} wins!",
+  "reachedVp": "{name} reached {vp} Victory Points.",
+  "rematchProposed": "🔁 {name} started a rematch with this group.",
+  "rematchError": "Could not join the rematch. Please try again.",
+  "joining": "Joining…",
+  "joinRematch": "🔁 Join Rematch",
+  "rematch": "🔁 Rematch",
+  "backToMenu": "Back to Menu",
+  "phaseSetup": "setup",
+  "phaseMain": "main",
+  "placeRoad": "Place a Road next to your settlement.",
+  "placeSettlement": "Place Settlement #{n}",
+  "waitingDots": "Waiting...",
+  "turnsLeft": "{n} {unit} left",
+  "turnUnit": "turn",
+  "turnsUnit": "turns",
+  "seasonSpring": "Spring",
+  "seasonSpringTag": "Fertility",
+  "seasonSpringDesc": "+1 Grain & Wool on rolls of 6 or 8",
+  "seasonSummer": "Summer",
+  "seasonSummerTag": "Harvest",
+  "seasonSummerDesc": "Double production on rolls of 5 or 9",
+  "seasonAutumn": "Autumn",
+  "seasonAutumnTag": "Abundance",
+  "seasonAutumnDesc": "Lumber & Brick also produce on rolls of 3 or 11",
+  "seasonWinter": "Winter",
+  "seasonWinterTag": "Hardship",
+  "seasonWinterDesc": "Rolling 2 or 12 moves the Robber & strips a resource",
+  "victoryPoints": "Victory Points",
+  "boardShape": "Board Shape",
+  "diceMechanism": "Dice Mechanism",
+  "optionalRules": "Optional Rules",
+  "longerGame": "Longer game",
+  "standardGame": "Standard",
+  "tilesCount": "{n} tiles",
+  "seasonsLabel": "Seasons",
+  "seasonsHint": "Spring/Summer/Autumn/Winter modify production",
+  "payToClearRobberLabel": "Pay to Clear Robber",
+  "payToClearRobberSettingHint": "Pay 1 of each resource to reset the Robber",
+  "resortLabel": "Resort",
+  "resortHint": "Seize an opponent's city — can't be taken back",
+  "mapType_standard": "Hexagon",
+  "mapType_large": "Hexagon (Large)",
+  "mapType_ribbon": "Ribbon",
+  "mapType_delta": "Delta",
+  "diceMode_standard": "Two Dice (standard)",
+  "diceMode_wheel": "Spinning Wheel",
+  "howManySettlers": "How many settlers?",
+  "playersInMatch": "Players in this match",
+  "playersSetRules": "{n} players — set the rules for this match",
+  "setupBack": "← Back",
+  "couldntJoin": "⚠️ Couldn't join",
+  "syncingWithServer": "Syncing with server...",
+  "errMatchNotFound": "That match could not be found. Check the link/code and try again.",
+  "errFull": "This match is full.",
+  "errReachServer": "Could not reach the game server.",
+  "errJoinSeat": "Could not join that seat — it may already be taken, or the match may not exist.",
+  "errSessionGone": "Your previous match is no longer available on the server.",
+  "errReachServerWithUrl": "Could not reach the game server. Is it running at {url}?",
+  "errStartRematch": "Could not start the rematch. Please try again.",
+  "editProfileTooltip": "Click to edit your profile",
+  "victoryPointsToWin": "Victory Points to Win",
+  "defaultBoardShape": "Default Board Shape",
+  "turnTimerLabel": "Turn Timer",
+  "secondsToAct": "Seconds to act on your turn",
+  "gameplayDefaultsHint": "These become the defaults a new match opens with — you can still adjust them per-lobby.",
+  "muteAllAudio": "Mute All Audio",
+  "masterVolumeLabel": "Master Volume",
+  "musicVolumeLabel": "Music Volume",
+  "soundEffectsLabel": "Sound Effects",
+  "ambientVolumeLabel": "Ambient Volume",
+  "voiceChatLabel": "Voice Chat",
+  "audioHint": "Fine-tune the sounds. Master & Sound Effects play a quick preview when you release the slider.",
+  "graphicsQualityLabel": "Graphics Quality",
+  "qualityLow": "Low",
+  "qualityMedium": "Medium",
+  "qualityHigh": "High",
+  "fullscreenLabel": "Fullscreen",
+  "showFpsLabel": "Show FPS",
+  "videoHint": "Tune how the board looks.",
+  "cameraSensitivityLabel": "Camera Sensitivity",
+  "invertCameraLabel": "Invert Camera",
+  "keybindsLabel": "Keybinds",
+  "rollDiceBind": "Roll Dice",
+  "endTurnBind": "End Turn",
+  "openTradeBind": "Open Trade",
+  "openChatBind": "Open Chat",
+  "controlsHint": "Customize how you play.",
+  "playerNameLabel": "Player Name",
+  "saveBtn": "Save",
+  "changeNameBtn": "Change Name",
+  "linkedAccountsLabel": "Linked Accounts",
+  "logOutBtn": "Log Out",
+  "loggedOutAlert": "You have been logged out.",
+  "deleteAccountBtn": "Delete Account",
+  "deleteConfirm": "Are you sure you want to delete your account? This cannot be undone.",
+  "deleteRequestedAlert": "Account deletion requested.",
+  "resLumber": "Lumber",
+  "resGrain": "Grain",
+  "resWool": "Wool",
+  "resBrick": "Brick",
+  "resOre": "Ore",
+  "cardKnight": "Knight",
+  "cardVictoryPoint": "Victory Point",
+  "cardMonopoly": "Monopoly",
+  "cardRoadBuilding": "Road Building",
+  "cardYearOfPlenty": "Year of Plenty",
+  "buildRoad": "Road",
+  "buildSettlement": "Settlement",
+  "buildCity": "City",
+  "buildResort": "Resort",
+  "buildDevCard": "Dev Card",
+  "buildClearRobber": "Clear Robber",
+  "resortSeizeHint": "Click an opponent's city to seize it.",
+  "clearRobberHint": "Pay to send the Robber back to the desert.",
+  "sendOffer": "Send Offer",
+  "offerPending": "Offer Pending...",
+  "victoryPointsTt": "Victory Points",
+  "settlementsTt": "Settlements",
+  "citiesTt": "Cities",
+  "resortsTt": "Resorts",
+  "devCardsTt": "Development Cards",
+  "longestRoadTt": "Longest Road",
+  "largestArmyTt": "Largest Army",
+  "sendReactionTt": "Send a reaction",
+  "monopolyTitle": "Monopoly",
+  "monopolySubtitle": "Pick a resource — every opponent hands over all of theirs.",
+  "yearOfPlentyTitle": "Year of Plenty",
+  "yearOfPlentySubtitle": "Pick {n} more resource(s) to take from the bank.",
+  "deckEmpty": "Deck is empty",
+  "devCardCostTt": "Costs 1 Ore + 1 Grain + 1 Wool",
+  "resortCantBeTaken": "Resort — cannot be taken over",
+  "clickToSeizeCity": "Click to seize this city and build a Resort",
+  "legalSettlementSpot": "Legal settlement spot",
+  "resortTt": "Resort",
+  "muteAllAudioTt": "Mute all audio",
+  "unmuteTt": "Unmute",
+  "avatarSailor": "Sailor",
+  "avatarExplorer": "Explorer",
+  "avatarNoble": "Noble",
+  "avatarKnight": "Knight",
+  "avatarFarmer": "Farmer",
+  "avatarMiner": "Miner",
+  "avatarNavigator": "Navigator",
+  "avatarLord": "Lord",
+  "avatarFisherman": "Fisherman",
+  "avatarPioneer": "Pioneer",
+  "cancel": "Cancel",
+  "roadBuildingTitle": "Road Building",
+  "roadBuildingSubtitle": "Click up to 2 roads on the board to place them for free.",
+  "picked": "{n}/2 picked",
+  "done": "Done",
+  "buyCard": "Buy Card",
+  "cardsLeft": "{n} left",
+  "playCard": "Play {label}",
+  "secretSuffix": "{label} (secret)",
+  "buildCostsTitle": "Build Costs",
+  "maritimeTrade": "Maritime Trade ({ratio}:1)",
+  "tradeWithBank": "Trade with Bank ({ratio} {give} ➜ 1 {receive})",
+  "tradeWithPlayer": "Trade with Player",
+  "targetPlayer": "Target Player:",
+  "give": "Give:",
+  "get": "Get:",
+  "roadsTt": "Roads",
+  "roadsWithChainTt": "Roads (longest chain: {n})",
+  "ptsLabel": "pts",
+  "colorRed": "Red",
+  "colorBlue": "Blue",
+  "colorGreen": "Green",
+  "colorOrange": "Orange",
+  "colorYellow": "Yellow",
+  "colorPurple": "Purple",
+  "colorPink": "Pink",
+  "colorCyan": "Cyan",
+  "colorLavender": "Lavender",
+  "tabTrades": "Trades",
+  "tabChat": "Chat",
+  "tradesHeader": "Trades",
+  "incomingTrade": "Incoming Trade!",
+  "offerOffers": "{name} offers",
+  "forYour": "for your",
+  "accept": "Accept",
+  "decline": "Decline",
+  "rulesPages": [
+    {
+      "title": "Objective of the Game",
+      "icon": "🏆",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Be the first player to reach 10 Victory Points to win."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Settlement — +1",
+            "City — +2",
+            "Longest Road — +2",
+            "Largest Army — +2",
+            "Victory Point Card — +1"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "The game ends immediately the moment a player reaches 10 or more points on their turn."
+        }
+      ]
+    },
+    {
+      "title": "The Game Board",
+      "icon": "🗺️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "The board is made of hexagonal terrain tiles, each producing a resource, plus number tokens that trigger production."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Forest → Lumber",
+            "Hills → Brick",
+            "Fields → Grain",
+            "Pastures → Wool",
+            "Mountains → Ore",
+            "Desert → nothing"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Roads and buildings are placed on the intersections and edges between tiles."
+        }
+      ]
+    },
+    {
+      "title": "Players & Starting Setup",
+      "icon": "👥",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Each player picks a color and receives their roads, settlements, cities, and development cards."
+        },
+        {
+          "type": "p",
+          "text": "In turn order, players place two starting settlements and two connected roads; both settlements must follow the Distance Rule."
+        },
+        {
+          "type": "p",
+          "text": "After the second settlement, collect one resource card from every terrain tile touching it."
+        }
+      ]
+    },
+    {
+      "title": "The Distance Rule",
+      "icon": "📏",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Settlements and cities can never sit directly next to each other — at least one empty intersection must separate them."
+        },
+        {
+          "type": "p",
+          "text": "This applies both during setup and to all later building."
+        }
+      ]
+    },
+    {
+      "title": "Turn Structure",
+      "icon": "🔄",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "1. Determine the production number",
+            "2. Apply the current Season",
+            "3. Produce resources",
+            "4. Resolve the robber",
+            "5. Trade",
+            "6. Build",
+            "7. Play cards",
+            "8. End turn"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "You may trade and build as many times as you can afford during your turn."
+        }
+      ]
+    },
+    {
+      "title": "Resource Production",
+      "icon": "🌾",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "When a tile's number is rolled, every settlement touching it produces 1 of its resource, and every city produces 2. The desert never produces."
+        },
+        {
+          "type": "p",
+          "text": "Example: a Settlement next to a Forest numbered 6 produces 1 Lumber when a 6 is rolled — a City there produces 2."
+        }
+      ]
+    },
+    {
+      "title": "The Seasons Mechanic",
+      "icon": "🍂",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "A Season Track cycles through Spring → Summer → Autumn → Winter → Spring, each changing how resources are produced."
+        },
+        {
+          "type": "p",
+          "text": "The season advances every 5 completed turns, or whenever a player claims Largest Army."
+        }
+      ]
+    },
+    {
+      "title": "Spring — Fertility",
+      "icon": "🌸",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "When a 6 or 8 is rolled during Spring, Fields and Pastures produce one extra resource on top of their normal output."
+        },
+        {
+          "type": "p",
+          "text": "Example: a Settlement on a 6 Field normally makes 1 Grain — 2 Grain in Spring, or 3 Grain for a City."
+        }
+      ]
+    },
+    {
+      "title": "Summer — Harvest",
+      "icon": "☀️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "During Summer, any tile numbered 5 or 9 produces double its normal output, for every resource type."
+        },
+        {
+          "type": "p",
+          "text": "Example: a Settlement on a 5 Forest normally makes 1 Lumber — 2 in Summer; a City there would make 4."
+        }
+      ]
+    },
+    {
+      "title": "Autumn — Abundance",
+      "icon": "🍁",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "During Autumn, Forests and Hills also produce on rolls of 3 and 11, in addition to their normal number."
+        },
+        {
+          "type": "p",
+          "text": "Example: a Forest numbered 8 produces Lumber on 8, 3, and 11 — making weaker numbers valuable again."
+        }
+      ]
+    },
+    {
+      "title": "Winter — Hardship",
+      "icon": "❄️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "When a 2 or 12 is rolled during Winter, normal production is skipped — instead, the robber moves to that tile."
+        },
+        {
+          "type": "p",
+          "text": "Every player with a Settlement or City on that hex loses 1 random resource card. The robber does not steal in this case."
+        }
+      ]
+    },
+    {
+      "title": "Changing Seasons",
+      "icon": "📅",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "The current season is visible to everyone and stays active until the next trigger occurs."
+        },
+        {
+          "type": "p",
+          "text": "If a season change and a Largest Army claim happen at the same time, the season only advances once."
+        }
+      ]
+    },
+    {
+      "title": "Roads",
+      "icon": "🛤️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Cost: 1 Lumber + 1 Brick."
+        },
+        {
+          "type": "p",
+          "text": "A new road must connect to one of your existing roads, settlements, or cities, and can never cross through an opponent's settlement or city."
+        }
+      ]
+    },
+    {
+      "title": "Settlements",
+      "icon": "🏠",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Cost: 1 Lumber + 1 Brick + 1 Grain + 1 Wool."
+        },
+        {
+          "type": "p",
+          "text": "Must be placed on an empty intersection connected to one of your roads, and must follow the Distance Rule. Produces 1 resource from each adjacent tile."
+        }
+      ]
+    },
+    {
+      "title": "Cities",
+      "icon": "🏛️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Cost: 2 Grain + 3 Ore."
+        },
+        {
+          "type": "p",
+          "text": "Built by upgrading one of your existing settlements — the settlement is replaced. A city produces 2 resources instead of 1 from each adjacent tile."
+        }
+      ]
+    },
+    {
+      "title": "Resort — Special Building",
+      "icon": "🏨",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "A unique building that lets you seize a location occupied by an opponent's city, by paying 3 Ore + 4 Lumber + 2 Wool + 1 Brick."
+        },
+        {
+          "type": "p",
+          "text": "The opponent's city is removed and replaced by your Resort, and any Victory Points it held are lost."
+        },
+        {
+          "type": "p",
+          "text": "A Resort can never be built on a Settlement, and once placed it cannot be overwritten or replaced."
+        }
+      ]
+    },
+    {
+      "title": "Trading",
+      "icon": "🤝",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "On your turn, you may negotiate any trade with another player, as long as both sides agree and it follows the resource rules."
+        },
+        {
+          "type": "p",
+          "text": "For example: \"1 Ore for 2 Grain.\""
+        }
+      ]
+    },
+    {
+      "title": "Trading With the Bank",
+      "icon": "🏦",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Trade 4 of one identical resource for 1 resource of your choice, at any time on your turn."
+        },
+        {
+          "type": "p",
+          "text": "Ports can offer better rates than the standard bank trade."
+        }
+      ]
+    },
+    {
+      "title": "Ports / Docks",
+      "icon": "⚓",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "General Port — 3 of one resource → 1 of your choice",
+            "Specialized Port — 2 of the matching resource → 1 of your choice"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Available ports depend on the map in play."
+        }
+      ]
+    },
+    {
+      "title": "Development / Progress Cards",
+      "icon": "🃏",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Cost: 1 Grain + 1 Wool + 1 Ore."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Knight — move the robber and steal",
+            "Road Building — build 2 free roads",
+            "Year of Plenty — take any 2 resources",
+            "Monopoly — claim all of one resource from every player",
+            "Victory Point — worth 1 point"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Unless a card says otherwise, it can't be played the same turn it was bought."
+        }
+      ]
+    },
+    {
+      "title": "The Robber",
+      "icon": "🥷",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Rolling a 7 stops all production. Anyone holding more than 7 cards discards half, rounded down."
+        },
+        {
+          "type": "p",
+          "text": "The active player moves the robber to any hex, blocking it, and may steal one random resource from an opponent touching that hex."
+        }
+      ]
+    },
+    {
+      "title": "Robber Peace",
+      "icon": "🕊️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "If the robber lands on your own settlement or city, you may pay 1 Lumber + 1 Brick + 1 Grain + 1 Wool + 1 Ore, once per turn, to send it straight to the Neutral Zone instead."
+        },
+        {
+          "type": "p",
+          "text": "The Neutral Zone never produces resources and isn't considered anyone's territory."
+        }
+      ]
+    },
+    {
+      "title": "Largest Army",
+      "icon": "⚔️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Claim this once you've played at least 3 Knights and have more than any other player — worth 2 Victory Points."
+        },
+        {
+          "type": "p",
+          "text": "Claiming it also advances the Season Track. Another player can take it over by playing more Knights than you."
+        }
+      ]
+    },
+    {
+      "title": "Longest Road",
+      "icon": "🛣️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Awarded to the player with the longest unbroken chain of 5 or more connected roads — worth 2 Victory Points."
+        },
+        {
+          "type": "p",
+          "text": "An opponent's settlement or city breaks your chain, and another player can take the title with a longer network."
+        }
+      ]
+    },
+    {
+      "title": "Victory Points",
+      "icon": "⭐",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "Settlement — +1",
+            "City — +2",
+            "Victory Point Card — +1",
+            "Longest Road — +2",
+            "Largest Army — +2"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "A Resort's exact point value depends on your game's implementation."
+        }
+      ]
+    },
+    {
+      "title": "Alternative Number Generation",
+      "icon": "🎲",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Optional: instead of dice, you may use a number die or number wheel to determine the production number."
+        },
+        {
+          "type": "p",
+          "text": "Either method still interacts with the Season system exactly as normal."
+        }
+      ]
+    },
+    {
+      "title": "Custom Maps",
+      "icon": "🧭",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Optional: players can choose from different maps, each with its own terrain layout, number tokens, ports, and desert placement."
+        },
+        {
+          "type": "p",
+          "text": "Whichever map is chosen stays active for the whole game."
+        }
+      ]
+    },
+    {
+      "title": "Player Count — Map Scaling",
+      "icon": "📐",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "2 Players → Smaller map",
+            "3–4 Players → Standard map",
+            "5+ Players → Larger map"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Scaling the map keeps enough room to expand while still competing for good locations."
+        }
+      ]
+    },
+    {
+      "title": "End of the Game",
+      "icon": "🏁",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "The game ends the instant a player reaches 10 or more Victory Points — that player wins immediately."
+        }
+      ]
+    },
+    {
+      "title": "Happy Settling",
+      "icon": "🎉",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "That's everything you need to know. Now go build, trade, scheme, and conquer."
+        },
+        {
+          "type": "p",
+          "text": "Good luck and happy settling!"
+        }
+      ]
+    }
+  ],
+  "closeSettingsAria": "Close settings",
+  "chapAlmanac": "Almanac",
+  "chapRoads": "Roads",
+  "chapSettlements": "Settlements",
+  "chapCities": "Cities",
+  "chapRobber": "The Robber",
+  "chapSeasons": "Seasons & Dice",
+  "chapResort": "The Resort",
+  "closeTutorialAria": "Close tutorial",
+  "tutMsgClickSettlementSetup": "Click a highlighted intersection to place a free starting settlement.",
+  "tutMsgClickSettlementBuild": "Click a highlighted intersection connected to your road to build a settlement.",
+  "tutMsgClickCity": "Click one of your gold settlements to upgrade it into a City.",
+  "tutMsgClickRobber": "Click any tile to move the Robber there.",
+  "tutMsgClickResort": "Click the rival's City to attempt a takeover.",
+  "tutErrTooCloseSettlement": "❌ Too close to another settlement — leave at least one empty intersection between them.",
+  "tutMsgFreeSettlementSetup": "🏠 Free starting settlement placed! During setup, settlements cost nothing — but the distance rule still applies.",
+  "tutErrTooCloseSettlementCity": "❌ Too close to another settlement or city.",
+  "tutErrNotConnectedRoad": "❌ This spot isn't connected to one of your roads yet. Build a road here first (see the Roads chapter).",
+  "tutErrCantAffordSettlement": "❌ Not enough resources. A settlement costs 1 Lumber + 1 Brick + 1 Grain + 1 Wool.",
+  "tutMsgSettlementBuiltFree": "🏠 Settlement built! Your first one's on the house — from now on, settlements cost 1 Lumber + 1 Brick + 1 Grain + 1 Wool. Earned +1 Victory Point.",
+  "tutMsgSettlementBuiltPaid": "🏠 Settlement built! You paid 1 Lumber + 1 Brick + 1 Grain + 1 Wool, and earned +1 Victory Point.",
+  "tutErrPickOwnSettlement": "❌ Pick one of your own settlements to upgrade.",
+  "tutErrCantAffordCity": "❌ Not enough resources. A City costs 2 Grain + 3 Ore.",
+  "tutMsgCityBuiltFree": "🏙️ Upgraded to a City! This first upgrade is free — after this, Cities cost 2 Grain + 3 Ore. It now produces 2 resources per roll and is worth 2 Victory Points.",
+  "tutMsgCityBuiltPaid": "🏙️ Upgraded to a City! You paid 2 Grain + 3 Ore. It now produces 2 resources per roll instead of 1, and is worth 2 Victory Points.",
+  "tutErrResortNeedsRivalCity": "❌ You can only build a Resort on top of an opponent's City.",
+  "tutErrCantAffordResort": "❌ Not enough resources. A Resort costs 3 Ore + 4 Lumber + 2 Wool + 1 Brick.",
+  "tutMsgResortBuiltFree": "🏝️ Resort built for free this first time! Afterwards, Resorts cost 3 Ore + 4 Lumber + 2 Wool + 1 Brick. The rival's City is removed and they lose the 2 Victory Points it was worth.",
+  "tutMsgResortBuiltPaid": "🏝️ Resort built! You paid 3 Ore + 4 Lumber + 2 Wool + 1 Brick. The rival's City is removed and they lose the 2 Victory Points it was worth.",
+  "tutErrRoadHere": "❌ A road is already here.",
+  "tutErrRoadMustConnect": "❌ Roads must connect to one of your existing roads or buildings.",
+  "tutErrCantAffordRoad": "❌ Not enough resources. A road costs 1 Lumber + 1 Brick.",
+  "tutMsgRoadBuiltFree": "🛣️ Road built! This first one's free — after this, roads cost 1 Lumber + 1 Brick. Roads must always connect to your existing network.",
+  "tutMsgRoadBuiltPaid": "🛣️ Road built for 1 Lumber + 1 Brick. Roads must always connect to your existing network.",
+  "tutMsgRobberAlreadyHere": "The Robber is already sitting on this tile.",
+  "tutMsgRobberMovedOccupied": "🏴 The Robber creeps onto the {tile} tile. It now blocks that tile from producing, and you may steal one random resource card from any player with a Settlement or City there.",
+  "tutMsgRobberMovedEmpty": "🏴 The Robber moves to the {tile} tile. No one is settled there yet, so there's nothing to steal — but the tile is blocked until the Robber moves again.",
+  "tutMsgRobberPeaceNeedsOwn": "Robber Peace only works when the Robber is sitting on a tile where you have a Settlement or City.",
+  "tutErrCantAffordRobberPeace": "❌ Robber Peace costs one of every resource (Lumber, Brick, Grain, Wool, Ore) — you don't have enough.",
+  "tutMsgRobberPeaceFree": "🕊️ Robber Peace used for free this first time! After this, it costs one of every resource. The Robber slinks back to the Neutral Zone — once per turn only.",
+  "tutMsgRobberPeacePaid": "🕊️ You paid one of every resource. The Robber slinks back to the Neutral Zone, off your land — once per turn only.",
+  "tutMsgRolled7": "🎲 You rolled a 7! No tile produces this turn — time to move the Robber and check for discards.",
+  "tutMsgWinterHardship": "❄️ Winter Hardship! On a 2 or 12, normal production is skipped entirely and the Robber creeps toward the active hex.",
+  "tutMsgLoseToHardship": "You lose 1 {resource} to the hardship.",
+  "tutMsgAutumnBonus": "🍂 Autumn Abundance: the {tile} tile also produces on 3 and 11!",
+  "tutMsgYouCollect": "You collect: {list}",
+  "tutMsgNoResourceLands": "No resource lands on one of your buildings this roll.",
+  "terrainDesert": "Desert",
+  "terrainForest": "Forest",
+  "terrainHills": "Hills",
+  "terrainFields": "Fields",
+  "terrainPasture": "Pasture",
+  "terrainMountains": "Mountains",
+  "tutMsgClickRoad": "Click a highlighted path on the map to build a road.",
+  "islandAlmanacBrand": "Island Almanac",
+  "victoryPointsLabel": "Victory Points:",
+  "welcomeIslander": "Welcome, Islander",
+  "theIslandAlmanac": "The Island Almanac",
+  "tutIntroParagraph": "Reach {vp} Victory Points before anyone else and the island is yours. Points come from Settlements, Cities, Resorts, the Longest Road, and the Largest Army. This guide focuses on the hands-on mechanics — the ones you'll actually click, place, and roll. Pick a chapter below, or use the shelf on the left.",
+  "chapterLabel": "Chapter {roman}",
+  "costLabel": "Cost",
+  "roadsLead": "Roads connect your territory. Every road must touch one of your existing roads, Settlements, or Cities — you can't build in isolation.",
+  "roadsRuleCard": "A road may never be built through another player's Settlement or City.",
+  "roadsTryIt": "Try it: click any glowing edge on the map to lay your first road, then keep extending your network from there.",
+  "settlementsLead": "Settlements come in two flavors depending on when you place them.",
+  "setupPhaseFree": "Setup Phase — Free",
+  "buildingPhaseCosts": "Building Phase — Costs Resources",
+  "setupPlacementTitle": "Setup Placement",
+  "setupPlacementText": "At the start of the game, your first two Settlements are free. The Distance Rule still applies — you can't place one right next to another Settlement or City. After your second Settlement, you collect starting resources from its adjacent tiles.",
+  "buildingPhaseTitle": "Building Phase",
+  "buildingPhaseText": "Every Settlement after setup must be connected to one of your Roads and follow the Distance Rule.",
+  "citiesLead": "A City is a Settlement that's leveled up — it replaces the Settlement on the same spot and produces double.",
+  "citiesCostCard": "A Settlement produces 1 resource per roll; a City produces 2. Worth 2 Victory Points instead of 1.",
+  "citiesNeedSettlement": "Need a Settlement to upgrade first. Head to Chapter II if your map doesn't have one of your own yet.",
+  "robberLead": "Roll a 7 and the Robber wakes up: no tile produces that turn, players with more than 7 cards discard half, and you move the Robber onto a tile of your choice — blocking it and letting you steal a card from anyone settled there.",
+  "robberPeaceTitle": "🕊️ Robber Peace",
+  "robberPeaceText": "If the Robber lands on a tile where you have a Settlement or City, you may pay one of every resource, once per turn, to send it straight to the Neutral Zone.",
+  "robberPeaceBtn": "Pay & Banish to Neutral Zone",
+  "seasonsChapterTitle": "Seasons & Special Rolls",
+  "seasonsLead": "The Season Track shifts every 5 turns, or the moment someone claims the Largest Army. Each season bends how the dice behave.",
+  "advanceSeasonBtn": "Advance to Next Season →",
+  "seasonSpringRule": "🌸 Spring — Fertility: rolling 6 or 8 gives Fields & Pastures +1 extra resource.",
+  "seasonSummerRule": "☀️ Summer — Harvest: rolling 5 or 9 doubles that tile's production.",
+  "seasonAutumnRule": "🍂 Autumn — Abundance: Forests & Hills also produce on 3 and 11.",
+  "seasonWinterRule": "❄️ Winter — Hardship: rolling 2 or 12 skips production and costs you a random resource.",
+  "rollDiceBtn": "🎲 Roll the Dice",
+  "diceTotalLabel": "Total: {total} · {season}",
+  "resortLead": "A Resort lets you seize an opponent's City outright. Their City is removed, your Resort takes its place, and they lose the Victory Points that City was worth. A Resort can never be built over or replaced.",
+  "resortCostCard": "Can only overtake a City — never a plain Settlement.",
+  "resortTryIt": "The maroon marker on the map is a rival's City. Try taking it.",
+  "legendYours": "Yours",
+  "legendRival": "Rival",
+  "legendDesertRobber": "Desert / Robber start",
+  "seasonsAmpTitle": "Seasons & Special Rolls",
+  "exitGameTt": "Exit Game",
+  "exitConfirmTitle": "Leave this match?",
+  "exitConfirmBody": "You'll return to the main menu. Other players can continue without you.",
+  "exitConfirmYes": "Leave Match",
+  "exitConfirmCancel": "Cancel",
+  "statsBtn": "📊 View Stats",
+  "statsTitle": "Match Stats",
+  "statsClose": "Close",
+  "statsBackToVictory": "← Back",
+  "statsDiceRolls": "Dice Roll Distribution",
+  "statsPerPlayer": "Player Breakdown",
+  "statsResourcesCollected": "Resources Collected",
+  "statsBuildings": "Buildings",
+  "statsTrading": "Trading",
+  "statsBankTrades": "Bank Trades",
+  "statsPlayerTrades": "Player Trades",
+  "statsDevCards": "Development Cards",
+  "statsBought": "Bought",
+  "statsPlayed": "Played",
+  "statsRobberMoves": "Robber Moves",
+  "statsTotalResources": "Total Resources",
+  "statsRolls": "rolls",
+  "statsMostRolled": "Most common roll",
+  "statsSettlements": "Settlements",
+  "statsCities": "Cities",
+  "statsRoadsBuilt": "Roads",
+  "statsResorts": "Resorts",
+  "editBoardBtn": "🎨 Edit Board",
+  "boardEditorTitle": "Custom Board Editor",
+  "boardEditorHint": "Click a tile to cycle its terrain. Click the number to change it. You need exactly one Desert.",
+  "randomFill": "🎲 Random Fill",
+  "saveBoard": "Save Board",
+  "cancelEdit": "Cancel",
+  "desertCountOk": "✅ 1 Desert — ready to save",
+  "desertCountBad": "⚠️ Needs exactly 1 Desert (currently {n})",
+  "terrainForestBtn": "Forest",
+  "terrainHillsBtn": "Hills",
+  "terrainFieldsBtn": "Fields",
+  "terrainPastureBtn": "Pasture",
+  "terrainMountainsBtn": "Mountains",
+  "terrainDesertBtn": "Desert",
+  "customBoardActive": "Custom board saved ✓",
+  "mapType_custom": "Custom"
+}

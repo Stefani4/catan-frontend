@@ -11,8 +11,14 @@ import GameSetupModal from "./GameSetupModal.jsx";
 import { toMatchDefaults } from "./settingsStore.js";
 import { saveMatchSession, loadMatchSession, clearMatchSession } from "./matchSession.js";
 import BotManager from "./bots/BotManager.jsx";
+import { useTranslation } from "./i18n.js";
 
 const SERVER = import.meta.env.VITE_SERVER_URL || "http://localhost:8000";
+
+function SyncingLoader() {
+  const { t } = useTranslation();
+  return <div>{t("syncingWithServer")}</div>;
+}
 
 function extractMatchID(input) {
   try {
@@ -25,6 +31,7 @@ function extractMatchID(input) {
 }
 
 export default function MatchLoader() {
+  const { t } = useTranslation();
   const [screen, setScreen] = useState("menu");
   const [error, setError] = useState(null);
   const [matchID, setMatchID] = useState(null);
@@ -69,7 +76,7 @@ export default function MatchLoader() {
       board: Board,
       multiplayer: SocketIO({ server: SERVER }),
       debug: false,
-      loading: () => <div>Syncing with server...</div>,
+      loading: SyncingLoader,
     });
   }, []);
 
@@ -103,6 +110,19 @@ export default function MatchLoader() {
     saveMatchSession({ matchID: id, numPlayers: total, mySeat: seat, credentials: creds, screen, bots: [] });
   };
 
+  // Same idea as enterMatch, but also carries the reconstituted bots list —
+  // used after a rematch, where bots need fresh credentials in the new match.
+  const enterMatchWithBots = (id, seat, creds, total, newBots, screen = "lobby") => {
+    setMatchID(id);
+    setNumPlayers(total);
+    setMySeat(seat);
+    setCredentials(creds);
+    setBots(newBots);
+    updateUrl(id, seat);
+    setScreen(screen);
+    saveMatchSession({ matchID: id, numPlayers: total, mySeat: seat, credentials: creds, screen, bots: newBots });
+  };
+
   const updateBots = (nextBots) => {
     setBots(nextBots);
     saveMatchSession({ matchID, numPlayers, mySeat, credentials, screen, bots: nextBots });
@@ -113,7 +133,7 @@ export default function MatchLoader() {
     try {
       const infoRes = await fetch(`${SERVER}/games/catan/${id}`);
       if (!infoRes.ok) {
-        setError("That match could not be found. Check the link/code and try again.");
+        setError(t("errMatchNotFound"));
         return;
       }
       const info = await infoRes.json();
@@ -128,9 +148,9 @@ export default function MatchLoader() {
           return;
         }
       }
-      setError("This match is full.");
+      setError(t("errFull"));
     } catch {
-      setError("Could not reach the game server.");
+      setError(t("errReachServer"));
     }
   };
 
@@ -141,7 +161,7 @@ export default function MatchLoader() {
 
     const result = await joinSeat(id, seat, total || 4);
     if (!result) {
-      setError("Could not join that seat — it may already be taken, or the match may not exist.");
+      setError(t("errJoinSeat"));
       return;
     }
     enterMatch(id, result.seat, result.credentials, total || 4);
@@ -158,7 +178,7 @@ export default function MatchLoader() {
         const infoRes = await fetch(`${SERVER}/games/catan/${session.matchID}`).catch(() => null);
         if (!infoRes || !infoRes.ok) {
           clearMatchSession();
-          setError("Your previous match is no longer available on the server.");
+          setError(t("errSessionGone"));
           return;
         }
         setMatchID(session.matchID);
@@ -195,10 +215,77 @@ export default function MatchLoader() {
 
       enterMatch(data.matchID, result.seat, result.credentials, players);
     } catch {
-      setError("Could not reach the game server. Is it running at " + SERVER + "?");
+      setError(t("errReachServerWithUrl", { url: SERVER }));
     } finally {
       setCreatePickerOpen(false);
       setPendingPlayerCount(null);
+    }
+  };
+
+  const startRematch = async ({ oldMatchID, mySeat: seat, numPlayers: total, settings, bots: oldBots }) => {
+    setError(null);
+    try {
+      let info = await fetch(`${SERVER}/games/catan/${oldMatchID}/rematch`).then((r) =>
+          r.ok ? r.json() : null,
+      );
+
+      if (!info) {
+        const createRes = await fetch(`${SERVER}/games/catan/create`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ numPlayers: total, setupData: settings }),
+        });
+        if (!createRes.ok) throw new Error();
+        const created = await createRes.json();
+
+        const proposeRes = await fetch(`${SERVER}/games/catan/${oldMatchID}/rematch`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ newMatchID: created.matchID, proposedBy: seat }),
+        });
+        if (!proposeRes.ok) throw new Error();
+        info = await proposeRes.json();
+      }
+
+      const weProposed = String(info.proposedBy) === String(seat);
+
+      const result = await joinSeat(info.newMatchID, seat, total);
+      if (!result) throw new Error();
+
+      // Only the player whose proposal actually won re-adds the bots, so two
+      // simultaneous "Rematch" clicks don't double-seat the AI opponents.
+      let newBots = [];
+      if (weProposed && oldBots && oldBots.length) {
+        for (const bot of oldBots) {
+          const res = await fetch(`${SERVER}/games/catan/${info.newMatchID}/join`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              playerID: bot.seat,
+              playerName: encodePlayerIdentity({ name: bot.name || "Bot" }),
+            }),
+          }).catch(() => null);
+          if (res && res.ok) {
+            const data = await res.json();
+            newBots.push({
+              seat: bot.seat,
+              name: bot.name,
+              credentials: data.playerCredentials,
+              difficulty: bot.difficulty,
+            });
+          }
+        }
+      }
+
+      // If every other seat in the match is a bot (solo-vs-bots rematch),
+      // there's no one else to wait for — skip the lobby and jump straight
+      // back into the game instead of requiring an extra "Start Game" click.
+      const allOtherSeatsAreBots = weProposed && oldBots && newBots.length === total - 1;
+      const nextScreen = allOtherSeatsAreBots ? "game" : "lobby";
+
+      enterMatchWithBots(info.newMatchID, result.seat, result.credentials, total, newBots, nextScreen);
+    } catch {
+      setError(t("errStartRematch"));
     }
   };
 
@@ -216,7 +303,13 @@ export default function MatchLoader() {
   if (screen === "game" && matchID && mySeat !== null) {
     return (
         <>
-          <CatanClient matchID={matchID} playerID={mySeat} credentials={credentials} />
+          <CatanClient
+              matchID={matchID}
+              playerID={mySeat}
+              credentials={credentials}
+              bots={bots}
+              onRematch={startRematch}
+          />
           <BotManager matchID={matchID} bots={bots} />
         </>
     );
@@ -281,7 +374,7 @@ export default function MatchLoader() {
               >
                 {error ? (
                     <>
-                      <h3 style={{ marginTop: 0 }}>⚠️ Couldn't join</h3>
+                      <h3 style={{ marginTop: 0 }}>{t("couldntJoin")}</h3>
                       <p style={{ fontSize: "0.9rem" }}>{error}</p>
                       <button
                           onClick={() => setError(null)}
@@ -296,12 +389,12 @@ export default function MatchLoader() {
                             cursor: "pointer",
                           }}
                       >
-                        Close
+                        {t("close")}
                       </button>
                     </>
                 ) : pendingPlayerCount === null ? (
                     <>
-                      <h3 style={{ marginTop: 0 }}>How many settlers?</h3>
+                      <h3 style={{ marginTop: 0 }}>{t("howManySettlers")}</h3>
                       <div style={{ display: "flex", gap: "8px", justifyContent: "center", margin: "14px 0" }}>
                         {[2, 3, 4].map((n) => (
                             <button
@@ -323,13 +416,13 @@ export default function MatchLoader() {
                             </button>
                         ))}
                       </div>
-                      <p style={{ fontSize: "0.8rem", color: "#5a4326" }}>Players in this match</p>
+                      <p style={{ fontSize: "0.8rem", color: "#5a4326" }}>{t("playersInMatch")}</p>
                     </>
                 ) : (
                     <>
-                      <h3 style={{ marginTop: 0, marginBottom: "2px" }}>Advanced Rules</h3>
+                      <h3 style={{ marginTop: 0, marginBottom: "2px" }}>{t("advancedRules")}</h3>
                       <p style={{ fontSize: "0.8rem", color: "#5a4326", marginTop: 0 }}>
-                        {pendingPlayerCount} players — set the rules for this match
+                        {t("playersSetRules", { n: pendingPlayerCount })}
                       </p>
                       <GameSetupModal settings={matchSettings} onChange={setMatchSettings} />
                       <div style={{ display: "flex", gap: "10px", justifyContent: "center", marginTop: "16px" }}>
@@ -346,7 +439,7 @@ export default function MatchLoader() {
                               cursor: "pointer",
                             }}
                         >
-                          ← Back
+                          {t("setupBack")}
                         </button>
                         <button
                             onClick={() => createMatch(pendingPlayerCount, matchSettings)}
@@ -361,7 +454,7 @@ export default function MatchLoader() {
                               cursor: "pointer",
                             }}
                         >
-                          Create Lobby
+                          {t("createLobby")}
                         </button>
                       </div>
                     </>

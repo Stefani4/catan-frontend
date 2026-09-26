@@ -1,0 +1,873 @@
+{
+  "createLobby": "Criar Sala",
+  "createLobbyDesc": "Crie seu próprio jogo, convide amigos e comece sua jornada.",
+  "joinLobby": "Entrar em Sala",
+  "joinLobbyDesc": "Entre em uma sala aberta e jogue online com outros colonos.",
+  "joinPlaceholder": "Cole o link ou código da partida",
+  "go": "Ir",
+  "tutorial": "Tutorial",
+  "rules": "Regras",
+  "settings": "Configurações",
+  "yourName": "Seu nome",
+  "pieceColor": "Cor das peças",
+  "avatar": "Avatar",
+  "comingSoon": "Em breve!",
+  "close": "Fechar",
+  "settingsTitle": "CONFIGURAÇÕES",
+  "navGeneral": "Geral",
+  "navGameplay": "Jogabilidade",
+  "navAudio": "Áudio",
+  "navVideo": "Vídeo",
+  "navControls": "Controles",
+  "navAccount": "Conta",
+  "back": "‹ Voltar",
+  "apply": "✔ Aplicar",
+  "savedFlash": "Configurações salvas ✓",
+  "language": "Idioma",
+  "theme": "Tema",
+  "themeHint": "Define o plano de fundo do Menu Principal e da Sala.",
+  "animations": "Animações",
+  "tutorialHints": "Dicas do Tutorial",
+  "advancedRules": "Regras Avançadas",
+  "loadingRules": "Carregando regras da partida…",
+  "lockedByHost": "Definido pelo anfitrião ao criar esta sala.",
+  "settlers": "Colonos",
+  "waitingForPlayer": "Aguardando o jogador {seat}…",
+  "you": "(você)",
+  "copyLink": "Copiar Link",
+  "copied": "✓ Copiado!",
+  "playVsBots": "🤖 Jogar contra Bots",
+  "fillOpenSeats": "Ninguém para jogar? Preencha {n} vaga{s} livre{s} com oponentes de IA.",
+  "difficulty": "Dificuldade",
+  "adding": "Adicionando…",
+  "addBots": "Adicionar {n} Bot{s}",
+  "botsSeated": "{n} bot{s} sentado{s}.",
+  "chat": "Chat",
+  "noMessagesYet": "Ainda não há mensagens — diga olá!",
+  "typeMessageHere": "Digite a mensagem aqui",
+  "leave": "Sair",
+  "startGame": "Iniciar Partida",
+  "needTwoPlayers": "É preciso pelo menos 2 jogadores para começar",
+  "waitingForPlayers": "Aguardando pelo menos 2 jogadores entrarem ({joined}/{total} até agora)…",
+  "botEasy": "Fácil",
+  "botEasyBlurb": "Joga de forma casual, negocia ao acaso.",
+  "botMedium": "Médio",
+  "botMediumBlurb": "Jogo sólido, orientado a objetivos.",
+  "botHard": "Difícil",
+  "botHardBlurb": "Mira no líder, negocia com dureza.",
+  "loadingPlayerData": "Carregando dados do jogador...",
+  "tradeSuccessful": "Troca realizada com sucesso!",
+  "payToClearRobber": "💰 Pagar para Remover o Ladrão",
+  "payToClearRobberHint": "Pague 1 de cada recurso para enviar o Ladrão de volta ao deserto",
+  "payToClearRobberNeedsHint": "Precisa de 1 de cada recurso",
+  "endTurnNow": "⏩ Encerrar Turno Agora",
+  "finishSetupFirst": "Termine a preparação primeiro",
+  "notYourTurn": "Não é sua vez",
+  "alreadyRolled": "Já jogou os dados neste turno",
+  "spinTheWheel": "Girar a roda",
+  "rollTheDice": "Jogar os dados",
+  "rolled": "Saiu {value}",
+  "spin": "Girar",
+  "roll": "Jogar",
+  "typeMessage": "Digite uma mensagem",
+  "youWin": "Você venceu!",
+  "winnerWins": "{name} venceu!",
+  "reachedVp": "{name} alcançou {vp} Pontos de Vitória.",
+  "rematchProposed": "🔁 {name} iniciou uma revanche com este grupo.",
+  "rematchError": "Não foi possível entrar na revanche. Tente novamente.",
+  "joining": "Entrando…",
+  "joinRematch": "🔁 Entrar na Revanche",
+  "rematch": "🔁 Revanche",
+  "backToMenu": "Voltar ao Menu",
+  "phaseSetup": "preparação",
+  "phaseMain": "partida",
+  "placeRoad": "Coloque uma Estrada ao lado do seu povoado.",
+  "placeSettlement": "Coloque o Povoado nº {n}",
+  "waitingDots": "Aguardando...",
+  "turnsLeft": "{n} {unit} restantes",
+  "turnUnit": "turno",
+  "turnsUnit": "turnos",
+  "seasonSpring": "Primavera",
+  "seasonSpringTag": "Fertilidade",
+  "seasonSpringDesc": "+1 Trigo e Lã em jogadas de 6 ou 8",
+  "seasonSummer": "Verão",
+  "seasonSummerTag": "Colheita",
+  "seasonSummerDesc": "Produção dobrada em jogadas de 5 ou 9",
+  "seasonAutumn": "Outono",
+  "seasonAutumnTag": "Abundância",
+  "seasonAutumnDesc": "Madeira e Barro também produzem em jogadas de 3 ou 11",
+  "seasonWinter": "Inverno",
+  "seasonWinterTag": "Dificuldade",
+  "seasonWinterDesc": "Jogar 2 ou 12 move o Ladrão e remove um recurso",
+  "victoryPoints": "Pontos de Vitória",
+  "boardShape": "Forma do Tabuleiro",
+  "diceMechanism": "Mecânica de Dados",
+  "optionalRules": "Regras Opcionais",
+  "longerGame": "Partida mais longa",
+  "standardGame": "Padrão",
+  "tilesCount": "{n} peças",
+  "seasonsLabel": "Estações",
+  "seasonsHint": "Primavera/Verão/Outono/Inverno alteram a produção",
+  "payToClearRobberLabel": "Pagar para Remover o Ladrão",
+  "payToClearRobberSettingHint": "Pague 1 de cada recurso para reiniciar o Ladrão",
+  "resortLabel": "Resort",
+  "resortHint": "Toma a cidade de um oponente — não pode ser desfeito",
+  "mapType_standard": "Hexágono",
+  "mapType_large": "Hexágono (Grande)",
+  "mapType_ribbon": "Fita",
+  "mapType_delta": "Delta",
+  "diceMode_standard": "Dois Dados (padrão)",
+  "diceMode_wheel": "Roda Giratória",
+  "howManySettlers": "Quantos colonos?",
+  "playersInMatch": "Jogadores nesta partida",
+  "playersSetRules": "{n} jogadores — defina as regras desta partida",
+  "setupBack": "← Voltar",
+  "couldntJoin": "⚠️ Não foi possível entrar",
+  "syncingWithServer": "Sincronizando com o servidor...",
+  "errMatchNotFound": "Essa partida não foi encontrada. Verifique o link/código e tente novamente.",
+  "errFull": "Esta partida está cheia.",
+  "errReachServer": "Não foi possível conectar ao servidor do jogo.",
+  "errJoinSeat": "Não foi possível entrar nesse assento — pode já estar ocupado, ou a partida pode não existir.",
+  "errSessionGone": "Sua partida anterior não está mais disponível no servidor.",
+  "errReachServerWithUrl": "Não foi possível conectar ao servidor. Ele está rodando em {url}?",
+  "errStartRematch": "Não foi possível iniciar a revanche. Tente novamente.",
+  "editProfileTooltip": "Clique para editar seu perfil",
+  "victoryPointsToWin": "Pontos de Vitória para Ganhar",
+  "defaultBoardShape": "Forma de Tabuleiro Padrão",
+  "turnTimerLabel": "Temporizador de Turno",
+  "secondsToAct": "Segundos para agir no seu turno",
+  "gameplayDefaultsHint": "Esses serão os padrões de uma nova partida — você ainda pode ajustá-los por sala.",
+  "muteAllAudio": "Silenciar Todo o Áudio",
+  "masterVolumeLabel": "Volume Geral",
+  "musicVolumeLabel": "Volume da Música",
+  "soundEffectsLabel": "Efeitos Sonoros",
+  "ambientVolumeLabel": "Volume Ambiente",
+  "voiceChatLabel": "Chat de Voz",
+  "audioHint": "Ajuste os sons. Geral e Efeitos tocam uma prévia ao soltar o controle.",
+  "graphicsQualityLabel": "Qualidade Gráfica",
+  "qualityLow": "Baixa",
+  "qualityMedium": "Média",
+  "qualityHigh": "Alta",
+  "fullscreenLabel": "Tela Cheia",
+  "showFpsLabel": "Mostrar FPS",
+  "videoHint": "Ajuste a aparência do tabuleiro.",
+  "cameraSensitivityLabel": "Sensibilidade da Câmera",
+  "invertCameraLabel": "Inverter Câmera",
+  "keybindsLabel": "Atalhos de Teclado",
+  "rollDiceBind": "Jogar Dados",
+  "endTurnBind": "Encerrar Turno",
+  "openTradeBind": "Abrir Troca",
+  "openChatBind": "Abrir Chat",
+  "controlsHint": "Personalize como você joga.",
+  "playerNameLabel": "Nome do Jogador",
+  "saveBtn": "Salvar",
+  "changeNameBtn": "Mudar Nome",
+  "linkedAccountsLabel": "Contas Vinculadas",
+  "logOutBtn": "Sair",
+  "loggedOutAlert": "Você saiu da conta.",
+  "deleteAccountBtn": "Excluir Conta",
+  "deleteConfirm": "Tem certeza de que deseja excluir sua conta? Isso não pode ser desfeito.",
+  "deleteRequestedAlert": "Solicitação de exclusão de conta enviada.",
+  "resLumber": "Madeira",
+  "resGrain": "Trigo",
+  "resWool": "Lã",
+  "resBrick": "Barro",
+  "resOre": "Minério",
+  "cardKnight": "Cavaleiro",
+  "cardVictoryPoint": "Ponto de Vitória",
+  "cardMonopoly": "Monopólio",
+  "cardRoadBuilding": "Construção de Estradas",
+  "cardYearOfPlenty": "Ano de Fartura",
+  "buildRoad": "Estrada",
+  "buildSettlement": "Povoado",
+  "buildCity": "Cidade",
+  "buildResort": "Resort",
+  "buildDevCard": "Carta de Desenvolvimento",
+  "buildClearRobber": "Remover Ladrão",
+  "resortSeizeHint": "Clique na cidade de um oponente para tomá-la.",
+  "clearRobberHint": "Pague para enviar o Ladrão de volta ao deserto.",
+  "sendOffer": "Enviar Oferta",
+  "offerPending": "Oferta Pendente...",
+  "victoryPointsTt": "Pontos de Vitória",
+  "settlementsTt": "Povoados",
+  "citiesTt": "Cidades",
+  "resortsTt": "Resorts",
+  "devCardsTt": "Cartas de Desenvolvimento",
+  "longestRoadTt": "Estrada Mais Longa",
+  "largestArmyTt": "Maior Exército",
+  "sendReactionTt": "Enviar uma reação",
+  "monopolyTitle": "Monopólio",
+  "monopolySubtitle": "Escolha um recurso — cada oponente entrega todo o seu.",
+  "yearOfPlentyTitle": "Ano de Fartura",
+  "yearOfPlentySubtitle": "Escolha mais {n} recurso(s) para pegar do banco.",
+  "deckEmpty": "O baralho está vazio",
+  "devCardCostTt": "Custa 1 Minério + 1 Trigo + 1 Lã",
+  "resortCantBeTaken": "Resort — não pode ser retomado",
+  "clickToSeizeCity": "Clique para tomar esta cidade e construir um Resort",
+  "legalSettlementSpot": "Local válido para povoado",
+  "resortTt": "Resort",
+  "muteAllAudioTt": "Silenciar todo o áudio",
+  "unmuteTt": "Reativar som",
+  "avatarSailor": "Marinheiro",
+  "avatarExplorer": "Explorador",
+  "avatarNoble": "Nobre",
+  "avatarKnight": "Cavaleiro",
+  "avatarFarmer": "Fazendeiro",
+  "avatarMiner": "Mineiro",
+  "avatarNavigator": "Navegador",
+  "avatarLord": "Lorde",
+  "avatarFisherman": "Pescador",
+  "avatarPioneer": "Pioneiro",
+  "cancel": "Cancelar",
+  "roadBuildingTitle": "Construção de Estradas",
+  "roadBuildingSubtitle": "Clique em até 2 estradas no tabuleiro para colocá-las gratuitamente.",
+  "picked": "{n}/2 escolhidas",
+  "done": "Concluído",
+  "buyCard": "Comprar Carta",
+  "cardsLeft": "{n} restantes",
+  "playCard": "Jogar {label}",
+  "secretSuffix": "{label} (secreta)",
+  "buildCostsTitle": "Custos de Construção",
+  "maritimeTrade": "Comércio Marítimo ({ratio}:1)",
+  "tradeWithBank": "Trocar com o Banco ({ratio} {give} ➜ 1 {receive})",
+  "tradeWithPlayer": "Trocar com Jogador",
+  "targetPlayer": "Jogador Alvo:",
+  "give": "Dar:",
+  "get": "Receber:",
+  "roadsTt": "Estradas",
+  "roadsWithChainTt": "Estradas (cadeia mais longa: {n})",
+  "ptsLabel": "pts",
+  "colorRed": "Vermelho",
+  "colorBlue": "Azul",
+  "colorGreen": "Verde",
+  "colorOrange": "Laranja",
+  "colorYellow": "Amarelo",
+  "colorPurple": "Roxo",
+  "colorPink": "Rosa",
+  "colorCyan": "Ciano",
+  "colorLavender": "Lavanda",
+  "tabTrades": "Trocas",
+  "tabChat": "Chat",
+  "tradesHeader": "Trocas",
+  "incomingTrade": "Oferta de Troca!",
+  "offerOffers": "{name} oferece",
+  "forYour": "pelo seu",
+  "accept": "Aceitar",
+  "decline": "Recusar",
+  "rulesPages": [
+    {
+      "title": "Objetivo do Jogo",
+      "icon": "🏆",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Seja o primeiro jogador a alcançar 10 Pontos de Vitória para ganhar."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Povoado — +1",
+            "Cidade — +2",
+            "Estrada Mais Longa — +2",
+            "Maior Exército — +2",
+            "Carta de Ponto de Vitória — +1"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "O jogo termina imediatamente no momento em que um jogador alcança 10 ou mais pontos em seu turno."
+        }
+      ]
+    },
+    {
+      "title": "O Tabuleiro do Jogo",
+      "icon": "🗺️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "O tabuleiro é formado por peças hexagonais de terreno, cada uma produzindo um recurso, além de fichas numéricas que ativam a produção."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Floresta → Madeira",
+            "Colinas → Barro",
+            "Campos → Trigo",
+            "Pastagens → Lã",
+            "Montanhas → Minério",
+            "Deserto → nada"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Estradas e construções são colocadas nas interseções e bordas entre as peças."
+        }
+      ]
+    },
+    {
+      "title": "Jogadores e Configuração Inicial",
+      "icon": "👥",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Cada jogador escolhe uma cor e recebe suas estradas, povoados, cidades e cartas de desenvolvimento."
+        },
+        {
+          "type": "p",
+          "text": "Em ordem de turno, os jogadores colocam dois povoados iniciais e duas estradas conectadas; ambos os povoados devem seguir a Regra da Distância."
+        },
+        {
+          "type": "p",
+          "text": "Após o segundo povoado, colete uma carta de recurso de cada peça de terreno que o toque."
+        }
+      ]
+    },
+    {
+      "title": "A Regra da Distância",
+      "icon": "📏",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Povoados e cidades nunca podem ficar diretamente um ao lado do outro — pelo menos uma interseção vazia deve separá-los."
+        },
+        {
+          "type": "p",
+          "text": "Isso se aplica tanto durante a preparação quanto em todas as construções posteriores."
+        }
+      ]
+    },
+    {
+      "title": "Estrutura do Turno",
+      "icon": "🔄",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "1. Determinar o número de produção",
+            "2. Aplicar a Estação atual",
+            "3. Produzir recursos",
+            "4. Resolver o ladrão",
+            "5. Trocar",
+            "6. Construir",
+            "7. Jogar cartas",
+            "8. Encerrar o turno"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Você pode trocar e construir quantas vezes puder pagar durante o seu turno."
+        }
+      ]
+    },
+    {
+      "title": "Produção de Recursos",
+      "icon": "🌾",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Quando o número de uma peça é sorteado, cada povoado que a toca produz 1 do seu recurso, e cada cidade produz 2. O deserto nunca produz."
+        },
+        {
+          "type": "p",
+          "text": "Exemplo: um Povoado ao lado de uma Floresta numerada 6 produz 1 Madeira quando sai um 6 — uma Cidade ali produz 2."
+        }
+      ]
+    },
+    {
+      "title": "A Mecânica das Estações",
+      "icon": "🍂",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Uma Trilha de Estações cicla entre Primavera → Verão → Outono → Inverno → Primavera, cada uma mudando como os recursos são produzidos."
+        },
+        {
+          "type": "p",
+          "text": "A estação avança a cada 5 turnos completados, ou sempre que um jogador reivindica o Maior Exército."
+        }
+      ]
+    },
+    {
+      "title": "Primavera — Fertilidade",
+      "icon": "🌸",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Quando sai um 6 ou 8 durante a Primavera, Campos e Pastagens produzem um recurso extra além da produção normal."
+        },
+        {
+          "type": "p",
+          "text": "Exemplo: um Povoado em um Campo de número 6 normalmente faz 1 Trigo — 2 Trigo na Primavera, ou 3 Trigo para uma Cidade."
+        }
+      ]
+    },
+    {
+      "title": "Verão — Colheita",
+      "icon": "☀️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Durante o Verão, qualquer peça numerada 5 ou 9 produz o dobro do seu rendimento normal, para cada tipo de recurso."
+        },
+        {
+          "type": "p",
+          "text": "Exemplo: um Povoado em uma Floresta de número 5 normalmente faz 1 Madeira — 2 no Verão; uma Cidade ali faria 4."
+        }
+      ]
+    },
+    {
+      "title": "Outono — Abundância",
+      "icon": "🍁",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Durante o Outono, Florestas e Colinas também produzem em resultados de 3 e 11, além do seu número normal."
+        },
+        {
+          "type": "p",
+          "text": "Exemplo: uma Floresta de número 8 produz Madeira em 8, 3 e 11 — tornando números mais fracos valiosos novamente."
+        }
+      ]
+    },
+    {
+      "title": "Inverno — Dificuldade",
+      "icon": "❄️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Quando sai um 2 ou 12 durante o Inverno, a produção normal é ignorada — em vez disso, o ladrão se move para essa peça."
+        },
+        {
+          "type": "p",
+          "text": "Todo jogador com um Povoado ou Cidade naquele hexágono perde 1 carta de recurso aleatória. O ladrão não rouba neste caso."
+        }
+      ]
+    },
+    {
+      "title": "Mudança de Estações",
+      "icon": "📅",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "A estação atual é visível para todos e permanece ativa até que o próximo gatilho ocorra."
+        },
+        {
+          "type": "p",
+          "text": "Se uma mudança de estação e uma reivindicação do Maior Exército acontecerem ao mesmo tempo, a estação avança apenas uma vez."
+        }
+      ]
+    },
+    {
+      "title": "Estradas",
+      "icon": "🛤️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Custo: 1 Madeira + 1 Barro."
+        },
+        {
+          "type": "p",
+          "text": "Uma nova estrada deve se conectar a uma de suas estradas, povoados ou cidades existentes, e nunca pode cruzar o povoado ou cidade de um oponente."
+        }
+      ]
+    },
+    {
+      "title": "Povoados",
+      "icon": "🏠",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Custo: 1 Madeira + 1 Barro + 1 Trigo + 1 Lã."
+        },
+        {
+          "type": "p",
+          "text": "Deve ser colocado em uma interseção vazia conectada a uma de suas estradas, e deve seguir a Regra da Distância. Produz 1 recurso de cada peça adjacente."
+        }
+      ]
+    },
+    {
+      "title": "Cidades",
+      "icon": "🏛️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Custo: 2 Trigo + 3 Minério."
+        },
+        {
+          "type": "p",
+          "text": "Construída ao melhorar um de seus povoados existentes — o povoado é substituído. Uma cidade produz 2 recursos em vez de 1 de cada peça adjacente."
+        }
+      ]
+    },
+    {
+      "title": "Resort — Construção Especial",
+      "icon": "🏨",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Uma construção única que permite tomar um local ocupado pela cidade de um oponente, pagando 3 Minério + 4 Madeira + 2 Lã + 1 Barro."
+        },
+        {
+          "type": "p",
+          "text": "A cidade do oponente é removida e substituída pelo seu Resort, e quaisquer Pontos de Vitória que ela tinha são perdidos."
+        },
+        {
+          "type": "p",
+          "text": "Um Resort nunca pode ser construído sobre um Povoado, e uma vez colocado não pode ser sobrescrito ou substituído."
+        }
+      ]
+    },
+    {
+      "title": "Comércio",
+      "icon": "🤝",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "No seu turno, você pode negociar qualquer troca com outro jogador, desde que ambos os lados concordem e siga as regras de recursos."
+        },
+        {
+          "type": "p",
+          "text": "Por exemplo: \"1 Minério por 2 Trigo\"."
+        }
+      ]
+    },
+    {
+      "title": "Comércio com o Banco",
+      "icon": "🏦",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Troque 4 de um mesmo recurso por 1 recurso de sua escolha, a qualquer momento do seu turno."
+        },
+        {
+          "type": "p",
+          "text": "Os portos podem oferecer taxas melhores que a troca padrão com o banco."
+        }
+      ]
+    },
+    {
+      "title": "Portos / Docas",
+      "icon": "⚓",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "Porto Geral — 3 de um recurso → 1 à sua escolha",
+            "Porto Especializado — 2 do recurso correspondente → 1 à sua escolha"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Os portos disponíveis dependem do mapa em jogo."
+        }
+      ]
+    },
+    {
+      "title": "Cartas de Desenvolvimento / Progresso",
+      "icon": "🃏",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Custo: 1 Trigo + 1 Lã + 1 Minério."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Cavaleiro — move o ladrão e rouba",
+            "Construção de Estradas — constrói 2 estradas grátis",
+            "Ano de Fartura — pegue 2 recursos à escolha",
+            "Monopólio — reivindica todo um recurso de cada jogador",
+            "Ponto de Vitória — vale 1 ponto"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "A menos que a carta diga o contrário, ela não pode ser jogada no mesmo turno em que foi comprada."
+        }
+      ]
+    },
+    {
+      "title": "O Ladrão",
+      "icon": "🥷",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Tirar um 7 interrompe toda a produção. Quem tiver mais de 7 cartas descarta metade, arredondando para baixo."
+        },
+        {
+          "type": "p",
+          "text": "O jogador ativo move o ladrão para qualquer hexágono, bloqueando-o, e pode roubar um recurso aleatório de um oponente que toque aquele hexágono."
+        }
+      ]
+    },
+    {
+      "title": "Paz com o Ladrão",
+      "icon": "🕊️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Se o ladrão cair no seu próprio povoado ou cidade, você pode pagar 1 Madeira + 1 Barro + 1 Trigo + 1 Lã + 1 Minério, uma vez por turno, para enviá-lo diretamente para a Zona Neutra."
+        },
+        {
+          "type": "p",
+          "text": "A Zona Neutra nunca produz recursos e não é considerada território de ninguém."
+        }
+      ]
+    },
+    {
+      "title": "Maior Exército",
+      "icon": "⚔️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Reivindique isso assim que tiver jogado pelo menos 3 Cavaleiros e tiver mais do que qualquer outro jogador — vale 2 Pontos de Vitória."
+        },
+        {
+          "type": "p",
+          "text": "Reivindicá-lo também avança a Trilha de Estações. Outro jogador pode tomá-lo jogando mais Cavaleiros que você."
+        }
+      ]
+    },
+    {
+      "title": "Estrada Mais Longa",
+      "icon": "🛣️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Concedida ao jogador com a cadeia ininterrupta mais longa de 5 ou mais estradas conectadas — vale 2 Pontos de Vitória."
+        },
+        {
+          "type": "p",
+          "text": "O povoado ou cidade de um oponente quebra sua cadeia, e outro jogador pode tomar o título com uma rede mais longa."
+        }
+      ]
+    },
+    {
+      "title": "Pontos de Vitória",
+      "icon": "⭐",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "Povoado — +1",
+            "Cidade — +2",
+            "Carta de Ponto de Vitória — +1",
+            "Estrada Mais Longa — +2",
+            "Maior Exército — +2"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "O valor exato em pontos de um Resort depende da implementação da sua partida."
+        }
+      ]
+    },
+    {
+      "title": "Geração Alternativa de Números",
+      "icon": "🎲",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Opcional: em vez de dados, você pode usar um dado numérico ou uma roda numérica para determinar o número de produção."
+        },
+        {
+          "type": "p",
+          "text": "Qualquer um dos métodos interage com o sistema de Estações exatamente como o normal."
+        }
+      ]
+    },
+    {
+      "title": "Mapas Personalizados",
+      "icon": "🧭",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Opcional: os jogadores podem escolher entre diferentes mapas, cada um com seu próprio layout de terreno, fichas numéricas, portos e posição do deserto."
+        },
+        {
+          "type": "p",
+          "text": "Qualquer que seja o mapa escolhido, ele permanece ativo durante toda a partida."
+        }
+      ]
+    },
+    {
+      "title": "Número de Jogadores — Escala do Mapa",
+      "icon": "📐",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "2 Jogadores → Mapa menor",
+            "3–4 Jogadores → Mapa padrão",
+            "5+ Jogadores → Mapa maior"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Escalar o mapa mantém espaço suficiente para expansão enquanto ainda se compete por bons locais."
+        }
+      ]
+    },
+    {
+      "title": "Fim de Jogo",
+      "icon": "🏁",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "O jogo termina no instante em que um jogador alcança 10 ou mais Pontos de Vitória — esse jogador vence imediatamente."
+        }
+      ]
+    },
+    {
+      "title": "Boa Colonização",
+      "icon": "🎉",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Isso é tudo que você precisa saber. Agora vá construir, negociar, tramar e conquistar."
+        },
+        {
+          "type": "p",
+          "text": "Boa sorte e boa colonização!"
+        }
+      ]
+    }
+  ],
+  "closeSettingsAria": "Fechar configurações",
+  "chapAlmanac": "Almanaque",
+  "chapRoads": "Estradas",
+  "chapSettlements": "Povoados",
+  "chapCities": "Cidades",
+  "chapRobber": "O Ladrão",
+  "chapSeasons": "Estações e Dados",
+  "chapResort": "O Resort",
+  "closeTutorialAria": "Fechar tutorial",
+  "tutMsgClickSettlementSetup": "Clique em uma interseção destacada para colocar um povoado inicial gratuito.",
+  "tutMsgClickSettlementBuild": "Clique em uma interseção destacada conectada à sua estrada para construir um povoado.",
+  "tutMsgClickCity": "Clique em um dos seus povoados dourados para melhorá-lo a Cidade.",
+  "tutMsgClickRobber": "Clique em qualquer peça para mover o Ladrão para lá.",
+  "tutMsgClickResort": "Clique na Cidade rival para tentar uma tomada.",
+  "tutErrTooCloseSettlement": "❌ Muito perto de outro povoado — deixe pelo menos uma interseção vazia entre eles.",
+  "tutMsgFreeSettlementSetup": "🏠 Povoado inicial gratuito colocado! Durante a preparação, os povoados não custam nada — mas a regra da distância ainda se aplica.",
+  "tutErrTooCloseSettlementCity": "❌ Muito perto de outro povoado ou cidade.",
+  "tutErrNotConnectedRoad": "❌ Este local ainda não está conectado a uma de suas estradas. Construa uma estrada aqui primeiro (veja o capítulo Estradas).",
+  "tutErrCantAffordSettlement": "❌ Recursos insuficientes. Um povoado custa 1 Madeira + 1 Barro + 1 Trigo + 1 Lã.",
+  "tutMsgSettlementBuiltFree": "🏠 Povoado construído! O primeiro é por conta da casa — a partir de agora, povoados custam 1 Madeira + 1 Barro + 1 Trigo + 1 Lã. Ganhou +1 Ponto de Vitória.",
+  "tutMsgSettlementBuiltPaid": "🏠 Povoado construído! Você pagou 1 Madeira + 1 Barro + 1 Trigo + 1 Lã, e ganhou +1 Ponto de Vitória.",
+  "tutErrPickOwnSettlement": "❌ Escolha um dos seus próprios povoados para melhorar.",
+  "tutErrCantAffordCity": "❌ Recursos insuficientes. Uma Cidade custa 2 Trigo + 3 Minério.",
+  "tutMsgCityBuiltFree": "🏙️ Melhorado para Cidade! Esta primeira melhoria é grátis — depois disso, Cidades custam 2 Trigo + 3 Minério. Agora produz 2 recursos por jogada e vale 2 Pontos de Vitória.",
+  "tutMsgCityBuiltPaid": "🏙️ Melhorado para Cidade! Você pagou 2 Trigo + 3 Minério. Agora produz 2 recursos por jogada em vez de 1, e vale 2 Pontos de Vitória.",
+  "tutErrResortNeedsRivalCity": "❌ Você só pode construir um Resort sobre a Cidade de um oponente.",
+  "tutErrCantAffordResort": "❌ Recursos insuficientes. Um Resort custa 3 Minério + 4 Madeira + 2 Lã + 1 Barro.",
+  "tutMsgResortBuiltFree": "🏝️ Resort construído grátis nesta primeira vez! Depois, Resorts custam 3 Minério + 4 Madeira + 2 Lã + 1 Barro. A Cidade rival é removida e perde os 2 Pontos de Vitória que valia.",
+  "tutMsgResortBuiltPaid": "🏝️ Resort construído! Você pagou 3 Minério + 4 Madeira + 2 Lã + 1 Barro. A Cidade rival é removida e perde os 2 Pontos de Vitória que valia.",
+  "tutErrRoadHere": "❌ Já existe uma estrada aqui.",
+  "tutErrRoadMustConnect": "❌ Estradas devem se conectar a uma de suas estradas ou construções existentes.",
+  "tutErrCantAffordRoad": "❌ Recursos insuficientes. Uma estrada custa 1 Madeira + 1 Barro.",
+  "tutMsgRoadBuiltFree": "🛣️ Estrada construída! Esta primeira é grátis — depois disso, estradas custam 1 Madeira + 1 Barro. Estradas sempre devem se conectar à sua rede existente.",
+  "tutMsgRoadBuiltPaid": "🛣️ Estrada construída por 1 Madeira + 1 Barro. Estradas sempre devem se conectar à sua rede existente.",
+  "tutMsgRobberAlreadyHere": "O Ladrão já está nesta peça.",
+  "tutMsgRobberMovedOccupied": "🏴 O Ladrão se infiltra na peça {tile}. Agora ele bloqueia a produção dessa peça, e você pode roubar uma carta de recurso aleatória de qualquer jogador com um Povoado ou Cidade lá.",
+  "tutMsgRobberMovedEmpty": "🏴 O Ladrão se move para a peça {tile}. Ninguém está estabelecido lá ainda, então não há nada para roubar — mas a peça fica bloqueada até o Ladrão se mover novamente.",
+  "tutMsgRobberPeaceNeedsOwn": "A Paz com o Ladrão só funciona quando o Ladrão está em uma peça onde você tem um Povoado ou Cidade.",
+  "tutErrCantAffordRobberPeace": "❌ A Paz com o Ladrão custa um de cada recurso (Madeira, Barro, Trigo, Lã, Minério) — você não tem o suficiente.",
+  "tutMsgRobberPeaceFree": "🕊️ Paz com o Ladrão usada grátis nesta primeira vez! Depois disso, custa um de cada recurso. O Ladrão volta furtivamente para a Zona Neutra — apenas uma vez por turno.",
+  "tutMsgRobberPeacePaid": "🕊️ Você pagou um de cada recurso. O Ladrão volta para a Zona Neutra, longe da sua terra — apenas uma vez por turno.",
+  "tutMsgRolled7": "🎲 Você tirou um 7! Nenhuma peça produz neste turno — hora de mover o Ladrão e verificar descartes.",
+  "tutMsgWinterHardship": "❄️ Dificuldade de Inverno! Com um 2 ou 12, a produção normal é totalmente ignorada e o Ladrão se aproxima do hexágono ativo.",
+  "tutMsgLoseToHardship": "Você perde 1 {resource} pela dificuldade.",
+  "tutMsgAutumnBonus": "🍂 Abundância de Outono: a peça {tile} também produz em 3 e 11!",
+  "tutMsgYouCollect": "Você coleta: {list}",
+  "tutMsgNoResourceLands": "Nenhum recurso cai em uma de suas construções nesta jogada.",
+  "terrainDesert": "Deserto",
+  "terrainForest": "Floresta",
+  "terrainHills": "Colinas",
+  "terrainFields": "Campos",
+  "terrainPasture": "Pastagem",
+  "terrainMountains": "Montanhas",
+  "tutMsgClickRoad": "Clique em um caminho destacado no mapa para construir uma estrada.",
+  "islandAlmanacBrand": "Almanaque da Ilha",
+  "victoryPointsLabel": "Pontos de Vitória:",
+  "welcomeIslander": "Bem-vindo, Ilhéu",
+  "theIslandAlmanac": "O Almanaque da Ilha",
+  "tutIntroParagraph": "Alcance {vp} Pontos de Vitória antes de qualquer outro e a ilha é sua. Os pontos vêm de Povoados, Cidades, Resorts, a Estrada Mais Longa e o Maior Exército. Este guia foca na mecânica prática — aquela que você realmente vai clicar, colocar e jogar. Escolha um capítulo abaixo, ou use a prateleira à esquerda.",
+  "chapterLabel": "Capítulo {roman}",
+  "costLabel": "Custo",
+  "roadsLead": "Estradas conectam seu território. Toda estrada deve tocar uma de suas estradas, povoados ou cidades existentes — você não pode construir isoladamente.",
+  "roadsRuleCard": "Uma estrada nunca pode ser construída através do povoado ou cidade de outro jogador.",
+  "roadsTryIt": "Experimente: clique em qualquer borda brilhante no mapa para colocar sua primeira estrada, depois continue estendendo sua rede a partir daí.",
+  "settlementsLead": "Povoados vêm em dois tipos, dependendo de quando você os coloca.",
+  "setupPhaseFree": "Fase de Preparação — Grátis",
+  "buildingPhaseCosts": "Fase de Construção — Custa Recursos",
+  "setupPlacementTitle": "Colocação Inicial",
+  "setupPlacementText": "No início do jogo, seus dois primeiros povoados são gratuitos. A Regra da Distância ainda se aplica — você não pode colocar um bem ao lado de outro povoado ou cidade. Após o seu segundo povoado, você coleta recursos iniciais das peças adjacentes.",
+  "buildingPhaseTitle": "Fase de Construção",
+  "buildingPhaseText": "Todo povoado após a preparação deve estar conectado a uma de suas estradas e seguir a Regra da Distância.",
+  "citiesLead": "Uma cidade é um povoado melhorado — ela substitui o povoado no mesmo local e produz o dobro.",
+  "citiesCostCard": "Um povoado produz 1 recurso por jogada; uma cidade produz 2. Vale 2 Pontos de Vitória em vez de 1.",
+  "citiesNeedSettlement": "Você precisa de um povoado para melhorar primeiro. Vá ao Capítulo II se seu mapa ainda não tiver um seu.",
+  "robberLead": "Tire um 7 e o Ladrão acorda: nenhuma peça produz neste turno, jogadores com mais de 7 cartas descartam metade, e você move o Ladrão para a peça que escolher — bloqueando-a e permitindo roubar uma carta de quem estiver estabelecido lá.",
+  "robberPeaceTitle": "🕊️ Paz com o Ladrão",
+  "robberPeaceText": "Se o Ladrão pousar em uma peça onde você tem um povoado ou cidade, você pode pagar um de cada recurso, uma vez por turno, para enviá-lo diretamente para a Zona Neutra.",
+  "robberPeaceBtn": "Pagar e Banir para a Zona Neutra",
+  "seasonsChapterTitle": "Estações e Jogadas Especiais",
+  "seasonsLead": "A Trilha de Estações muda a cada 5 turnos, ou no momento em que alguém reivindica o Maior Exército. Cada estação altera o comportamento dos dados.",
+  "advanceSeasonBtn": "Avançar para a Próxima Estação →",
+  "seasonSpringRule": "🌸 Primavera — Fertilidade: jogar 6 ou 8 dá a Campos e Pastagens +1 recurso extra.",
+  "seasonSummerRule": "☀️ Verão — Colheita: jogar 5 ou 9 dobra a produção dessa peça.",
+  "seasonAutumnRule": "🍂 Outono — Abundância: Florestas e Colinas também produzem em 3 e 11.",
+  "seasonWinterRule": "❄️ Inverno — Dificuldade: jogar 2 ou 12 pula a produção e custa um recurso aleatório.",
+  "rollDiceBtn": "🎲 Jogar os Dados",
+  "diceTotalLabel": "Total: {total} · {season}",
+  "resortLead": "Um Resort permite que você tome a cidade de um oponente diretamente. A cidade dele é removida, seu Resort toma o lugar, e ele perde os Pontos de Vitória que aquela cidade valia. Um Resort nunca pode ser construído por cima ou substituído.",
+  "resortCostCard": "Só pode tomar uma cidade — nunca um povoado simples.",
+  "resortTryIt": "O marcador bordô no mapa é a cidade de um rival. Tente tomá-la.",
+  "legendYours": "Seu",
+  "legendRival": "Rival",
+  "legendDesertRobber": "Deserto / Início do Ladrão",
+  "seasonsAmpTitle": "Estações e Jogadas Especiais",
+  "exitGameTt": "Sair do Jogo",
+  "exitConfirmTitle": "Sair desta partida?",
+  "exitConfirmBody": "Você voltará ao menu principal. Os outros jogadores podem continuar sem você.",
+  "exitConfirmYes": "Sair da Partida",
+  "exitConfirmCancel": "Cancelar",
+  "statsBtn": "📊 Ver Estatísticas",
+  "statsTitle": "Estatísticas da Partida",
+  "statsClose": "Fechar",
+  "statsBackToVictory": "← Voltar",
+  "statsDiceRolls": "Distribuição de Jogadas",
+  "statsPerPlayer": "Resumo por Jogador",
+  "statsResourcesCollected": "Recursos Coletados",
+  "statsBuildings": "Construções",
+  "statsTrading": "Comércio",
+  "statsBankTrades": "Trocas com o Banco",
+  "statsPlayerTrades": "Trocas com Jogadores",
+  "statsDevCards": "Cartas de Desenvolvimento",
+  "statsBought": "Compradas",
+  "statsPlayed": "Jogadas",
+  "statsRobberMoves": "Movimentos do Ladrão",
+  "statsTotalResources": "Recursos Totais",
+  "statsRolls": "jogadas",
+  "statsMostRolled": "Jogada mais comum",
+  "statsSettlements": "Povoados",
+  "statsCities": "Cidades",
+  "statsRoadsBuilt": "Estradas",
+  "statsResorts": "Resorts",
+  "editBoardBtn": "🎨 Editar Tabuleiro",
+  "boardEditorTitle": "Editor de Tabuleiro Personalizado",
+  "boardEditorHint": "Clique em uma peça para mudar o terreno. Clique no número para mudá-lo. Você precisa de exatamente 1 Deserto.",
+  "randomFill": "🎲 Preenchimento Aleatório",
+  "saveBoard": "Salvar Tabuleiro",
+  "cancelEdit": "Cancelar",
+  "desertCountOk": "✅ 1 Deserto — pronto para salvar",
+  "desertCountBad": "⚠️ Precisa de exatamente 1 Deserto (atualmente {n})",
+  "terrainForestBtn": "Floresta",
+  "terrainHillsBtn": "Colinas",
+  "terrainFieldsBtn": "Campos",
+  "terrainPastureBtn": "Pastagem",
+  "terrainMountainsBtn": "Montanhas",
+  "terrainDesertBtn": "Deserto",
+  "customBoardActive": "Tabuleiro personalizado salvo ✓",
+  "mapType_custom": "Personalizado"
+}

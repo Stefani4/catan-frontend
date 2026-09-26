@@ -7,6 +7,7 @@ import lavanderS from "../../images/lavanderS.png";
 import purpleS from "../../images/purpleS.png";
 import redS from "../../images/redS.png";
 import yellowS from "../../images/yellowS.png";
+import { useTranslation } from "../i18n.js";
 
 import cyanR from "../../images/cyanR.png";
 import dblueR from "../../images/dblueR.png";
@@ -65,6 +66,7 @@ const roadImages = {
 };
 
 export const BuildingSpot = ({ id, G, ctx, moves, onClick, style, isLegalSpot, isLegalResortTarget, colorIndexById }) => {
+  const { t } = useTranslation();
   if (!G || !G.players || !G.board.intersections[id]) return null;
 
   const ownerId = Object.keys(G.players).find(
@@ -108,20 +110,21 @@ export const BuildingSpot = ({ id, G, ctx, moves, onClick, style, isLegalSpot, i
           onClick={handleSpotClick}
           title={
             isResort
-                ? "Resort — cannot be taken over"
+                ? t("resortCantBeTaken")
                 : isLegalResortTarget
-                    ? "Click to seize this city and build a Resort"
+                    ? t("clickToSeizeCity")
                     : isLegalSpot
-                        ? "Legal settlement spot"
+                        ? t("legalSettlementSpot")
                         : undefined
           }
           style={{
             position: "absolute",
-            width: isCity || isResort ? "36px" : "28px",
-            height: isCity || isResort ? "36px" : "28px",
+            width: isCity || isResort ? "36px" : "36px",
+            height: isCity || isResort ? "36px" : "36px",
             cursor: "pointer",
             zIndex: 100,
             transform: "translate(-50%, -50%)",
+            touchAction: "manipulation",
             ...style,
           }}
       >
@@ -140,7 +143,7 @@ export const BuildingSpot = ({ id, G, ctx, moves, onClick, style, isLegalSpot, i
               />
               {isResort && (
                   <span
-                      title="Resort"
+                      title={t("resortTt")}
                       style={{
                         position: "absolute",
                         top: "-6px",
@@ -213,10 +216,11 @@ export const RoadSpot = ({ id, G, ctx, onClick, style, rotation, length = 50, co
           style={{
             position: "absolute",
             width: `${length}px`,
-            height: "30px",
+            height: "34px",
             cursor: "pointer",
             zIndex: 15,
             transform: `translate(-50%, -50%) rotate(${rotation}deg)`,
+            touchAction: "manipulation",
             ...style,
           }}
       >

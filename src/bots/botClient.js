@@ -1,15 +1,19 @@
 import { Client } from "boardgame.io/client";
 import { SocketIO } from "boardgame.io/multiplayer";
 import { CatanGame } from "../../game/CatanGame.js";
-import { decideAction } from "./botEngine.js";
+import { decideAction, DEFAULT_DIFFICULTY } from "./botEngine.js";
 
 const TICK_MIN_MS = 800;
 const TICK_JITTER_MS = 700;
 const MAX_ACTIONS_PER_TURN = 20;
 const MAX_TICKS_WAITING_ON_OWN_OFFER = 8;
 
-export function createBotClient({ server, matchID, playerID, credentials }) {
+// Harder bots think a little faster/more decisively; easier bots dawdle.
+const DIFFICULTY_TICK_MULTIPLIER = { easy: 1.3, medium: 1, hard: 0.8 };
+
+export function createBotClient({ server, matchID, playerID, credentials, difficulty = DEFAULT_DIFFICULTY }) {
   const seat = String(playerID);
+  const speed = DIFFICULTY_TICK_MULTIPLIER[difficulty] || 1;
 
   const client = Client({
     game: CatanGame,
@@ -67,7 +71,7 @@ export function createBotClient({ server, matchID, playerID, credentials }) {
       return;
     }
 
-    const decision = decideAction({ G, ctx, playerID: seat, stage });
+    const decision = decideAction({ G, ctx, playerID: seat, stage, difficulty });
     if (!decision) return;
 
     busy = true;
@@ -83,7 +87,7 @@ export function createBotClient({ server, matchID, playerID, credentials }) {
         busy = false;
       }, 200);
     }
-  }, TICK_MIN_MS + Math.random() * TICK_JITTER_MS);
+  }, (TICK_MIN_MS + Math.random() * TICK_JITTER_MS) * speed);
 
   return {
     seat,

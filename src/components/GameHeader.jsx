@@ -1,6 +1,8 @@
 import { usePlayerIdentities } from "../hooks/usePlayerIdentities.js";
+import { useTranslation } from "../i18n.js";
 
 export default function GameHeader({ G, ctx, moves, playerID, matchID }) {
+  const { t } = useTranslation();
   const identities = usePlayerIdentities(matchID);
   const currentPlayerName = identities[String(ctx.currentPlayer)]?.name || `Player ${ctx.currentPlayer}`;
   const SEASONS = ["Spring", "Summer", "Autumn", "Winter"];
@@ -10,9 +12,9 @@ export default function GameHeader({ G, ctx, moves, playerID, matchID }) {
       case "Spring":
         return {
           icon: "🌱",
-          name: "Spring",
-          tagline: "Fertility",
-          desc: "+1 Grain & Wool on rolls of 6 or 8",
+          name: t("seasonSpring"),
+          tagline: t("seasonSpringTag"),
+          desc: t("seasonSpringDesc"),
           bg: "linear-gradient(135deg, #1a4a2e, #2ecc71)",
           border: "#2ecc71",
           badge: "#27ae60",
@@ -20,9 +22,9 @@ export default function GameHeader({ G, ctx, moves, playerID, matchID }) {
       case "Summer":
         return {
           icon: "☀️",
-          name: "Summer",
-          tagline: "Harvest",
-          desc: "Double production on rolls of 5 or 9",
+          name: t("seasonSummer"),
+          tagline: t("seasonSummerTag"),
+          desc: t("seasonSummerDesc"),
           bg: "linear-gradient(135deg, #4a3800, #f1c40f)",
           border: "#f1c40f",
           badge: "#d4ac0d",
@@ -30,9 +32,9 @@ export default function GameHeader({ G, ctx, moves, playerID, matchID }) {
       case "Autumn":
         return {
           icon: "🍂",
-          name: "Autumn",
-          tagline: "Abundance",
-          desc: "Lumber & Brick also produce on rolls of 3 or 11",
+          name: t("seasonAutumn"),
+          tagline: t("seasonAutumnTag"),
+          desc: t("seasonAutumnDesc"),
           bg: "linear-gradient(135deg, #4a2000, #e67e22)",
           border: "#e67e22",
           badge: "#ca6f1e",
@@ -40,9 +42,9 @@ export default function GameHeader({ G, ctx, moves, playerID, matchID }) {
       case "Winter":
         return {
           icon: "❄️",
-          name: "Winter",
-          tagline: "Hardship",
-          desc: "Rolling 2 or 12 moves the Robber & strips a resource",
+          name: t("seasonWinter"),
+          tagline: t("seasonWinterTag"),
+          desc: t("seasonWinterDesc"),
           bg: "linear-gradient(135deg, #0a1f3a, #3498db)",
           border: "#3498db",
           badge: "#2980b9",
@@ -62,11 +64,11 @@ export default function GameHeader({ G, ctx, moves, playerID, matchID }) {
 
   const getSetupInstruction = () => {
     const player = G.players[ctx.currentPlayer];
-    if (!player || !player.settlements || !player.roads) return "Waiting...";
+    if (!player || !player.settlements || !player.roads) return t("waitingDots");
     if (player.settlements.length > player.roads.length) {
-      return "Place a Road next to your settlement.";
+      return t("placeRoad");
     }
-    return `Place Settlement #${player.settlements.length + 1}`;
+    return t("placeSettlement", { n: player.settlements.length + 1 });
   };
 
   const seasonsEnabled = G.settings?.seasonsEnabled !== false;
@@ -83,7 +85,8 @@ export default function GameHeader({ G, ctx, moves, playerID, matchID }) {
       };
 
   const turnsUntilChange = 5 - ((G.turnCount ?? 0) % 5);
-  const nextSeason = SEASONS[(SEASONS.indexOf(G.season) + 1) % 4];
+  const nextSeason = getSeasonConfig(SEASONS[(SEASONS.indexOf(G.season) + 1) % 4]).name;
+  const turnUnitLabel = turnsUntilChange === 1 ? t("turnUnit") : t("turnsUnit");
 
   return (
 
@@ -114,7 +117,7 @@ export default function GameHeader({ G, ctx, moves, playerID, matchID }) {
             </div>
             {seasonsEnabled && ctx.phase !== "setup" && (
                 <div
-                    title={`${turnsUntilChange} ${turnsUntilChange === 1 ? "turn" : "turns"} until ${nextSeason}`}
+                    title={t("turnsLeft", { n: turnsUntilChange, unit: turnUnitLabel }) + ` → ${nextSeason}`}
                     style={{
                       flexShrink: 0,
                       display: "flex",
@@ -130,7 +133,7 @@ export default function GameHeader({ G, ctx, moves, playerID, matchID }) {
                     }}
                 >
                   <span style={{ fontWeight: "bold" }}>{turnsUntilChange}</span>
-                  <span style={{ opacity: 0.85 }}>{turnsUntilChange === 1 ? "turn" : "turns"} left</span>
+                  <span style={{ opacity: 0.85 }}>{turnUnitLabel}</span>
                 </div>
             )}
           </div>
@@ -159,7 +162,7 @@ export default function GameHeader({ G, ctx, moves, playerID, matchID }) {
 
           <div>
             <div style={{ color: cfg.border, fontWeight: "bold", fontSize: "0.75rem", textTransform: "uppercase" }}>
-              {ctx.phase}
+              {ctx.phase === "setup" ? t("phaseSetup") : t("phaseMain")}
             </div>
             <div style={{ color: "#c9a96e", fontSize: "0.8rem" }}>
               ⚔️ {currentPlayerName}

@@ -12,11 +12,11 @@ export const CatanGame = {
 
   endIf: ({ G, ctx }) => {
     const target =
-      G.settings?.victoryPointsTarget ??
-      GAME_SETTINGS_DEFAULTS.victoryPointsTarget;
+        G.settings?.victoryPointsTarget ??
+        GAME_SETTINGS_DEFAULTS.victoryPointsTarget;
     const order = [ctx.currentPlayer, ...Object.keys(G.players)];
     const winnerId = order.find(
-      (pid) => G.players[pid]?.victoryPoints >= target,
+        (pid) => G.players[pid]?.victoryPoints >= target,
     );
     if (winnerId) {
       return { winner: winnerId };
@@ -48,19 +48,21 @@ export const CatanGame = {
               buildSettlement: moves.buildSettlement,
               buildRoad: moves.buildRoad,
               sendChat: moves.sendChat,
+              sendReaction: moves.sendReaction,
               clearTradeStatus: moves.clearTradeStatus,
             },
           },
           idle: {
             moves: {
               sendChat: moves.sendChat,
+              sendReaction: moves.sendReaction,
             },
           },
         },
       },
       endIf: ({ G }) => {
         return Object.values(G.players).every(
-          (p) => p.settlements.length === 2 && p.roads.length === 2,
+            (p) => p.settlements.length === 2 && p.roads.length === 2,
         );
       },
     },
@@ -77,6 +79,7 @@ export const CatanGame = {
           idle: {
             moves: {
               sendChat: moves.sendChat,
+              sendReaction: moves.sendReaction,
             },
           },
 
@@ -93,6 +96,7 @@ export const CatanGame = {
               cancelTrade: moves.cancelTrade,
               endTurn: moves.endTurn,
               sendChat: moves.sendChat,
+              sendReaction: moves.sendReaction,
               clearTradeStatus: moves.clearTradeStatus,
               buyDevelopmentCard: moves.buyDevelopmentCard,
               playKnight: moves.playKnight,
@@ -106,6 +110,7 @@ export const CatanGame = {
             moves: {
               placeRobber: moves.placeRobber,
               sendChat: moves.sendChat,
+              sendReaction: moves.sendReaction,
             },
           },
 
@@ -114,6 +119,7 @@ export const CatanGame = {
               acceptTrade: moves.acceptTrade,
               cancelTrade: moves.cancelTrade,
               sendChat: moves.sendChat,
+              sendReaction: moves.sendReaction,
             },
           },
         },
@@ -133,18 +139,18 @@ export const CatanGame = {
     return {
       ...G,
       players: Object.fromEntries(
-        Object.entries(G.players).map(([pid, player]) => {
-          if (pid === playerID) return [pid, player];
-          return [
-            pid,
-            {
-              ...player,
-              developmentCards: player.developmentCards.map(() => ({
-                hidden: true,
-              })),
-            },
-          ];
-        }),
+          Object.entries(G.players).map(([pid, player]) => {
+            if (pid === playerID) return [pid, player];
+            return [
+              pid,
+              {
+                ...player,
+                developmentCards: player.developmentCards.map(() => ({
+                  hidden: true,
+                })),
+              },
+            ];
+          }),
       ),
     };
   },

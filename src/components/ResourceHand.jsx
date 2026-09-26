@@ -8,6 +8,16 @@ import grainCard from "../../images/grainCard.png";
 import woolCard from "../../images/woolCard.png";
 import brickCard from "../../images/brickCard.png";
 import oreCard from "../../images/oreCard.png";
+import { useTranslation } from "../i18n.js";
+
+const RES_KEY = { lumber: "resLumber", grain: "resGrain", wool: "resWool", brick: "resBrick", ore: "resOre" };
+const DEV_KEY = {
+    knight: "cardKnight",
+    victorypoint: "cardVictoryPoint",
+    monopoly: "cardMonopoly",
+    roadbuilding: "cardRoadBuilding",
+    yearofplenty: "cardYearOfPlenty",
+};
 
 const RESOURCE_CARDS = [
     { key: "lumber", img: lumberCard, label: "Lumber" },
@@ -95,6 +105,7 @@ function Card({ img, label, count, faded }) {
 }
 
 function ResourcePickerOverlay({ title, subtitle, onPick, onCancel }) {
+    const { t: tr } = useTranslation();
     return (
         <div
             style={{
@@ -126,7 +137,7 @@ function ResourcePickerOverlay({ title, subtitle, onPick, onCancel }) {
                     <button
                         key={r.key}
                         onClick={() => onPick(r.key)}
-                        title={r.label}
+                        title={tr(RES_KEY[r.key])}
                         style={{
                             border: "2px solid #c9a96e",
                             borderRadius: "8px",
@@ -135,7 +146,7 @@ function ResourcePickerOverlay({ title, subtitle, onPick, onCancel }) {
                             cursor: "pointer",
                         }}
                     >
-                        <img src={r.img} alt={r.label} style={{ width: "40px", height: "56px", objectFit: "cover", borderRadius: "4px" }} />
+                        <img src={r.img} alt={tr(RES_KEY[r.key])} style={{ width: "40px", height: "56px", objectFit: "cover", borderRadius: "4px" }} />
                     </button>
                 ))}
             </div>
@@ -151,7 +162,7 @@ function ResourcePickerOverlay({ title, subtitle, onPick, onCancel }) {
                     cursor: "pointer",
                 }}
             >
-                Cancel
+                {tr("cancel")}
             </button>
         </div>
     );
@@ -168,6 +179,7 @@ const RESOURCES_LIST = [
 const DEV_CARD_COST = { ore: 1, grain: 1, wool: 1 };
 
 export default function ResourceHand({ G, ctx, moves, playerID, pendingCardAction, setPendingCardAction }) {
+    const { t: tr } = useTranslation();
     const viewingId = playerID !== undefined ? playerID : ctx.currentPlayer;
     const player = G.players[viewingId];
     if (!player) return null;
@@ -238,16 +250,16 @@ export default function ResourceHand({ G, ctx, moves, playerID, pendingCardActio
         >
             {pendingCardAction?.type === "monopoly" && (
                 <ResourcePickerOverlay
-                    title="Monopoly"
-                    subtitle="Pick a resource — every opponent hands over all of theirs."
+                    title={tr("monopolyTitle")}
+                    subtitle={tr("monopolySubtitle")}
                     onPick={handleMonopolyPick}
                     onCancel={() => setPendingCardAction(null)}
                 />
             )}
             {pendingCardAction?.type === "yearOfPlenty" && (
                 <ResourcePickerOverlay
-                    title="Year of Plenty"
-                    subtitle={`Pick ${2 - (pendingCardAction.picks?.length || 0)} more resource(s) to take from the bank.`}
+                    title={tr("yearOfPlentyTitle")}
+                    subtitle={tr("yearOfPlentySubtitle", { n: 2 - (pendingCardAction.picks?.length || 0) })}
                     onPick={handleYearOfPlentyPick}
                     onCancel={() => setPendingCardAction(null)}
                 />
@@ -270,10 +282,10 @@ export default function ResourceHand({ G, ctx, moves, playerID, pendingCardActio
                         fontFamily: "Georgia, serif",
                     }}
                 >
-                    <div style={{ fontWeight: "bold", color: "#3a2409" }}>Road Building</div>
+                    <div style={{ fontWeight: "bold", color: "#3a2409" }}>{tr("roadBuildingTitle")}</div>
                     <div style={{ fontSize: "0.75rem", color: "#5a4326", marginTop: "4px" }}>
-                        Click up to 2 roads on the board to place them for free.
-                        {" "}({pendingCardAction.picks?.length || 0}/2 picked)
+                        {tr("roadBuildingSubtitle")}
+                        {" "}({tr("picked", { n: pendingCardAction.picks?.length || 0 })})
                     </div>
                     <button
                         onClick={() => {
@@ -294,13 +306,13 @@ export default function ResourceHand({ G, ctx, moves, playerID, pendingCardActio
                             cursor: (pendingCardAction.picks?.length || 0) === 0 ? "not-allowed" : "pointer",
                         }}
                     >
-                        Done
+                        {tr("done")}
                     </button>
                     <button
                         onClick={() => setPendingCardAction(null)}
                         style={{ background: "none", border: "none", color: "#8a2f1f", fontSize: "0.75rem", textDecoration: "underline", cursor: "pointer" }}
                     >
-                        Cancel
+                        {tr("cancel")}
                     </button>
                 </div>
             )}
@@ -313,7 +325,7 @@ export default function ResourceHand({ G, ctx, moves, playerID, pendingCardActio
                 >
                     <Card
                         img={c.img}
-                        label={c.key === "victorypoint" ? `${c.label} (secret)` : `Play ${c.label}`}
+                        label={c.key === "victorypoint" ? tr("secretSuffix", { label: tr(DEV_KEY[c.key]) }) : tr("playCard", { label: tr(DEV_KEY[c.key]) })}
                         count={c.count}
                         faded={!canPlayCards && c.key !== "victorypoint"}
                     />
@@ -325,8 +337,8 @@ export default function ResourceHand({ G, ctx, moves, playerID, pendingCardActio
                 disabled={!isMyTurn || !canAffordDevCard || !deckHasCards}
                 title={
                     !deckHasCards
-                        ? "Deck is empty"
-                        : "Costs 1 Ore + 1 Grain + 1 Wool"
+                        ? tr("deckEmpty")
+                        : tr("devCardCostTt")
                 }
                 style={{
                     width: "72px",
@@ -349,8 +361,8 @@ export default function ResourceHand({ G, ctx, moves, playerID, pendingCardActio
                 }}
             >
                 <span style={{ fontSize: "1.3rem" }}>+</span>
-                <span>Buy Card</span>
-                <span style={{ fontSize: "0.6rem", opacity: 0.85 }}>{G.devCardDeck?.length ?? 0} left</span>
+                <span>{tr("buyCard")}</span>
+                <span style={{ fontSize: "0.6rem", opacity: 0.85 }}>{tr("cardsLeft", { n: G.devCardDeck?.length ?? 0 })}</span>
             </button>
 
             {ownedDevCards.length > 0 && (
@@ -370,7 +382,7 @@ export default function ResourceHand({ G, ctx, moves, playerID, pendingCardActio
                     <Card
                         key={r.key}
                         img={r.img}
-                        label={r.label}
+                        label={tr(RES_KEY[r.key])}
                         count={count}
                         faded={count === 0}
                     />

@@ -1,0 +1,873 @@
+{
+  "createLobby": "Spiel Erstellen",
+  "createLobbyDesc": "Erstelle dein eigenes Spiel, lade Freunde ein und starte dein Abenteuer.",
+  "joinLobby": "Spiel Beitreten",
+  "joinLobbyDesc": "Tritt einer offenen Lobby bei und spiele online mit anderen Siedlern.",
+  "joinPlaceholder": "Spiellink oder Code einfügen",
+  "go": "Los",
+  "tutorial": "Anleitung",
+  "rules": "Regeln",
+  "settings": "Einstellungen",
+  "yourName": "Dein Name",
+  "pieceColor": "Spielfarbe",
+  "avatar": "Avatar",
+  "comingSoon": "Demnächst verfügbar!",
+  "close": "Schließen",
+  "settingsTitle": "EINSTELLUNGEN",
+  "navGeneral": "Allgemein",
+  "navGameplay": "Gameplay",
+  "navAudio": "Audio",
+  "navVideo": "Video",
+  "navControls": "Steuerung",
+  "navAccount": "Konto",
+  "back": "‹ Zurück",
+  "apply": "✔ Übernehmen",
+  "savedFlash": "Einstellungen gespeichert ✓",
+  "language": "Sprache",
+  "theme": "Thema",
+  "themeHint": "Legt den Hintergrund von Hauptmenü & Lobby fest.",
+  "animations": "Animationen",
+  "tutorialHints": "Tutorial-Hinweise",
+  "advancedRules": "Erweiterte Regeln",
+  "loadingRules": "Spielregeln werden geladen…",
+  "lockedByHost": "Vom Gastgeber beim Erstellen dieser Lobby festgelegt.",
+  "settlers": "Siedler",
+  "waitingForPlayer": "Warte auf Spieler {seat}…",
+  "you": "(du)",
+  "copyLink": "Link Kopieren",
+  "copied": "✓ Kopiert!",
+  "playVsBots": "🤖 Gegen Bots Spielen",
+  "fillOpenSeats": "Niemand zum Spielen da? Fülle {n} freie{s} Platz{s} mit KI-Gegnern.",
+  "difficulty": "Schwierigkeit",
+  "adding": "Wird hinzugefügt…",
+  "addBots": "{n} Bot{s} Hinzufügen",
+  "botsSeated": "{n} Bot{s} platziert.",
+  "chat": "Chat",
+  "noMessagesYet": "Noch keine Nachrichten — sag Hallo!",
+  "typeMessageHere": "Nachricht hier eingeben",
+  "leave": "Verlassen",
+  "startGame": "Spiel Starten",
+  "needTwoPlayers": "Mindestens 2 Spieler zum Starten nötig",
+  "waitingForPlayers": "Warte auf mindestens 2 Spieler ({joined}/{total} bisher)…",
+  "botEasy": "Leicht",
+  "botEasyBlurb": "Spielt locker, handelt nach Belieben.",
+  "botMedium": "Mittel",
+  "botMediumBlurb": "Solides, zielgerichtetes Spiel.",
+  "botHard": "Schwer",
+  "botHardBlurb": "Zielt auf den Anführer, verhandelt hart.",
+  "loadingPlayerData": "Spielerdaten werden geladen...",
+  "tradeSuccessful": "Handel erfolgreich!",
+  "payToClearRobber": "💰 Räuber Wegkaufen",
+  "payToClearRobberHint": "Zahle je 1 Rohstoff, um den Räuber zurück in die Wüste zu schicken",
+  "payToClearRobberNeedsHint": "Benötigt je 1 von jedem Rohstoff",
+  "endTurnNow": "⏩ Zug Jetzt Beenden",
+  "finishSetupFirst": "Beende zuerst die Aufbauphase",
+  "notYourTurn": "Nicht dein Zug",
+  "alreadyRolled": "Diesen Zug bereits gewürfelt",
+  "spinTheWheel": "Das Rad drehen",
+  "rollTheDice": "Würfeln",
+  "rolled": "{value} gewürfelt",
+  "spin": "Drehen",
+  "roll": "Würfeln",
+  "typeMessage": "Nachricht eingeben",
+  "youWin": "Du gewinnst!",
+  "winnerWins": "{name} gewinnt!",
+  "reachedVp": "{name} hat {vp} Siegpunkte erreicht.",
+  "rematchProposed": "🔁 {name} hat eine Revanche mit dieser Gruppe gestartet.",
+  "rematchError": "Revanche konnte nicht beigetreten werden. Bitte erneut versuchen.",
+  "joining": "Beitreten…",
+  "joinRematch": "🔁 Revanche Beitreten",
+  "rematch": "🔁 Revanche",
+  "backToMenu": "Zurück zum Menü",
+  "phaseSetup": "Aufbau",
+  "phaseMain": "Spiel",
+  "placeRoad": "Platziere eine Straße neben deiner Siedlung.",
+  "placeSettlement": "Platziere Siedlung Nr. {n}",
+  "waitingDots": "Warten...",
+  "turnsLeft": "{n} {unit} übrig",
+  "turnUnit": "Zug",
+  "turnsUnit": "Züge",
+  "seasonSpring": "Frühling",
+  "seasonSpringTag": "Fruchtbarkeit",
+  "seasonSpringDesc": "+1 Getreide & Wolle bei Würfen von 6 oder 8",
+  "seasonSummer": "Sommer",
+  "seasonSummerTag": "Ernte",
+  "seasonSummerDesc": "Doppelte Produktion bei Würfen von 5 oder 9",
+  "seasonAutumn": "Herbst",
+  "seasonAutumnTag": "Fülle",
+  "seasonAutumnDesc": "Holz & Lehm produzieren auch bei Würfen von 3 oder 11",
+  "seasonWinter": "Winter",
+  "seasonWinterTag": "Entbehrung",
+  "seasonWinterDesc": "Ein Wurf von 2 oder 12 bewegt den Räuber & entzieht einen Rohstoff",
+  "victoryPoints": "Siegpunkte",
+  "boardShape": "Spielfeldform",
+  "diceMechanism": "Würfelmechanik",
+  "optionalRules": "Optionale Regeln",
+  "longerGame": "Längeres Spiel",
+  "standardGame": "Standard",
+  "tilesCount": "{n} Felder",
+  "seasonsLabel": "Jahreszeiten",
+  "seasonsHint": "Frühling/Sommer/Herbst/Winter verändern die Produktion",
+  "payToClearRobberLabel": "Räuber Wegkaufen",
+  "payToClearRobberSettingHint": "Zahle je 1 Rohstoff, um den Räuber zurückzusetzen",
+  "resortLabel": "Ferienanlage",
+  "resortHint": "Übernimm die Stadt eines Gegners — unwiderruflich",
+  "mapType_standard": "Sechseck",
+  "mapType_large": "Sechseck (Groß)",
+  "mapType_ribbon": "Band",
+  "mapType_delta": "Delta",
+  "diceMode_standard": "Zwei Würfel (Standard)",
+  "diceMode_wheel": "Drehrad",
+  "howManySettlers": "Wie viele Siedler?",
+  "playersInMatch": "Spieler in dieser Partie",
+  "playersSetRules": "{n} Spieler — lege die Regeln für diese Partie fest",
+  "setupBack": "← Zurück",
+  "couldntJoin": "⚠️ Beitritt fehlgeschlagen",
+  "syncingWithServer": "Synchronisiere mit Server...",
+  "errMatchNotFound": "Diese Partie konnte nicht gefunden werden. Überprüfe den Link/Code und versuche es erneut.",
+  "errFull": "Diese Partie ist voll.",
+  "errReachServer": "Der Spielserver konnte nicht erreicht werden.",
+  "errJoinSeat": "Dieser Platz konnte nicht beigetreten werden — er ist möglicherweise bereits vergeben oder die Partie existiert nicht mehr.",
+  "errSessionGone": "Deine vorherige Partie ist auf dem Server nicht mehr verfügbar.",
+  "errReachServerWithUrl": "Server konnte nicht erreicht werden. Läuft er unter {url}?",
+  "errStartRematch": "Revanche konnte nicht gestartet werden. Bitte erneut versuchen.",
+  "editProfileTooltip": "Klicken, um dein Profil zu bearbeiten",
+  "victoryPointsToWin": "Siegpunkte zum Gewinnen",
+  "defaultBoardShape": "Standard-Spielfeldform",
+  "turnTimerLabel": "Zugtimer",
+  "secondsToAct": "Sekunden, um in deinem Zug zu handeln",
+  "gameplayDefaultsHint": "Das sind die Standardwerte für eine neue Partie — du kannst sie pro Lobby weiterhin anpassen.",
+  "muteAllAudio": "Gesamten Ton Stummschalten",
+  "masterVolumeLabel": "Gesamtlautstärke",
+  "musicVolumeLabel": "Musiklautstärke",
+  "soundEffectsLabel": "Soundeffekte",
+  "ambientVolumeLabel": "Umgebungslautstärke",
+  "voiceChatLabel": "Sprachchat",
+  "audioHint": "Feinabstimmung der Sounds. Gesamt & Soundeffekte spielen eine kurze Vorschau beim Loslassen des Reglers.",
+  "graphicsQualityLabel": "Grafikqualität",
+  "qualityLow": "Niedrig",
+  "qualityMedium": "Mittel",
+  "qualityHigh": "Hoch",
+  "fullscreenLabel": "Vollbild",
+  "showFpsLabel": "FPS Anzeigen",
+  "videoHint": "Passe an, wie das Spielfeld aussieht.",
+  "cameraSensitivityLabel": "Kameraempfindlichkeit",
+  "invertCameraLabel": "Kamera Invertieren",
+  "keybindsLabel": "Tastenkürzel",
+  "rollDiceBind": "Würfeln",
+  "endTurnBind": "Zug Beenden",
+  "openTradeBind": "Handel Öffnen",
+  "openChatBind": "Chat Öffnen",
+  "controlsHint": "Passe an, wie du spielst.",
+  "playerNameLabel": "Spielername",
+  "saveBtn": "Speichern",
+  "changeNameBtn": "Namen Ändern",
+  "linkedAccountsLabel": "Verknüpfte Konten",
+  "logOutBtn": "Abmelden",
+  "loggedOutAlert": "Du wurdest abgemeldet.",
+  "deleteAccountBtn": "Konto Löschen",
+  "deleteConfirm": "Möchtest du dein Konto wirklich löschen? Dies kann nicht rückgängig gemacht werden.",
+  "deleteRequestedAlert": "Kontolöschung angefordert.",
+  "resLumber": "Holz",
+  "resGrain": "Getreide",
+  "resWool": "Wolle",
+  "resBrick": "Lehm",
+  "resOre": "Erz",
+  "cardKnight": "Ritter",
+  "cardVictoryPoint": "Siegpunkt",
+  "cardMonopoly": "Monopol",
+  "cardRoadBuilding": "Straßenbau",
+  "cardYearOfPlenty": "Erfindung",
+  "buildRoad": "Straße",
+  "buildSettlement": "Siedlung",
+  "buildCity": "Stadt",
+  "buildResort": "Ferienanlage",
+  "buildDevCard": "Entwicklungskarte",
+  "buildClearRobber": "Räuber Wegkaufen",
+  "resortSeizeHint": "Klicke auf die Stadt eines Gegners, um sie zu übernehmen.",
+  "clearRobberHint": "Bezahle, um den Räuber zurück in die Wüste zu schicken.",
+  "sendOffer": "Angebot Senden",
+  "offerPending": "Angebot Ausstehend...",
+  "victoryPointsTt": "Siegpunkte",
+  "settlementsTt": "Siedlungen",
+  "citiesTt": "Städte",
+  "resortsTt": "Ferienanlagen",
+  "devCardsTt": "Entwicklungskarten",
+  "longestRoadTt": "Längste Handelsstraße",
+  "largestArmyTt": "Größte Rittermacht",
+  "sendReactionTt": "Reaktion senden",
+  "monopolyTitle": "Monopol",
+  "monopolySubtitle": "Wähle einen Rohstoff — jeder Gegner gibt dir all seine ab.",
+  "yearOfPlentyTitle": "Erfindung",
+  "yearOfPlentySubtitle": "Wähle {n} weitere(n) Rohstoff(e) von der Bank.",
+  "deckEmpty": "Stapel ist leer",
+  "devCardCostTt": "Kostet 1 Erz + 1 Getreide + 1 Wolle",
+  "resortCantBeTaken": "Ferienanlage — kann nicht übernommen werden",
+  "clickToSeizeCity": "Klicken, um diese Stadt zu übernehmen und eine Ferienanlage zu bauen",
+  "legalSettlementSpot": "Gültiger Siedlungsplatz",
+  "resortTt": "Ferienanlage",
+  "muteAllAudioTt": "Gesamten Ton stummschalten",
+  "unmuteTt": "Stummschaltung aufheben",
+  "avatarSailor": "Seemann",
+  "avatarExplorer": "Entdecker",
+  "avatarNoble": "Adliger",
+  "avatarKnight": "Ritter",
+  "avatarFarmer": "Bauer",
+  "avatarMiner": "Bergmann",
+  "avatarNavigator": "Navigator",
+  "avatarLord": "Lord",
+  "avatarFisherman": "Fischer",
+  "avatarPioneer": "Pionier",
+  "cancel": "Abbrechen",
+  "roadBuildingTitle": "Straßenbau",
+  "roadBuildingSubtitle": "Klicke auf bis zu 2 Straßen auf dem Spielfeld, um sie kostenlos zu bauen.",
+  "picked": "{n}/2 ausgewählt",
+  "done": "Fertig",
+  "buyCard": "Karte Kaufen",
+  "cardsLeft": "{n} übrig",
+  "playCard": "{label} Spielen",
+  "secretSuffix": "{label} (geheim)",
+  "buildCostsTitle": "Baukosten",
+  "maritimeTrade": "Seehandel ({ratio}:1)",
+  "tradeWithBank": "Mit der Bank Handeln ({ratio} {give} ➜ 1 {receive})",
+  "tradeWithPlayer": "Mit Spieler Handeln",
+  "targetPlayer": "Zielspieler:",
+  "give": "Geben:",
+  "get": "Erhalten:",
+  "roadsTt": "Straßen",
+  "roadsWithChainTt": "Straßen (längste Kette: {n})",
+  "ptsLabel": "Pkt",
+  "colorRed": "Rot",
+  "colorBlue": "Blau",
+  "colorGreen": "Grün",
+  "colorOrange": "Orange",
+  "colorYellow": "Gelb",
+  "colorPurple": "Lila",
+  "colorPink": "Pink",
+  "colorCyan": "Cyan",
+  "colorLavender": "Lavendel",
+  "tabTrades": "Handel",
+  "tabChat": "Chat",
+  "tradesHeader": "Handel",
+  "incomingTrade": "Handelsangebot!",
+  "offerOffers": "{name} bietet",
+  "forYour": "für dein/deine",
+  "accept": "Annehmen",
+  "decline": "Ablehnen",
+  "rulesPages": [
+    {
+      "title": "Spielziel",
+      "icon": "🏆",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Sei der erste Spieler, der 10 Siegpunkte erreicht, um zu gewinnen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Siedlung — +1",
+            "Stadt — +2",
+            "Längste Handelsstraße — +2",
+            "Größte Rittermacht — +2",
+            "Siegpunktkarte — +1"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Das Spiel endet sofort, sobald ein Spieler in seinem Zug 10 oder mehr Punkte erreicht."
+        }
+      ]
+    },
+    {
+      "title": "Das Spielfeld",
+      "icon": "🗺️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Das Spielfeld besteht aus sechseckigen Geländefeldern, die jeweils einen Rohstoff produzieren, sowie Zahlenchips, die die Produktion auslösen."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Wald → Holz",
+            "Hügel → Lehm",
+            "Felder → Getreide",
+            "Weiden → Wolle",
+            "Berge → Erz",
+            "Wüste → nichts"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Straßen und Gebäude werden an den Kreuzungen und Kanten zwischen den Feldern platziert."
+        }
+      ]
+    },
+    {
+      "title": "Spieler & Ausgangsaufbau",
+      "icon": "👥",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Jeder Spieler wählt eine Farbe und erhält seine Straßen, Siedlungen, Städte und Entwicklungskarten."
+        },
+        {
+          "type": "p",
+          "text": "In Zugreihenfolge platzieren die Spieler zwei Startsiedlungen und zwei verbundene Straßen; beide Siedlungen müssen der Abstandsregel folgen."
+        },
+        {
+          "type": "p",
+          "text": "Nach der zweiten Siedlung erhältst du eine Rohstoffkarte von jedem angrenzenden Geländefeld."
+        }
+      ]
+    },
+    {
+      "title": "Die Abstandsregel",
+      "icon": "📏",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Siedlungen und Städte dürfen niemals direkt nebeneinander liegen — mindestens eine leere Kreuzung muss sie trennen."
+        },
+        {
+          "type": "p",
+          "text": "Dies gilt sowohl während des Aufbaus als auch für alle späteren Bauten."
+        }
+      ]
+    },
+    {
+      "title": "Zugablauf",
+      "icon": "🔄",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "1. Produktionszahl bestimmen",
+            "2. Aktuelle Jahreszeit anwenden",
+            "3. Rohstoffe produzieren",
+            "4. Räuber auflösen",
+            "5. Handeln",
+            "6. Bauen",
+            "7. Karten spielen",
+            "8. Zug beenden"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Du kannst während deines Zuges so oft handeln und bauen, wie du es dir leisten kannst."
+        }
+      ]
+    },
+    {
+      "title": "Rohstoffproduktion",
+      "icon": "🌾",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Wenn die Zahl eines Feldes gewürfelt wird, produziert jede angrenzende Siedlung 1 ihres Rohstoffs, und jede Stadt produziert 2. Die Wüste produziert nie."
+        },
+        {
+          "type": "p",
+          "text": "Beispiel: Eine Siedlung neben einem Wald mit der Zahl 6 produziert 1 Holz, wenn eine 6 gewürfelt wird — eine Stadt dort produziert 2."
+        }
+      ]
+    },
+    {
+      "title": "Die Jahreszeiten-Mechanik",
+      "icon": "🍂",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Eine Jahreszeitenleiste durchläuft Frühling → Sommer → Herbst → Winter → Frühling, jede verändert, wie Rohstoffe produziert werden."
+        },
+        {
+          "type": "p",
+          "text": "Die Jahreszeit wechselt alle 5 abgeschlossenen Züge, oder sobald ein Spieler die Größte Rittermacht beansprucht."
+        }
+      ]
+    },
+    {
+      "title": "Frühling — Fruchtbarkeit",
+      "icon": "🌸",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Wenn im Frühling eine 6 oder 8 gewürfelt wird, produzieren Felder und Weiden einen zusätzlichen Rohstoff zusätzlich zu ihrer normalen Produktion."
+        },
+        {
+          "type": "p",
+          "text": "Beispiel: Eine Siedlung auf einem 6er-Feld macht normalerweise 1 Getreide — 2 Getreide im Frühling, oder 3 Getreide für eine Stadt."
+        }
+      ]
+    },
+    {
+      "title": "Sommer — Ernte",
+      "icon": "☀️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Im Sommer produziert jedes Feld mit der Zahl 5 oder 9 die doppelte normale Ausbeute, für jeden Rohstofftyp."
+        },
+        {
+          "type": "p",
+          "text": "Beispiel: Eine Siedlung auf einem 5er-Wald macht normalerweise 1 Holz — 2 im Sommer; eine Stadt dort würde 4 machen."
+        }
+      ]
+    },
+    {
+      "title": "Herbst — Fülle",
+      "icon": "🍁",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Im Herbst produzieren Wälder und Hügel zusätzlich zu ihrer normalen Zahl auch bei Würfen von 3 und 11."
+        },
+        {
+          "type": "p",
+          "text": "Beispiel: Ein Wald mit der Zahl 8 produziert Holz bei 8, 3 und 11 — schwächere Zahlen werden wieder wertvoll."
+        }
+      ]
+    },
+    {
+      "title": "Winter — Entbehrung",
+      "icon": "❄️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Wenn im Winter eine 2 oder 12 gewürfelt wird, entfällt die normale Produktion — stattdessen bewegt sich der Räuber auf dieses Feld."
+        },
+        {
+          "type": "p",
+          "text": "Jeder Spieler mit einer Siedlung oder Stadt auf diesem Feld verliert 1 zufällige Rohstoffkarte. Der Räuber stiehlt in diesem Fall nicht."
+        }
+      ]
+    },
+    {
+      "title": "Jahreszeitenwechsel",
+      "icon": "📅",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Die aktuelle Jahreszeit ist für alle sichtbar und bleibt aktiv, bis der nächste Auslöser eintritt."
+        },
+        {
+          "type": "p",
+          "text": "Wenn ein Jahreszeitenwechsel und eine Beanspruchung der Größten Rittermacht gleichzeitig geschehen, wechselt die Jahreszeit nur einmal."
+        }
+      ]
+    },
+    {
+      "title": "Straßen",
+      "icon": "🛤️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Kosten: 1 Holz + 1 Lehm."
+        },
+        {
+          "type": "p",
+          "text": "Eine neue Straße muss an eine deiner bestehenden Straßen, Siedlungen oder Städte anschließen und darf niemals durch die Siedlung oder Stadt eines Gegners führen."
+        }
+      ]
+    },
+    {
+      "title": "Siedlungen",
+      "icon": "🏠",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Kosten: 1 Holz + 1 Lehm + 1 Getreide + 1 Wolle."
+        },
+        {
+          "type": "p",
+          "text": "Muss auf einer leeren Kreuzung platziert werden, die mit einer deiner Straßen verbunden ist, und muss der Abstandsregel folgen. Produziert 1 Rohstoff von jedem angrenzenden Feld."
+        }
+      ]
+    },
+    {
+      "title": "Städte",
+      "icon": "🏛️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Kosten: 2 Getreide + 3 Erz."
+        },
+        {
+          "type": "p",
+          "text": "Wird durch den Ausbau einer bestehenden Siedlung gebaut — die Siedlung wird ersetzt. Eine Stadt produziert 2 statt 1 Rohstoff von jedem angrenzenden Feld."
+        }
+      ]
+    },
+    {
+      "title": "Ferienanlage — Sondergebäude",
+      "icon": "🏨",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Ein einzigartiges Gebäude, mit dem du einen von der Stadt eines Gegners besetzten Standort übernehmen kannst, indem du 3 Erz + 4 Holz + 2 Wolle + 1 Lehm zahlst."
+        },
+        {
+          "type": "p",
+          "text": "Die Stadt des Gegners wird entfernt und durch deine Ferienanlage ersetzt, und alle Siegpunkte, die sie hielt, gehen verloren."
+        },
+        {
+          "type": "p",
+          "text": "Eine Ferienanlage kann niemals auf einer Siedlung gebaut werden, und einmal platziert kann sie weder überschrieben noch ersetzt werden."
+        }
+      ]
+    },
+    {
+      "title": "Handel",
+      "icon": "🤝",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "In deinem Zug kannst du jeden Handel mit einem anderen Spieler aushandeln, solange beide Seiten zustimmen und er den Rohstoffregeln folgt."
+        },
+        {
+          "type": "p",
+          "text": "Zum Beispiel: \"1 Erz gegen 2 Getreide\"."
+        }
+      ]
+    },
+    {
+      "title": "Handel mit der Bank",
+      "icon": "🏦",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Tausche jederzeit während deines Zuges 4 desselben Rohstoffs gegen 1 Rohstoff deiner Wahl."
+        },
+        {
+          "type": "p",
+          "text": "Häfen können bessere Konditionen bieten als der Standard-Bankhandel."
+        }
+      ]
+    },
+    {
+      "title": "Häfen / Docks",
+      "icon": "⚓",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "Allgemeiner Hafen — 3 eines Rohstoffs → 1 deiner Wahl",
+            "Spezialisierter Hafen — 2 des passenden Rohstoffs → 1 deiner Wahl"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Verfügbare Häfen hängen von der gespielten Karte ab."
+        }
+      ]
+    },
+    {
+      "title": "Entwicklungs-/Fortschrittskarten",
+      "icon": "🃏",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Kosten: 1 Getreide + 1 Wolle + 1 Erz."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Ritter — bewegt den Räuber und stiehlt",
+            "Straßenbau — baue 2 kostenlose Straßen",
+            "Erfindung — nimm 2 beliebige Rohstoffe",
+            "Monopol — fordere einen Rohstoff von jedem Spieler",
+            "Siegpunkt — wert 1 Punkt"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Sofern eine Karte nichts anderes sagt, kann sie nicht im selben Zug gespielt werden, in dem sie gekauft wurde."
+        }
+      ]
+    },
+    {
+      "title": "Der Räuber",
+      "icon": "🥷",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Eine 7 zu würfeln stoppt die gesamte Produktion. Wer mehr als 7 Karten hat, legt die Hälfte ab, abgerundet."
+        },
+        {
+          "type": "p",
+          "text": "Der aktive Spieler bewegt den Räuber auf ein beliebiges Feld, blockiert es, und darf einen zufälligen Rohstoff von einem angrenzenden Gegner stehlen."
+        }
+      ]
+    },
+    {
+      "title": "Räuberfrieden",
+      "icon": "🕊️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Wenn der Räuber auf deiner eigenen Siedlung oder Stadt landet, kannst du einmal pro Zug 1 Holz + 1 Lehm + 1 Getreide + 1 Wolle + 1 Erz zahlen, um ihn stattdessen direkt in die Neutrale Zone zu schicken."
+        },
+        {
+          "type": "p",
+          "text": "Die Neutrale Zone produziert nie Rohstoffe und gilt als niemandes Territorium."
+        }
+      ]
+    },
+    {
+      "title": "Größte Rittermacht",
+      "icon": "⚔️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Beanspruche dies, sobald du mindestens 3 Ritter gespielt hast und mehr als jeder andere Spieler hast — wert 2 Siegpunkte."
+        },
+        {
+          "type": "p",
+          "text": "Sie zu beanspruchen lässt auch die Jahreszeitenleiste voranschreiten. Ein anderer Spieler kann sie übernehmen, indem er mehr Ritter spielt als du."
+        }
+      ]
+    },
+    {
+      "title": "Längste Handelsstraße",
+      "icon": "🛣️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Wird dem Spieler mit der längsten ununterbrochenen Kette von 5 oder mehr verbundenen Straßen verliehen — wert 2 Siegpunkte."
+        },
+        {
+          "type": "p",
+          "text": "Die Siedlung oder Stadt eines Gegners unterbricht deine Kette, und ein anderer Spieler kann den Titel mit einem längeren Netz übernehmen."
+        }
+      ]
+    },
+    {
+      "title": "Siegpunkte",
+      "icon": "⭐",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "Siedlung — +1",
+            "Stadt — +2",
+            "Siegpunktkarte — +1",
+            "Längste Handelsstraße — +2",
+            "Größte Rittermacht — +2"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Der genaue Punktewert einer Ferienanlage hängt von der Umsetzung deines Spiels ab."
+        }
+      ]
+    },
+    {
+      "title": "Alternative Zahlengenerierung",
+      "icon": "🎲",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Optional: Anstelle von Würfeln kannst du einen Zahlenwürfel oder ein Zahlenrad verwenden, um die Produktionszahl zu bestimmen."
+        },
+        {
+          "type": "p",
+          "text": "Beide Methoden interagieren genau wie gewohnt mit dem Jahreszeitensystem."
+        }
+      ]
+    },
+    {
+      "title": "Individuelle Karten",
+      "icon": "🧭",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Optional: Spieler können aus verschiedenen Karten wählen, jede mit eigenem Geländelayout, Zahlenchips, Häfen und Wüstenplatzierung."
+        },
+        {
+          "type": "p",
+          "text": "Welche Karte auch gewählt wird, sie bleibt für das gesamte Spiel aktiv."
+        }
+      ]
+    },
+    {
+      "title": "Spieleranzahl — Kartengröße",
+      "icon": "📐",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "2 Spieler → Kleinere Karte",
+            "3–4 Spieler → Standardkarte",
+            "5+ Spieler → Größere Karte"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Die Skalierung der Karte sorgt für genug Platz zur Expansion, während weiterhin um gute Standorte konkurriert wird."
+        }
+      ]
+    },
+    {
+      "title": "Spielende",
+      "icon": "🏁",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Das Spiel endet in dem Moment, in dem ein Spieler 10 oder mehr Siegpunkte erreicht — dieser Spieler gewinnt sofort."
+        }
+      ]
+    },
+    {
+      "title": "Viel Erfolg beim Siedeln",
+      "icon": "🎉",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Das ist alles, was du wissen musst. Geh jetzt bauen, handeln, intrigieren und erobern."
+        },
+        {
+          "type": "p",
+          "text": "Viel Glück und viel Erfolg beim Siedeln!"
+        }
+      ]
+    }
+  ],
+  "closeSettingsAria": "Einstellungen schließen",
+  "chapAlmanac": "Almanach",
+  "chapRoads": "Straßen",
+  "chapSettlements": "Siedlungen",
+  "chapCities": "Städte",
+  "chapRobber": "Der Räuber",
+  "chapSeasons": "Jahreszeiten & Würfel",
+  "chapResort": "Die Ferienanlage",
+  "closeTutorialAria": "Anleitung schließen",
+  "tutMsgClickSettlementSetup": "Klicke auf eine hervorgehobene Kreuzung, um eine kostenlose Startsiedlung zu platzieren.",
+  "tutMsgClickSettlementBuild": "Klicke auf eine hervorgehobene, mit deiner Straße verbundene Kreuzung, um eine Siedlung zu bauen.",
+  "tutMsgClickCity": "Klicke auf eine deiner goldenen Siedlungen, um sie zu einer Stadt auszubauen.",
+  "tutMsgClickRobber": "Klicke auf ein beliebiges Feld, um den Räuber dorthin zu bewegen.",
+  "tutMsgClickResort": "Klicke auf die gegnerische Stadt, um eine Übernahme zu versuchen.",
+  "tutErrTooCloseSettlement": "❌ Zu nah an einer anderen Siedlung — lasse mindestens eine leere Kreuzung zwischen ihnen.",
+  "tutMsgFreeSettlementSetup": "🏠 Kostenlose Startsiedlung platziert! Während des Aufbaus kosten Siedlungen nichts — aber die Abstandsregel gilt weiterhin.",
+  "tutErrTooCloseSettlementCity": "❌ Zu nah an einer anderen Siedlung oder Stadt.",
+  "tutErrNotConnectedRoad": "❌ Dieser Ort ist noch nicht mit einer deiner Straßen verbunden. Baue zuerst hier eine Straße (siehe Kapitel Straßen).",
+  "tutErrCantAffordSettlement": "❌ Nicht genug Rohstoffe. Eine Siedlung kostet 1 Holz + 1 Lehm + 1 Getreide + 1 Wolle.",
+  "tutMsgSettlementBuiltFree": "🏠 Siedlung gebaut! Deine erste geht aufs Haus — ab jetzt kosten Siedlungen 1 Holz + 1 Lehm + 1 Getreide + 1 Wolle. +1 Siegpunkt erhalten.",
+  "tutMsgSettlementBuiltPaid": "🏠 Siedlung gebaut! Du hast 1 Holz + 1 Lehm + 1 Getreide + 1 Wolle bezahlt und +1 Siegpunkt erhalten.",
+  "tutErrPickOwnSettlement": "❌ Wähle eine deiner eigenen Siedlungen zum Ausbauen.",
+  "tutErrCantAffordCity": "❌ Nicht genug Rohstoffe. Eine Stadt kostet 2 Getreide + 3 Erz.",
+  "tutMsgCityBuiltFree": "🏙️ Zur Stadt ausgebaut! Dieser erste Ausbau ist kostenlos — danach kosten Städte 2 Getreide + 3 Erz. Sie produziert jetzt 2 Rohstoffe pro Wurf und ist 2 Siegpunkte wert.",
+  "tutMsgCityBuiltPaid": "🏙️ Zur Stadt ausgebaut! Du hast 2 Getreide + 3 Erz bezahlt. Sie produziert jetzt 2 statt 1 Rohstoff pro Wurf und ist 2 Siegpunkte wert.",
+  "tutErrResortNeedsRivalCity": "❌ Du kannst eine Ferienanlage nur auf der Stadt eines Gegners bauen.",
+  "tutErrCantAffordResort": "❌ Nicht genug Rohstoffe. Eine Ferienanlage kostet 3 Erz + 4 Holz + 2 Wolle + 1 Lehm.",
+  "tutMsgResortBuiltFree": "🏝️ Ferienanlage dieses erste Mal kostenlos gebaut! Danach kosten Ferienanlagen 3 Erz + 4 Holz + 2 Wolle + 1 Lehm. Die gegnerische Stadt wird entfernt, und sie verlieren die 2 Siegpunkte, die sie wert war.",
+  "tutMsgResortBuiltPaid": "🏝️ Ferienanlage gebaut! Du hast 3 Erz + 4 Holz + 2 Wolle + 1 Lehm bezahlt. Die gegnerische Stadt wird entfernt, und sie verlieren die 2 Siegpunkte, die sie wert war.",
+  "tutErrRoadHere": "❌ Hier ist bereits eine Straße.",
+  "tutErrRoadMustConnect": "❌ Straßen müssen an eine deiner bestehenden Straßen oder Gebäude anschließen.",
+  "tutErrCantAffordRoad": "❌ Nicht genug Rohstoffe. Eine Straße kostet 1 Holz + 1 Lehm.",
+  "tutMsgRoadBuiltFree": "🛣️ Straße gebaut! Diese erste ist kostenlos — danach kosten Straßen 1 Holz + 1 Lehm. Straßen müssen sich immer mit deinem bestehenden Netz verbinden.",
+  "tutMsgRoadBuiltPaid": "🛣️ Straße für 1 Holz + 1 Lehm gebaut. Straßen müssen sich immer mit deinem bestehenden Netz verbinden.",
+  "tutMsgRobberAlreadyHere": "Der Räuber sitzt bereits auf diesem Feld.",
+  "tutMsgRobberMovedOccupied": "🏴 Der Räuber schleicht sich auf das Feld {tile}. Es blockiert nun die Produktion dieses Feldes, und du darfst eine zufällige Rohstoffkarte von einem Spieler mit Siedlung oder Stadt dort stehlen.",
+  "tutMsgRobberMovedEmpty": "🏴 Der Räuber bewegt sich auf das Feld {tile}. Dort ist noch niemand angesiedelt, also gibt es nichts zu stehlen — aber das Feld bleibt blockiert, bis sich der Räuber wieder bewegt.",
+  "tutMsgRobberPeaceNeedsOwn": "Räuberfrieden funktioniert nur, wenn der Räuber auf einem Feld sitzt, auf dem du eine Siedlung oder Stadt hast.",
+  "tutErrCantAffordRobberPeace": "❌ Räuberfrieden kostet je einen Rohstoff (Holz, Lehm, Getreide, Wolle, Erz) — du hast nicht genug.",
+  "tutMsgRobberPeaceFree": "🕊️ Räuberfrieden dieses erste Mal kostenlos genutzt! Danach kostet er je einen Rohstoff. Der Räuber schleicht sich zurück in die Neutrale Zone — nur einmal pro Zug.",
+  "tutMsgRobberPeacePaid": "🕊️ Du hast je einen Rohstoff bezahlt. Der Räuber schleicht sich zurück in die Neutrale Zone, weg von deinem Land — nur einmal pro Zug.",
+  "tutMsgRolled7": "🎲 Du hast eine 7 gewürfelt! Kein Feld produziert diesen Zug — Zeit, den Räuber zu bewegen und Abwürfe zu prüfen.",
+  "tutMsgWinterHardship": "❄️ Winterhärte! Bei einer 2 oder 12 entfällt die normale Produktion komplett, und der Räuber schleicht sich zum aktiven Feld.",
+  "tutMsgLoseToHardship": "Du verlierst 1 {resource} durch die Härte.",
+  "tutMsgAutumnBonus": "🍂 Herbstfülle: Das Feld {tile} produziert auch bei 3 und 11!",
+  "tutMsgYouCollect": "Du erhältst: {list}",
+  "tutMsgNoResourceLands": "Bei diesem Wurf landet kein Rohstoff auf einem deiner Gebäude.",
+  "terrainDesert": "Wüste",
+  "terrainForest": "Wald",
+  "terrainHills": "Hügel",
+  "terrainFields": "Felder",
+  "terrainPasture": "Weide",
+  "terrainMountains": "Berge",
+  "tutMsgClickRoad": "Klicke auf einen hervorgehobenen Pfad auf der Karte, um eine Straße zu bauen.",
+  "islandAlmanacBrand": "Insel-Almanach",
+  "victoryPointsLabel": "Siegpunkte:",
+  "welcomeIslander": "Willkommen, Insulaner",
+  "theIslandAlmanac": "Der Insel-Almanach",
+  "tutIntroParagraph": "Erreiche als Erster {vp} Siegpunkte und die Insel gehört dir. Punkte kommen von Siedlungen, Städten, Ferienanlagen, der Längsten Handelsstraße und der Größten Rittermacht. Dieser Leitfaden konzentriert sich auf die praktische Mechanik — das, was du tatsächlich anklickst, platzierst und würfelst. Wähle unten ein Kapitel, oder nutze das Regal links.",
+  "chapterLabel": "Kapitel {roman}",
+  "costLabel": "Kosten",
+  "roadsLead": "Straßen verbinden dein Territorium. Jede Straße muss eine deiner bestehenden Straßen, Siedlungen oder Städte berühren — du kannst nicht isoliert bauen.",
+  "roadsRuleCard": "Eine Straße darf niemals durch die Siedlung oder Stadt eines anderen Spielers gebaut werden.",
+  "roadsTryIt": "Probier's aus: Klicke auf eine leuchtende Kante auf der Karte, um deine erste Straße zu bauen, und erweitere dein Netzwerk von dort aus weiter.",
+  "settlementsLead": "Siedlungen gibt es in zwei Varianten, je nachdem, wann du sie platzierst.",
+  "setupPhaseFree": "Aufbauphase — Kostenlos",
+  "buildingPhaseCosts": "Bauphase — Kostet Rohstoffe",
+  "setupPlacementTitle": "Aufbau-Platzierung",
+  "setupPlacementText": "Zu Beginn des Spiels sind deine ersten beiden Siedlungen kostenlos. Die Abstandsregel gilt weiterhin — du kannst keine direkt neben einer anderen Siedlung oder Stadt platzieren. Nach deiner zweiten Siedlung erhältst du Startrohstoffe von den angrenzenden Feldern.",
+  "buildingPhaseTitle": "Bauphase",
+  "buildingPhaseText": "Jede Siedlung nach dem Aufbau muss mit einer deiner Straßen verbunden sein und der Abstandsregel folgen.",
+  "citiesLead": "Eine Stadt ist eine ausgebaute Siedlung — sie ersetzt die Siedlung am selben Ort und produziert doppelt.",
+  "citiesCostCard": "Eine Siedlung produziert 1 Rohstoff pro Wurf; eine Stadt produziert 2. Wert 2 Siegpunkte statt 1.",
+  "citiesNeedSettlement": "Du brauchst zuerst eine Siedlung zum Ausbauen. Gehe zu Kapitel II, falls deine Karte noch keine eigene hat.",
+  "robberLead": "Würfle eine 7 und der Räuber erwacht: kein Feld produziert in diesem Zug, Spieler mit mehr als 7 Karten legen die Hälfte ab, und du bewegst den Räuber auf ein Feld deiner Wahl — blockierst es und darfst eine Karte von jedem dort Ansässigen stehlen.",
+  "robberPeaceTitle": "🕊️ Räuberfrieden",
+  "robberPeaceText": "Wenn der Räuber auf einem Feld landet, auf dem du eine Siedlung oder Stadt hast, kannst du einmal pro Zug je einen Rohstoff zahlen, um ihn direkt in die Neutrale Zone zu schicken.",
+  "robberPeaceBtn": "Zahlen & in die Neutrale Zone Verbannen",
+  "seasonsChapterTitle": "Jahreszeiten & Sonderwürfe",
+  "seasonsLead": "Die Jahreszeitenleiste wechselt alle 5 Züge, oder sobald jemand die Größte Rittermacht beansprucht. Jede Jahreszeit verändert das Würfelverhalten.",
+  "advanceSeasonBtn": "Zur Nächsten Jahreszeit →",
+  "seasonSpringRule": "🌸 Frühling — Fruchtbarkeit: Ein Wurf von 6 oder 8 gibt Feldern & Weiden +1 zusätzlichen Rohstoff.",
+  "seasonSummerRule": "☀️ Sommer — Ernte: Ein Wurf von 5 oder 9 verdoppelt die Produktion dieses Feldes.",
+  "seasonAutumnRule": "🍂 Herbst — Fülle: Wälder & Hügel produzieren auch bei 3 und 11.",
+  "seasonWinterRule": "❄️ Winter — Entbehrung: Ein Wurf von 2 oder 12 überspringt die Produktion und kostet dich einen zufälligen Rohstoff.",
+  "rollDiceBtn": "🎲 Würfeln",
+  "diceTotalLabel": "Gesamt: {total} · {season}",
+  "resortLead": "Eine Ferienanlage lässt dich die Stadt eines Gegners direkt übernehmen. Seine Stadt wird entfernt, deine Ferienanlage nimmt ihren Platz ein, und er verliert die Siegpunkte, die diese Stadt wert war. Eine Ferienanlage kann niemals überbaut oder ersetzt werden.",
+  "resortCostCard": "Kann nur eine Stadt übernehmen — niemals eine einfache Siedlung.",
+  "resortTryIt": "Die kastanienbraune Markierung auf der Karte ist die Stadt eines Rivalen. Versuch, sie zu übernehmen.",
+  "legendYours": "Deine",
+  "legendRival": "Rivale",
+  "legendDesertRobber": "Wüste / Räuber-Start",
+  "seasonsAmpTitle": "Jahreszeiten & Sonderwürfe",
+  "exitGameTt": "Spiel Verlassen",
+  "exitConfirmTitle": "Diese Partie verlassen?",
+  "exitConfirmBody": "Du kehrst zum Hauptmenü zurück. Andere Spieler können ohne dich weiterspielen.",
+  "exitConfirmYes": "Partie Verlassen",
+  "exitConfirmCancel": "Abbrechen",
+  "statsBtn": "📊 Statistiken Anzeigen",
+  "statsTitle": "Spielstatistiken",
+  "statsClose": "Schließen",
+  "statsBackToVictory": "← Zurück",
+  "statsDiceRolls": "Würfelverteilung",
+  "statsPerPlayer": "Übersicht pro Spieler",
+  "statsResourcesCollected": "Gesammelte Rohstoffe",
+  "statsBuildings": "Bauwerke",
+  "statsTrading": "Handel",
+  "statsBankTrades": "Bankhandel",
+  "statsPlayerTrades": "Spielerhandel",
+  "statsDevCards": "Entwicklungskarten",
+  "statsBought": "Gekauft",
+  "statsPlayed": "Gespielt",
+  "statsRobberMoves": "Räuberbewegungen",
+  "statsTotalResources": "Rohstoffe Gesamt",
+  "statsRolls": "Würfe",
+  "statsMostRolled": "Häufigster Wurf",
+  "statsSettlements": "Siedlungen",
+  "statsCities": "Städte",
+  "statsRoadsBuilt": "Straßen",
+  "statsResorts": "Ferienanlagen",
+  "editBoardBtn": "🎨 Spielfeld Bearbeiten",
+  "boardEditorTitle": "Editor für Individuelles Spielfeld",
+  "boardEditorHint": "Klicke auf ein Feld, um sein Gelände zu ändern. Klicke auf die Zahl, um sie zu ändern. Du brauchst genau 1 Wüste.",
+  "randomFill": "🎲 Zufällig Füllen",
+  "saveBoard": "Spielfeld Speichern",
+  "cancelEdit": "Abbrechen",
+  "desertCountOk": "✅ 1 Wüste — bereit zum Speichern",
+  "desertCountBad": "⚠️ Braucht genau 1 Wüste (aktuell {n})",
+  "terrainForestBtn": "Wald",
+  "terrainHillsBtn": "Hügel",
+  "terrainFieldsBtn": "Felder",
+  "terrainPastureBtn": "Weide",
+  "terrainMountainsBtn": "Berge",
+  "terrainDesertBtn": "Wüste",
+  "customBoardActive": "Individuelles Spielfeld gespeichert ✓",
+  "mapType_custom": "Individuell"
+}

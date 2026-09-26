@@ -1,7 +1,9 @@
 import { PLAYER_COLORS } from "../constants/playerColors.js";
 import { AVATARS } from "../constants/avatars.jsx";
+import { useTranslation } from "../i18n.js";
 
 export default function ProfileMenu({ profile, onChange }) {
+    const { t } = useTranslation();
     const color = PLAYER_COLORS[profile.colorIndex] ?? PLAYER_COLORS[0];
 
     return (
@@ -20,7 +22,7 @@ export default function ProfileMenu({ profile, onChange }) {
             }}
         >
             <div style={{ fontWeight: "bold", fontSize: "0.95rem", marginBottom: "8px" }}>
-                Your name
+                {t("yourName")}
             </div>
             <input
                 autoFocus
@@ -42,7 +44,7 @@ export default function ProfileMenu({ profile, onChange }) {
             />
 
             <div style={{ fontWeight: "bold", fontSize: "0.95rem", marginBottom: "8px" }}>
-                Piece color
+                {t("pieceColor")}
             </div>
             <div
                 style={{
@@ -56,7 +58,7 @@ export default function ProfileMenu({ profile, onChange }) {
                     <div
                         key={c.name}
                         onClick={() => onChange({ colorIndex: idx })}
-                        title={c.name}
+                        title={t(c.colorKey)}
                         style={{
                             width: "100%",
                             boxSizing: "border-box",
@@ -72,7 +74,7 @@ export default function ProfileMenu({ profile, onChange }) {
             </div>
 
             <div style={{ fontWeight: "bold", fontSize: "0.95rem", marginBottom: "8px" }}>
-                Avatar
+                {t("avatar")}
             </div>
             <div
                 style={{
@@ -87,7 +89,7 @@ export default function ProfileMenu({ profile, onChange }) {
                         <div
                             key={a.id}
                             onClick={() => onChange({ avatarId: a.id })}
-                            title={a.label}
+                            title={t(a.labelKey)}
                             style={{
                                 width: "100%",
                                 boxSizing: "border-box",

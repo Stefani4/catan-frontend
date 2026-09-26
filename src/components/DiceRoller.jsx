@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "../i18n.js";
 
 const PIPS = {
     1: [[50, 50]],
@@ -168,6 +169,7 @@ function SpinWheel({ value, spinTrigger, size = 130 }) {
 }
 
 export default function DiceRoller({ G, ctx, moves, playerID }) {
+    const { t } = useTranslation();
     const diceMode = G.settings?.diceMode || "standard";
     const [faces, setFaces] = useState([1, 1]);
     const [spinning, setSpinning] = useState(false);
@@ -242,14 +244,14 @@ export default function DiceRoller({ G, ctx, moves, playerID }) {
                 onClick={() => moves.rollDice()}
                 title={
                     ctx.phase === "setup"
-                        ? "Finish setup first"
+                        ? t("finishSetupFirst")
                         : !isMyTurn
-                            ? "Not your turn"
+                            ? t("notYourTurn")
                             : G.diceRolled
-                                ? "Already rolled this turn"
+                                ? t("alreadyRolled")
                                 : diceMode === "wheel"
-                                    ? "Spin the wheel"
-                                    : "Roll the dice"
+                                    ? t("spinTheWheel")
+                                    : t("rollTheDice")
                 }
                 style={{
                     padding: "6px 18px",
@@ -269,7 +271,7 @@ export default function DiceRoller({ G, ctx, moves, playerID }) {
                     textShadow: "1px 1px 2px rgba(0,0,0,0.6)",
                 }}
             >
-                {diceMode === "wheel" ? "🎡" : "🎲"} {G.diceRolled ? `Rolled ${G.diceValue}` : diceMode === "wheel" ? "Spin" : "Roll"}
+                {diceMode === "wheel" ? "🎡" : "🎲"} {G.diceRolled ? t("rolled", { value: G.diceValue }) : diceMode === "wheel" ? t("spin") : t("roll")}
             </button>
         </div>
     );
