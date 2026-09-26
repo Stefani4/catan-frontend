@@ -1,8 +1,10 @@
 import { useState } from "react";
 import TradingPost from "./Trading.jsx";
 import Chat from "./Chat.jsx";
+import { useTranslation } from "../i18n.js";
 
 export default function SidePanel({ G, ctx, moves, playerID, matchID, tab: controlledTab, onTabChange }) {
+    const { t } = useTranslation();
     const [internalTab, setInternalTab] = useState("trades");
     const tab = controlledTab ?? internalTab;
     const setTab = onTabChange ?? setInternalTab;
@@ -54,8 +56,8 @@ export default function SidePanel({ G, ctx, moves, playerID, matchID, tab: contr
     return (
         <div style={{ width: "100%", boxSizing: "border-box" }}>
             <div style={{ display: "flex", gap: "6px" }}>
-                {tabButton("trades", "⚓ Trades", hasIncomingOffer)}
-                {tabButton("chat", "💬 Chat", false)}
+                {tabButton("trades", `⚓ ${t("tabTrades")}`, hasIncomingOffer)}
+                {tabButton("chat", `💬 ${t("tabChat")}`, false)}
             </div>
 
             <div style={{ display: tab === "trades" ? "block" : "none" }}>

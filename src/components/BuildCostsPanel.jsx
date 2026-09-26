@@ -4,6 +4,7 @@ import lumberCard from "../../images/lumberCard.png";
 import grainCard from "../../images/grainCard.png";
 import woolCard from "../../images/woolCard.png";
 import oreCard from "../../images/oreCard.png";
+import { useTranslation } from "../i18n.js";
 
 const RESOURCE_ICONS = {
     brick: brickCard,
@@ -13,41 +14,44 @@ const RESOURCE_ICONS = {
     ore: oreCard,
 };
 
+const RES_KEY = { brick: "resBrick", lumber: "resLumber", grain: "resGrain", wool: "resWool", ore: "resOre" };
+
 const BUILD_ITEMS = [
-    { key: "road", label: "Road", icon: "🛤️", costs: { brick: 1, lumber: 1 } },
+    { key: "road", labelKey: "buildRoad", icon: "🛤️", costs: { brick: 1, lumber: 1 } },
     {
         key: "settlement",
-        label: "Settlement",
+        labelKey: "buildSettlement",
         icon: "🏠",
         costs: { brick: 1, lumber: 1, grain: 1, wool: 1 },
     },
-    { key: "city", label: "City", icon: "🏰", costs: { grain: 2, ore: 3 } },
+    { key: "city", labelKey: "buildCity", icon: "🏰", costs: { grain: 2, ore: 3 } },
     {
         key: "resort",
-        label: "Resort",
+        labelKey: "buildResort",
         icon: "🏖️",
         costs: { ore: 3, lumber: 4, wool: 2, brick: 1 },
-        hint: "Click an opponent's city to seize it.",
+        hintKey: "resortSeizeHint",
     },
     {
         key: "devCard",
-        label: "Dev Card",
+        labelKey: "buildDevCard",
         icon: "🃏",
         costs: { ore: 1, grain: 1, wool: 1 },
     },
     {
         key: "clearRobber",
-        label: "Clear Robber",
+        labelKey: "buildClearRobber",
         icon: "💰",
         costs: { brick: 1, lumber: 1, grain: 1, wool: 1, ore: 1 },
-        hint: "Pay to send the Robber back to the desert.",
+        hintKey: "clearRobberHint",
     },
 ];
 
 function CostChip({ resource, amount, affordable }) {
+    const { t: tr } = useTranslation();
     return (
         <div
-            title={`${amount} ${resource}`}
+            title={`${amount} ${tr(RES_KEY[resource])}`}
             style={{
                 position: "relative",
                 display: "flex",
@@ -91,6 +95,7 @@ function CostChip({ resource, amount, affordable }) {
 }
 
 export default function BuildCostsPanel({ G, playerID }) {
+    const { t: tr } = useTranslation();
     const [expandedKey, setExpandedKey] = useState(null);
 
     const viewingId = playerID !== undefined ? playerID : G ? Object.keys(G.players)[0] : undefined;
@@ -123,7 +128,7 @@ export default function BuildCostsPanel({ G, playerID }) {
                     padding: "0 4px 2px",
                 }}
             >
-                🔨 Build Costs
+                🔨 {tr("buildCostsTitle")}
             </div>
 
             {items.map((item) => {
@@ -159,7 +164,7 @@ export default function BuildCostsPanel({ G, playerID }) {
                         >
                             <span style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                                 <span>{item.icon}</span>
-                                <span>{item.label}</span>
+                                <span>{tr(item.labelKey)}</span>
                             </span>
                             <span style={{ fontSize: "0.6rem", opacity: 0.75 }}>{isOpen ? "▲" : "▼"}</span>
                         </button>
@@ -173,9 +178,9 @@ export default function BuildCostsPanel({ G, playerID }) {
                                     gap: "6px",
                                 }}
                             >
-                                {item.hint && (
+                                {item.hintKey && (
                                     <div style={{ fontSize: "0.6rem", color: "#f1c40f", fontStyle: "italic" }}>
-                                        {item.hint}
+                                        {tr(item.hintKey)}
                                     </div>
                                 )}
                                 <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>

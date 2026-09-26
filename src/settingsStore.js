@@ -17,6 +17,7 @@ export const DEFAULT_SETTINGS = {
   musicVolume: 55,
   soundEffects: 80,
   ambientVolume: 40,
+  muted: false,
   voiceChat: true,
   graphicsQuality: "High",
   fullscreen: false,

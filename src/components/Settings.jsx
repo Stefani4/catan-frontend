@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { getSavedPlayerName, NAME_KEY } from "../MainMenu.jsx";
 import catanLogo from "../../images/catanlogo.png";
 import { loadSettings, saveSettings } from "../settingsStore.js";
+import { useTranslation, LANGUAGE_OPTIONS } from "../i18n.js";
+import { playSfx } from "../audio/soundEngine.js";
 import { THEME_OPTIONS, getThemeImage } from "../theme.js";
 import {
     VICTORY_POINTS_OPTIONS,
@@ -132,7 +134,7 @@ function Row({ label, children }) {
     );
 }
 
-function Slider({ value, onChange }) {
+function Slider({ value, onChange, onPreview }) {
     return (
         <div style={{ display: "flex", alignItems: "center", gap: "10px", width: "56%" }}>
             <input
@@ -141,6 +143,7 @@ function Slider({ value, onChange }) {
                 max="100"
                 value={value}
                 onChange={(e) => onChange(Number(e.target.value))}
+                onPointerUp={onPreview}
                 style={{
                     flex: 1,
                     accentColor: colors.wood,
@@ -165,21 +168,22 @@ function Slider({ value, onChange }) {
 
 
 function GeneralSection({ settings, update }) {
+    const { t } = useTranslation();
     return (
         <div>
-            <Label>Language</Label>
+            <Label>{t("language")}</Label>
             <Select
                 value={settings.language}
                 onChange={(v) => update("language", v)}
-                options={["English", "Español", "Français", "Deutsch", "Português"]}
+                options={LANGUAGE_OPTIONS}
             />
 
-            <Label>Theme</Label>
+            <Label>{t("theme")}</Label>
             <Select
                 value={settings.theme}
                 onChange={(v) => update("theme", v)}
-                options={THEME_OPTIONS.map((t) => t.key)}
-                renderLabel={(key) => THEME_OPTIONS.find((t) => t.key === key)?.label ?? key}
+                options={THEME_OPTIONS.map((opt) => opt.key)}
+                renderLabel={(key) => THEME_OPTIONS.find((opt) => opt.key === key)?.label ?? key}
             />
             <div
                 style={{
@@ -195,14 +199,14 @@ function GeneralSection({ settings, update }) {
                 }}
             />
             <p style={{ ...sectionHintStyle, marginTop: "6px", textAlign: "left" }}>
-                Sets the Main Menu &amp; Lobby backdrop.
+                {t("themeHint")}
             </p>
 
             <div style={{ marginTop: "18px" }}>
-                <Row label="Animations">
+                <Row label={t("animations")}>
                     <Toggle value={settings.animations} onChange={(v) => update("animations", v)} />
                 </Row>
-                <Row label="Tutorial Hints">
+                <Row label={t("tutorialHints")}>
                     <Toggle value={settings.tutorialHints} onChange={(v) => update("tutorialHints", v)} />
                 </Row>
             </div>
@@ -213,32 +217,33 @@ function GeneralSection({ settings, update }) {
 }
 
 function GameplaySection({ settings, update }) {
+    const { t } = useTranslation();
     return (
         <div>
-            <Label>Victory Points to Win</Label>
+            <Label>{t("victoryPointsToWin")}</Label>
             <Select
                 value={String(settings.victoryPointsTarget)}
                 onChange={(v) => update("victoryPointsTarget", Number(v))}
                 options={VICTORY_POINTS_OPTIONS.map(String)}
             />
 
-            <Label>Default Map Size</Label>
+            <Label>{t("defaultBoardShape")}</Label>
             <Select
                 value={settings.mapType}
                 onChange={(v) => update("mapType", v)}
                 options={Object.keys(MAP_TYPES)}
-                renderLabel={(key) => `${MAP_TYPES[key].label} (${MAP_TYPES[key].hexCount} tiles)`}
+                renderLabel={(key) => `${t(`mapType_${key}`)} (${t("tilesCount", { n: MAP_TYPES[key].hexCount })})`}
             />
 
-            <Label>Dice Mechanism</Label>
+            <Label>{t("diceMechanism")}</Label>
             <Select
                 value={settings.diceMode}
                 onChange={(v) => update("diceMode", v)}
                 options={Object.keys(DICE_MODES)}
-                renderLabel={(key) => DICE_MODES[key].label}
+                renderLabel={(key) => t(`diceMode_${key}`)}
             />
 
-            <Label>Turn Timer</Label>
+            <Label>{t("turnTimerLabel")}</Label>
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                 <input
                     type="number"
@@ -258,54 +263,60 @@ function GameplaySection({ settings, update }) {
                     }}
                 />
                 <span style={{ fontFamily: "Georgia, serif", fontSize: "0.8rem", color: colors.inkSoft }}>
-          Seconds to act on your turn
+          {t("secondsToAct")}
         </span>
             </div>
 
             <div style={{ marginTop: "18px" }}>
-                <Row label="Seasons">
+                <Row label={t("seasonsLabel")}>
                     <Toggle value={settings.seasonsEnabled} onChange={(v) => update("seasonsEnabled", v)} />
                 </Row>
-                <Row label="Pay to Clear Robber">
+                <Row label={t("payToClearRobberLabel")}>
                     <Toggle value={settings.robberPayToClear} onChange={(v) => update("robberPayToClear", v)} />
                 </Row>
-                <Row label="Resort">
+                <Row label={t("resortLabel")}>
                     <Toggle value={settings.resortEnabled} onChange={(v) => update("resortEnabled", v)} />
                 </Row>
             </div>
 
             <p style={sectionHintStyle}>
-                These become the defaults a new match opens with — you can still adjust them per-lobby.
+                {t("gameplayDefaultsHint")}
             </p>
         </div>
     );
 }
 
 function AudioSection({ settings, update }) {
+    const { t } = useTranslation();
+    const preview = () => playSfx("click");
     return (
         <div>
-            <Row label="Master Volume">
-                <Slider value={settings.masterVolume} onChange={(v) => update("masterVolume", v)} />
+            <Row label={t("muteAllAudio")}>
+                <Toggle value={settings.muted} onChange={(v) => update("muted", v)} />
             </Row>
-            <Row label="Music Volume">
+            <Row label={t("masterVolumeLabel")}>
+                <Slider value={settings.masterVolume} onChange={(v) => update("masterVolume", v)} onPreview={preview} />
+            </Row>
+            <Row label={t("musicVolumeLabel")}>
                 <Slider value={settings.musicVolume} onChange={(v) => update("musicVolume", v)} />
             </Row>
-            <Row label="Sound Effects">
-                <Slider value={settings.soundEffects} onChange={(v) => update("soundEffects", v)} />
+            <Row label={t("soundEffectsLabel")}>
+                <Slider value={settings.soundEffects} onChange={(v) => update("soundEffects", v)} onPreview={preview} />
             </Row>
-            <Row label="Ambient Volume">
+            <Row label={t("ambientVolumeLabel")}>
                 <Slider value={settings.ambientVolume} onChange={(v) => update("ambientVolume", v)} />
             </Row>
-            <Row label="Voice Chat">
+            <Row label={t("voiceChatLabel")}>
                 <Toggle value={settings.voiceChat} onChange={(v) => update("voiceChat", v)} />
             </Row>
 
-            <p style={sectionHintStyle}>Fine-tune the sounds.</p>
+            <p style={sectionHintStyle}>{t("audioHint")}</p>
         </div>
     );
 }
 
 function VideoSection({ settings, update }) {
+    const { t } = useTranslation();
     useEffect(() => {
         const onChange = () => update("fullscreen", Boolean(document.fullscreenElement));
         document.addEventListener("fullscreenchange", onChange);
@@ -324,48 +335,52 @@ function VideoSection({ settings, update }) {
         update("fullscreen", Boolean(document.fullscreenElement));
     };
 
+    const QUALITY_LABEL = { Low: t("qualityLow"), Medium: t("qualityMedium"), High: t("qualityHigh") };
+
     return (
         <div>
-            <Label>Graphics Quality</Label>
+            <Label>{t("graphicsQualityLabel")}</Label>
             <Select
                 value={settings.graphicsQuality}
                 onChange={(v) => update("graphicsQuality", v)}
                 options={["Low", "Medium", "High"]}
+                renderLabel={(key) => QUALITY_LABEL[key] ?? key}
             />
 
             <div style={{ marginTop: "18px" }}>
-                <Row label="Fullscreen">
+                <Row label={t("fullscreenLabel")}>
                     <Toggle value={settings.fullscreen} onChange={handleFullscreenToggle} />
                 </Row>
-                <Row label="Show FPS">
+                <Row label={t("showFpsLabel")}>
                     <Toggle value={settings.showFps} onChange={(v) => update("showFps", v)} />
                 </Row>
             </div>
 
-            <p style={sectionHintStyle}>Tune how the board looks.</p>
+            <p style={sectionHintStyle}>{t("videoHint")}</p>
         </div>
     );
 }
 
 function ControlsSection({ settings, update }) {
+    const { t } = useTranslation();
     return (
         <div>
-            <Row label="Camera Sensitivity">
+            <Row label={t("cameraSensitivityLabel")}>
                 <Slider value={settings.cameraSensitivity} onChange={(v) => update("cameraSensitivity", v)} />
             </Row>
-            <Row label="Invert Camera">
+            <Row label={t("invertCameraLabel")}>
                 <Toggle value={settings.invertCamera} onChange={(v) => update("invertCamera", v)} />
             </Row>
 
-            <Label>Keybinds</Label>
+            <Label>{t("keybindsLabel")}</Label>
             <div style={{ fontFamily: "Georgia, serif", fontSize: "0.8rem", color: colors.inkSoft, lineHeight: 1.9 }}>
-                <div>Roll Dice — <b>Space</b></div>
-                <div>End Turn — <b>Enter</b></div>
-                <div>Open Trade — <b>T</b></div>
-                <div>Open Chat — <b>C</b></div>
+                <div>{t("rollDiceBind")} — <b>Space</b></div>
+                <div>{t("endTurnBind")} — <b>Enter</b></div>
+                <div>{t("openTradeBind")} — <b>T</b></div>
+                <div>{t("openChatBind")} — <b>C</b></div>
             </div>
 
-            <p style={sectionHintStyle}>Customize how you play.</p>
+            <p style={sectionHintStyle}>{t("controlsHint")}</p>
         </div>
     );
 }
@@ -373,6 +388,7 @@ function ControlsSection({ settings, update }) {
 function AccountSection({ playerName, onChangeName }) {
     const [editing, setEditing] = useState(false);
     const [draft, setDraft] = useState(playerName);
+    const { t } = useTranslation();
 
     const linkedIcons = [
         { key: "steam", label: "Steam", emoji: "🎮" },
@@ -382,7 +398,7 @@ function AccountSection({ playerName, onChangeName }) {
 
     return (
         <div>
-            <Label>Player Name</Label>
+            <Label>{t("playerNameLabel")}</Label>
             {editing ? (
                 <div style={{ display: "flex", gap: "8px" }}>
                     <input
@@ -415,7 +431,7 @@ function AccountSection({ playerName, onChangeName }) {
                         }}
                         style={{ ...applyBtnStyle, padding: "8px 14px" }}
                     >
-                        Save
+                        {t("saveBtn")}
                     </button>
                 </div>
             ) : (
@@ -424,11 +440,11 @@ function AccountSection({ playerName, onChangeName }) {
 
             {!editing && (
                 <button type="button" onClick={() => { setDraft(playerName); setEditing(true); }} style={secondaryBtnStyle}>
-                    Change Name
+                    {t("changeNameBtn")}
                 </button>
             )}
 
-            <Label>Linked Accounts</Label>
+            <Label>{t("linkedAccountsLabel")}</Label>
             <div style={{ display: "flex", gap: "10px" }}>
                 {linkedIcons.map((i) => (
                     <div
@@ -454,16 +470,16 @@ function AccountSection({ playerName, onChangeName }) {
             <div style={{ marginTop: "20px", display: "flex", flexDirection: "column", gap: "8px" }}>
                 <button
                     type="button"
-                    onClick={() => window.alert("You have been logged out.")}
+                    onClick={() => window.alert(t("loggedOutAlert"))}
                     style={secondaryBtnStyle}
                 >
-                    Log Out
+                    {t("logOutBtn")}
                 </button>
                 <button
                     type="button"
                     onClick={() => {
-                        if (window.confirm("Are you sure you want to delete your account? This cannot be undone.")) {
-                            window.alert("Account deletion requested.");
+                        if (window.confirm(t("deleteConfirm"))) {
+                            window.alert(t("deleteRequestedAlert"));
                         }
                     }}
                     style={{
@@ -477,7 +493,7 @@ function AccountSection({ playerName, onChangeName }) {
                         padding: "4px",
                     }}
                 >
-                    Delete Account
+                    {t("deleteAccountBtn")}
                 </button>
             </div>
         </div>
@@ -518,14 +534,16 @@ const applyBtnStyle = {
 };
 
 
-const NAV_ITEMS = [
-    { key: "general", label: "General", icon: "⚙" },
-    { key: "gameplay", label: "Gameplay", icon: "🎮" },
-    { key: "audio", label: "Audio", icon: "🔊" },
-    { key: "video", label: "Video", icon: "🖥" },
-    { key: "controls", label: "Controls", icon: "🕹" },
-    { key: "account", label: "Account", icon: "👤" },
-];
+function navItems(t) {
+    return [
+        { key: "general", label: t("navGeneral"), icon: "⚙" },
+        { key: "gameplay", label: t("navGameplay"), icon: "🎮" },
+        { key: "audio", label: t("navAudio"), icon: "🔊" },
+        { key: "video", label: t("navVideo"), icon: "🖥" },
+        { key: "controls", label: t("navControls"), icon: "🕹" },
+        { key: "account", label: t("navAccount"), icon: "👤" },
+    ];
+}
 
 function NavButton({ active, icon, label, onClick }) {
     return (
@@ -560,6 +578,7 @@ function NavButton({ active, icon, label, onClick }) {
 
 
 export default function Settings({ onClose }) {
+    const { t } = useTranslation();
     const [settings, setSettings] = useState(loadSettings);
     const [active, setActive] = useState("general");
     const [playerName, setPlayerName] = useState(getSavedPlayerName());
@@ -571,7 +590,14 @@ export default function Settings({ onClose }) {
     }, []);
 
     const update = (key, value) => {
+        // Save as a plain side effect *after* triggering the re-render, not
+        // inside the setState updater function — updater functions must be
+        // pure. Calling saveSettings() in there dispatches a settings-changed
+        // event synchronously mid-render, which is what caused React's
+        // "Cannot update a component while rendering a different component"
+        // warning and made some subscribers (like language) update unreliably.
         setSettings((prev) => ({ ...prev, [key]: value }));
+        saveSettings({ ...loadSettings(), [key]: value });
     };
 
     const handleChangeName = (newName) => {
@@ -635,12 +661,12 @@ export default function Settings({ onClose }) {
                             textShadow: "0 2px 4px rgba(0,0,0,0.6)",
                         }}
                     >
-                        SETTINGS
+                        {t("settingsTitle")}
                     </h2>
                     <button
                         type="button"
                         onClick={onClose}
-                        aria-label="Close settings"
+                        aria-label={t("closeSettingsAria")}
                         style={{
                             position: "absolute",
                             right: "18px",
@@ -673,7 +699,7 @@ export default function Settings({ onClose }) {
                         }}
                     >
                         <div style={{ flex: 1 }}>
-                            {NAV_ITEMS.map((item) => (
+                            {navItems(t).map((item) => (
                                 <NavButton
                                     key={item.key}
                                     icon={item.icon}
@@ -699,7 +725,7 @@ export default function Settings({ onClose }) {
                                 cursor: "pointer",
                             }}
                         >
-                            ‹ Back
+                            {t("back")}
                         </button>
                     </div>
 
@@ -728,11 +754,11 @@ export default function Settings({ onClose }) {
                 >
                     {savedFlash && (
                         <span style={{ fontFamily: "Georgia, serif", fontSize: "0.8rem", color: "#4c7a34", fontWeight: "bold" }}>
-              Settings saved ✓
+              {t("savedFlash")}
             </span>
                     )}
                     <button type="button" onClick={handleApply} style={{ ...applyBtnStyle, padding: "10px 24px" }}>
-                        ✔ Apply
+                        {t("apply")}
                     </button>
                 </div>
             </div>

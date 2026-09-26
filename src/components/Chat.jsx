@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { getColorByIndex } from "../constants/playerColors.js";
 import { decodePlayerIdentity } from "../profileStore.js";
+import { REACTIONS } from "../constants/reactions.js";
+import { useTranslation } from "../i18n.js";
 
 const SERVER = import.meta.env.VITE_SERVER_URL || "http://localhost:8000";
 
@@ -37,10 +39,17 @@ function usePlayerIdentities(matchID) {
 }
 
 export default function Chat({ G, ctx, moves, playerID, matchID }) {
+    const { t } = useTranslation();
     const [draft, setDraft] = useState("");
     const listRef = useRef(null);
     const messages = G.chatMessages || [];
+    const reactions = G.reactions || [];
     const identities = usePlayerIdentities(matchID);
+
+    const feed = [
+        ...messages.map((m) => ({ ...m, kind: "chat" })),
+        ...reactions.map((r) => ({ ...r, kind: "reaction" })),
+    ].sort((a, b) => (a.ts ?? 0) - (b.ts ?? 0));
 
     const myId = playerID !== undefined ? playerID : ctx.currentPlayer;
 
@@ -52,13 +61,17 @@ export default function Chat({ G, ctx, moves, playerID, matchID }) {
         if (listRef.current) {
             listRef.current.scrollTop = listRef.current.scrollHeight;
         }
-    }, [messages.length]);
+    }, [messages.length, reactions.length]);
 
     const send = () => {
         const text = draft.trim();
         if (!text) return;
         moves.sendChat(text);
         setDraft("");
+    };
+
+    const react = (emoji) => {
+        moves.sendReaction?.(emoji);
     };
 
     return (
@@ -80,7 +93,7 @@ export default function Chat({ G, ctx, moves, playerID, matchID }) {
                     gap: "6px",
                 }}
             >
-                {messages.length === 0 && (
+                {feed.length === 0 && (
                     <div
                         style={{
                             color: "#8a7a5c",
@@ -90,11 +103,30 @@ export default function Chat({ G, ctx, moves, playerID, matchID }) {
                             marginTop: "20px",
                         }}
                     >
-                        No messages yet — say hello!
+                        {t("noMessagesYet")}
                     </div>
                 )}
 
-                {messages.map((m) => {
+                {feed.map((m) => {
+                    if (m.kind === "reaction") {
+                        return (
+                            <div
+                                key={m.id}
+                                style={{
+                                    textAlign: "center",
+                                    fontSize: "0.85rem",
+                                    color: "#c9a96e",
+                                    padding: "1px 6px",
+                                }}
+                            >
+                <span style={{ fontWeight: "bold", fontSize: "0.68rem", color: colorFor(m.playerId).soft }}>
+                  {nameFor(m.playerId)}
+                </span>{" "}
+                                <span style={{ fontSize: "1rem" }}>{m.emoji}</span>
+                            </div>
+                        );
+                    }
+
                     if (m.system) {
                         const text = m.targetPlayerId !== undefined
                             ? m.text.replace("{target}", nameFor(m.targetPlayerId))
@@ -163,6 +195,37 @@ export default function Chat({ G, ctx, moves, playerID, matchID }) {
                 })}
             </div>
 
+            {moves.sendReaction && (
+                <div
+                    style={{
+                        display: "flex",
+                        gap: "4px",
+                        padding: "6px 10px 0",
+                        borderTop: "1px solid rgba(201,169,110,0.3)",
+                        flexWrap: "wrap",
+                    }}
+                >
+                    {REACTIONS.map((emoji) => (
+                        <button
+                            key={emoji}
+                            onClick={() => react(emoji)}
+                            title={`React with ${emoji}`}
+                            style={{
+                                border: "1px solid rgba(201,169,110,0.35)",
+                                background: "rgba(0,0,0,0.25)",
+                                borderRadius: "6px",
+                                fontSize: "0.95rem",
+                                padding: "2px 6px",
+                                cursor: "pointer",
+                                lineHeight: 1.4,
+                            }}
+                        >
+                            {emoji}
+                        </button>
+                    ))}
+                </div>
+            )}
+
             <div
                 style={{
                     display: "flex",
@@ -177,7 +240,7 @@ export default function Chat({ G, ctx, moves, playerID, matchID }) {
                     onKeyDown={(e) => {
                         if (e.key === "Enter") send();
                     }}
-                    placeholder="Type message"
+                    placeholder={t("typeMessage")}
                     maxLength={240}
                     style={{
                         flex: 1,

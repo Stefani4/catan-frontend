@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { getBestBankRatio } from "../../game/moves.js";
 import { usePlayerIdentities } from "../hooks/usePlayerIdentities.js";
+import { useTranslation } from "../i18n.js";
+
+const RES_KEY = { brick: "resBrick", lumber: "resLumber", grain: "resGrain", wool: "resWool", ore: "resOre" };
 
 export default function TradingPost({ G, ctx, moves, playerID, matchID }) {
+    const { t: tr } = useTranslation();
     const otherPlayers = Object.keys(G.players).filter((id) => id !== playerID);
     const identities = usePlayerIdentities(matchID);
     const nameFor = (pid) => identities[String(pid)]?.name || `Player ${pid}`;
@@ -42,17 +46,17 @@ export default function TradingPost({ G, ctx, moves, playerID, matchID }) {
                     fontFamily: "Georgia, serif",
                 }}
             >
-                <h3 style={{ margin: "0 0 10px 0" }}>⚠️ Incoming Trade!</h3>
+                <h3 style={{ margin: "0 0 10px 0" }}>⚠️ {tr("incomingTrade")}</h3>
                 <p>
-                    {nameFor(offer.from)} offers{" "}
+                    {tr("offerOffers", { name: nameFor(offer.from) })}{" "}
                     <b>
-                        {offer.give.amount} {offer.give.type}
+                        {offer.give.amount} {tr(RES_KEY[offer.give.type])}
                     </b>
                 </p>
                 <p>
-                    for your{" "}
+                    {tr("forYour")}{" "}
                     <b>
-                        {offer.receive.amount} {offer.receive.type}
+                        {offer.receive.amount} {tr(RES_KEY[offer.receive.type])}
                     </b>
                 </p>
 
@@ -71,7 +75,7 @@ export default function TradingPost({ G, ctx, moves, playerID, matchID }) {
                             fontFamily: "Georgia, serif",
                         }}
                     >
-                        Accept
+                        {tr("accept")}
                     </button>
                     <button
                         onClick={() => moves.cancelTrade()}
@@ -87,7 +91,7 @@ export default function TradingPost({ G, ctx, moves, playerID, matchID }) {
                             fontFamily: "Georgia, serif",
                         }}
                     >
-                        Decline
+                        {tr("decline")}
                     </button>
                 </div>
             </div>
@@ -116,7 +120,7 @@ export default function TradingPost({ G, ctx, moves, playerID, matchID }) {
                     borderBottom: "1px solid #c9a96e66",
                 }}
             >
-                ⚓ Trades
+                ⚓ {tr("tradesHeader")}
             </div>
             <div
                 style={{
@@ -137,7 +141,7 @@ export default function TradingPost({ G, ctx, moves, playerID, matchID }) {
                     }}
                 >
                     <h4 style={{ color: "#5dd7f5", marginTop: 0, fontSize: "0.9rem" }}>
-                        Maritime Trade ({bankRatio}:1)
+                        {tr("maritimeTrade", { ratio: bankRatio })}
                     </h4>
                     <div
                         style={{
@@ -154,7 +158,7 @@ export default function TradingPost({ G, ctx, moves, playerID, matchID }) {
                         >
                             {["brick", "lumber", "grain", "wool", "ore"].map((r) => (
                                 <option key={r} value={r}>
-                                    {r}
+                                    {tr(RES_KEY[r])}
                                 </option>
                             ))}
                         </select>
@@ -167,7 +171,7 @@ export default function TradingPost({ G, ctx, moves, playerID, matchID }) {
                         >
                             {["brick", "lumber", "grain", "wool", "ore"].map((r) => (
                                 <option key={r} value={r}>
-                                    {r}
+                                    {tr(RES_KEY[r])}
                                 </option>
                             ))}
                         </select>
@@ -197,7 +201,7 @@ export default function TradingPost({ G, ctx, moves, playerID, matchID }) {
                                     : 0.6,
                         }}
                     >
-                        Trade with Bank ({bankRatio} {bankTrade.give} ➜ 1 {bankTrade.receive})
+                        {tr("tradeWithBank", { ratio: bankRatio, give: tr(RES_KEY[bankTrade.give]), receive: tr(RES_KEY[bankTrade.receive]) })}
                     </button>
                 </section>
 
@@ -210,10 +214,10 @@ export default function TradingPost({ G, ctx, moves, playerID, matchID }) {
                         color: "white",
                     }}
                 >
-                    <h4 style={{ color: "#f1c40f", marginTop: 0, fontSize: "0.9rem" }}>Trade with Player</h4>
+                    <h4 style={{ color: "#f1c40f", marginTop: 0, fontSize: "0.9rem" }}>{tr("tradeWithPlayer")}</h4>
 
                     <div style={{ fontSize: "0.8rem", marginBottom: "10px" }}>
-                        Target Player:
+                        {tr("targetPlayer")}
                         <select
                             value={p2pTrade.targetId}
                             onChange={(e) =>
@@ -238,7 +242,7 @@ export default function TradingPost({ G, ctx, moves, playerID, matchID }) {
                         }}
                     >
                         <div style={{ display: "flex", justifyContent: "space-between" }}>
-                            <span>Give:</span>
+                            <span>{tr("give")}</span>
                             <input
                                 type="number"
                                 min="1"
@@ -259,13 +263,13 @@ export default function TradingPost({ G, ctx, moves, playerID, matchID }) {
                             >
                                 {["brick", "lumber", "grain", "wool", "ore"].map((r) => (
                                     <option key={r} value={r}>
-                                        {r}
+                                        {tr(RES_KEY[r])}
                                     </option>
                                 ))}
                             </select>
                         </div>
                         <div style={{ display: "flex", justifyContent: "space-between" }}>
-                            <span>Get:</span>
+                            <span>{tr("get")}</span>
                             <input
                                 type="number"
                                 min="1"
@@ -286,7 +290,7 @@ export default function TradingPost({ G, ctx, moves, playerID, matchID }) {
                             >
                                 {["brick", "lumber", "grain", "wool", "ore"].map((r) => (
                                     <option key={r} value={r}>
-                                        {r}
+                                        {tr(RES_KEY[r])}
                                     </option>
                                 ))}
                             </select>
@@ -324,7 +328,7 @@ export default function TradingPost({ G, ctx, moves, playerID, matchID }) {
                             opacity: isMyTurn && !G.activeOffer ? 1 : 0.6,
                         }}
                     >
-                        {G.activeOffer ? "Offer Pending..." : "Send Offer"}
+                        {G.activeOffer ? tr("offerPending") : tr("sendOffer")}
                     </button>
                 </section>
             </div>

@@ -8,12 +8,15 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "check:i18n": "node scripts/check-i18n-coverage.mjs"
   },
   "dependencies": {
     "boardgame.io": "^0.50.2",
+    "i18next": "^26.4.2",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "react-i18next": "^17.0.13"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -27,7 +30,10 @@
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
     "jsdom": "^28.1.0",
+    "playwright-core": "^1.63.0",
+    "puppeteer-core": "^25.10.0",
     "vite": "^7.3.1",
+    "vite-plugin-pwa": "^1.3.0",
     "vitest": "^4.1.10"
   }
 }

@@ -10,6 +10,7 @@ import { subscribeToSettings } from "./settingsStore.js";
 import { loadProfile, saveProfile, subscribeToProfile } from "./profileStore.js";
 import { PLAYER_COLORS } from "./constants/playerColors.js";
 import { AVATARS, getAvatarById } from "./constants/avatars.jsx";
+import { useTranslation } from "./i18n.js";
 
 const TUTORIAL_SEEN_KEY = "catan_tutorial_seen";
 
@@ -20,6 +21,7 @@ export function getSavedPlayerName() {
 }
 
 function ProfileChip() {
+    const { t } = useTranslation();
     const [profile, setProfile] = useState(loadProfile());
     const [open, setOpen] = useState(false);
     const containerRef = useRef(null);
@@ -44,7 +46,7 @@ function ProfileChip() {
         <div ref={containerRef} style={{ position: "absolute", top: "18px", left: "18px", zIndex: 20 }}>
             <div
                 onClick={() => setOpen((o) => !o)}
-                title="Click to edit your profile"
+                title={t("editProfileTooltip")}
                 style={{
                     display: "flex",
                     alignItems: "center",
@@ -88,6 +90,7 @@ function ProfileChip() {
 }
 
 function ProfileMenu({ profile, onChange }) {
+    const { t } = useTranslation();
     const color = PLAYER_COLORS[profile.colorIndex] ?? PLAYER_COLORS[0];
 
     return (
@@ -106,7 +109,7 @@ function ProfileMenu({ profile, onChange }) {
             }}
         >
             <div style={{ fontWeight: "bold", fontSize: "0.95rem", marginBottom: "8px" }}>
-                Your name
+                {t("yourName")}
             </div>
             <input
                 autoFocus
@@ -128,7 +131,7 @@ function ProfileMenu({ profile, onChange }) {
             />
 
             <div style={{ fontWeight: "bold", fontSize: "0.95rem", marginBottom: "8px" }}>
-                Piece color
+                {t("pieceColor")}
             </div>
             <div
                 style={{
@@ -142,7 +145,7 @@ function ProfileMenu({ profile, onChange }) {
                     <div
                         key={c.name}
                         onClick={() => onChange({ colorIndex: idx })}
-                        title={c.name}
+                        title={t(c.colorKey)}
                         style={{
                             width: "100%",
                             boxSizing: "border-box",
@@ -158,7 +161,7 @@ function ProfileMenu({ profile, onChange }) {
             </div>
 
             <div style={{ fontWeight: "bold", fontSize: "0.95rem", marginBottom: "8px" }}>
-                Avatar
+                {t("avatar")}
             </div>
             <div
                 style={{
@@ -173,7 +176,7 @@ function ProfileMenu({ profile, onChange }) {
                         <div
                             key={a.id}
                             onClick={() => onChange({ avatarId: a.id })}
-                            title={a.label}
+                            title={t(a.labelKey)}
                             style={{
                                 width: "100%",
                                 boxSizing: "border-box",
@@ -275,6 +278,7 @@ function FooterButton({ label, onClick }) {
 }
 
 export default function MainMenu({ onCreateLobby, onJoinLobby }) {
+    const {t} = useTranslation();
     const [joinCode, setJoinCode] = useState("");
     const [showJoinBox, setShowJoinBox] = useState(false);
     const [infoModal, setInfoModal] = useState(null); // "Tutorial" | "Rules" | "Settings" | null
@@ -303,25 +307,29 @@ export default function MainMenu({ onCreateLobby, onJoinLobby }) {
                 overflow: "hidden",
             }}
         >
-            <ProfileChip />
+            <ProfileChip/>
 
             <img
                 src={catanLogo}
                 alt="Catan"
-                style={{ width: "min(420px, 60vw)", marginBottom: "10px", filter: "drop-shadow(0 6px 14px rgba(0,0,0,0.6))" }}
+                style={{
+                    width: "min(420px, 60vw)",
+                    marginBottom: "10px",
+                    filter: "drop-shadow(0 6px 14px rgba(0,0,0,0.6))"
+                }}
             />
 
-            <div style={{ display: "flex", gap: "26px", marginTop: "10px", flexWrap: "wrap", justifyContent: "center" }}>
+            <div style={{display: "flex", gap: "26px", marginTop: "10px", flexWrap: "wrap", justifyContent: "center"}}>
                 <MenuCard
                     img={createLobbyImg}
-                    title="Create Lobby"
-                    description="Create your own game, invite friends and start your journey."
+                    title={t("createLobby")}
+                    description={t("createLobbyDesc")}
                     onClick={onCreateLobby}
                 />
                 <MenuCard
                     img={joinLobbyImg}
-                    title="Join Lobby"
-                    description="Jump into an open lobby and start playing online with other settlers."
+                    title={t("joinLobby")}
+                    description={t("joinLobbyDesc")}
                     onClick={() => setShowJoinBox(true)}
                 />
             </div>
@@ -343,7 +351,7 @@ export default function MainMenu({ onCreateLobby, onJoinLobby }) {
                         autoFocus
                         value={joinCode}
                         onChange={(e) => setJoinCode(e.target.value)}
-                        placeholder="Paste match link or code"
+                        placeholder={t("joinPlaceholder")}
                         style={{
                             padding: "8px 10px",
                             borderRadius: "6px",
@@ -366,7 +374,7 @@ export default function MainMenu({ onCreateLobby, onJoinLobby }) {
                             cursor: "pointer",
                         }}
                     >
-                        Go
+                        {t("go")}
                     </button>
                 </div>
             )}
@@ -379,16 +387,16 @@ export default function MainMenu({ onCreateLobby, onJoinLobby }) {
                     gap: "14px",
                 }}
             >
-                <FooterButton label="Tutorial" onClick={() => setInfoModal("Tutorial")} />
-                <FooterButton label="Rules" onClick={() => setInfoModal("Rules")} />
-                <FooterButton label="Settings" onClick={() => setInfoModal("Settings")} />
+                <FooterButton label={t("tutorial")} onClick={() => setInfoModal("Tutorial")}/>
+                <FooterButton label={t("rules")} onClick={() => setInfoModal("Rules")}/>
+                <FooterButton label={t("settings")} onClick={() => setInfoModal("Settings")}/>
             </div>
 
-            {infoModal === "Settings" && <Settings onClose={() => setInfoModal(null)} />}
+            {infoModal === "Settings" && <Settings onClose={() => setInfoModal(null)}/>}
 
-            {infoModal === "Rules" && <RulesBook onClose={() => setInfoModal(null)} />}
+            {infoModal === "Rules" && <RulesBook onClose={() => setInfoModal(null)}/>}
 
-            {infoModal === "Tutorial" && <Tutorial onClose={closeInfoModal} />}
+            {infoModal === "Tutorial" && <Tutorial onClose={closeInfoModal}/>}
 
             {infoModal && infoModal !== "Settings" && infoModal !== "Rules" && infoModal !== "Tutorial" && (
                 <div
@@ -416,8 +424,8 @@ export default function MainMenu({ onCreateLobby, onJoinLobby }) {
                             maxWidth: "320px",
                         }}
                     >
-                        <h3 style={{ marginTop: 0 }}>{infoModal}</h3>
-                        <p style={{ fontSize: "0.9rem" }}>Coming soon!</p>
+                        <h3 style={{marginTop: 0}}>{infoModal}</h3>
+                        <p style={{fontSize: "0.9rem"}}>{t("comingSoon")}</p>
                         <button
                             onClick={() => setInfoModal(null)}
                             style={{
@@ -431,7 +439,7 @@ export default function MainMenu({ onCreateLobby, onJoinLobby }) {
                                 cursor: "pointer",
                             }}
                         >
-                            Close
+                            {t("close")}
                         </button>
                     </div>
                 </div>

@@ -8,14 +8,26 @@ import { GAME_SETTINGS_DEFAULTS } from "../game/constants.js";
 import { getThemeImage } from "./theme.js";
 import { subscribeToSettings } from "./settingsStore.js";
 import { botDisplayName } from "./bots/botNames.js";
+import { DIFFICULTIES, DEFAULT_DIFFICULTY } from "./bots/botEngine.js";
+import { useTranslation } from "./i18n.js";
+
+function difficultyMeta(t) {
+    return {
+        easy: { label: t("botEasy"), emoji: "🌱", blurb: t("botEasyBlurb") },
+        medium: { label: t("botMedium"), emoji: "⚖️", blurb: t("botMediumBlurb") },
+        hard: { label: t("botHard"), emoji: "🔥", blurb: t("botHardBlurb") },
+    };
+}
 import { loadProfile, subscribeToProfile, saveProfile, decodePlayerIdentity, encodePlayerIdentity } from "./profileStore.js";
 import ProfileMenu from "./components/ProfileMenu.jsx";
+import { useViewportSize } from "./hooks/useViewportSize.js";
 
 const SERVER = import.meta.env.VITE_SERVER_URL || "http://localhost:8000";
 
 
 
-function AdvancedRulesPanel({ matchID }) {
+function AdvancedRulesPanel({ matchID, isMobile }) {
+    const { t } = useTranslation();
     const [settings, setSettings] = useState(null);
 
     useEffect(() => {
@@ -36,7 +48,8 @@ function AdvancedRulesPanel({ matchID }) {
     return (
         <div
             style={{
-                width: "360px",
+                width: isMobile ? "100%" : "360px",
+                maxWidth: "360px",
                 borderRadius: "14px",
                 border: "3px solid #7a5320",
                 background: "linear-gradient(160deg, #e8d9b0, #d8c391)",
@@ -45,6 +58,7 @@ function AdvancedRulesPanel({ matchID }) {
                 fontFamily: "Georgia, serif",
                 color: "#3a2409",
                 boxSizing: "border-box",
+                flexShrink: 0,
             }}
         >
             <div
@@ -57,24 +71,26 @@ function AdvancedRulesPanel({ matchID }) {
                     paddingBottom: "6px",
                 }}
             >
-                📜 Advanced Rules
+                📜 {t("advancedRules")}
             </div>
             {settings ? (
                 <GameSetupModal settings={settings} readOnly />
             ) : (
                 <p style={{ textAlign: "center", fontSize: "0.85rem", fontStyle: "italic" }}>
-                    Loading match rules…
+                    {t("loadingRules")}
                 </p>
             )}
             <p style={{ fontSize: "0.62rem", color: "#8a7458", fontStyle: "italic", marginTop: "8px", marginBottom: 0, textAlign: "center" }}>
-                Locked in by the host when this lobby was created.
+                {t("lockedByHost")}
             </p>
         </div>
     );
 }
 
-function SettlersPanel({ matchID, numPlayers, mySeat, players, onCopyLink }) {
+function SettlersPanel({ matchID, numPlayers, mySeat, players, bots, onCopyLink, isMobile }) {
+    const { t } = useTranslation();
     const [copied, setCopied] = useState(false);
+    const DIFFICULTY_META = difficultyMeta(t);
 
     const copy = () => {
         onCopyLink();
@@ -85,7 +101,8 @@ function SettlersPanel({ matchID, numPlayers, mySeat, players, onCopyLink }) {
     return (
         <div
             style={{
-                width: "230px",
+                width: isMobile ? "100%" : "230px",
+                maxWidth: "360px",
                 borderRadius: "14px",
                 border: "3px solid #7a5320",
                 background: "linear-gradient(160deg, #e8d9b0, #d8c391)",
@@ -93,6 +110,8 @@ function SettlersPanel({ matchID, numPlayers, mySeat, players, onCopyLink }) {
                 padding: "16px",
                 fontFamily: "Georgia, serif",
                 color: "#3a2409",
+                boxSizing: "border-box",
+                flexShrink: 0,
             }}
         >
             <div
@@ -105,7 +124,7 @@ function SettlersPanel({ matchID, numPlayers, mySeat, players, onCopyLink }) {
                     paddingBottom: "8px",
                 }}
             >
-                Settlers
+                {t("settlers")}
             </div>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
@@ -115,6 +134,7 @@ function SettlersPanel({ matchID, numPlayers, mySeat, players, onCopyLink }) {
                     const color = getColorByIndex(identity ? identity.colorIndex : (parseInt(seat, 10) % 9));
                     const AvatarIcon = identity?.avatarId ? getAvatarById(identity.avatarId).Icon : null;
                     const isMe = seat === mySeat;
+                    const botInfo = (bots || []).find((b) => String(b.seat) === seat);
                     return (
                         <div
                             key={seat}
@@ -152,9 +172,25 @@ function SettlersPanel({ matchID, numPlayers, mySeat, players, onCopyLink }) {
                                     fontWeight: isMe ? "bold" : "normal",
                                 }}
                             >
-                {joined ? identity.name : `Waiting for player ${seat}…`}
-                                {isMe ? " (you)" : ""}
+                {joined ? identity.name : t("waitingForPlayer", { seat })}
+                                {isMe ? ` ${t("you")}` : ""}
               </span>
+                            {botInfo && (
+                                <span
+                                    style={{
+                                        fontSize: "0.62rem",
+                                        color: "#7a5320",
+                                        background: "rgba(122,83,32,0.15)",
+                                        borderRadius: "999px",
+                                        padding: "1px 7px",
+                                        fontWeight: "bold",
+                                        flexShrink: 0,
+                                    }}
+                                >
+                                    {DIFFICULTY_META[botInfo.difficulty || DEFAULT_DIFFICULTY].emoji}{" "}
+                                    {DIFFICULTY_META[botInfo.difficulty || DEFAULT_DIFFICULTY].label}
+                                </span>
+                            )}
                         </div>
                     );
                 })}
@@ -175,14 +211,17 @@ function SettlersPanel({ matchID, numPlayers, mySeat, players, onCopyLink }) {
                     fontFamily: "Georgia, serif",
                 }}
             >
-                {copied ? "✓ Copied!" : "Copy Link"}
+                {copied ? t("copied") : t("copyLink")}
             </button>
         </div>
     );
 }
 
-function BotsPanel({ matchID, openSeats, botCount, addingBots, onAddBots }) {
+function BotsPanel({ matchID, openSeats, botCount, addingBots, onAddBots, isMobile }) {
+    const { t } = useTranslation();
+    const DIFFICULTY_META = difficultyMeta(t);
     const [selected, setSelected] = useState(0);
+    const [difficulty, setDifficulty] = useState(DEFAULT_DIFFICULTY);
     const maxBots = openSeats.length;
 
     useEffect(() => {
@@ -194,7 +233,8 @@ function BotsPanel({ matchID, openSeats, botCount, addingBots, onAddBots }) {
     return (
         <div
             style={{
-                width: "230px",
+                width: isMobile ? "100%" : "230px",
+                maxWidth: "360px",
                 borderRadius: "14px",
                 border: "3px solid #7a5320",
                 background: "linear-gradient(160deg, #e8d9b0, #d8c391)",
@@ -202,6 +242,8 @@ function BotsPanel({ matchID, openSeats, botCount, addingBots, onAddBots }) {
                 padding: "16px",
                 fontFamily: "Georgia, serif",
                 color: "#3a2409",
+                boxSizing: "border-box",
+                flexShrink: 0,
             }}
         >
             <div
@@ -214,11 +256,11 @@ function BotsPanel({ matchID, openSeats, botCount, addingBots, onAddBots }) {
                     paddingBottom: "8px",
                 }}
             >
-                🤖 Play vs Bots
+                {t("playVsBots")}
             </div>
 
             <p style={{ fontSize: "0.72rem", color: "#5a4326", marginTop: 0 }}>
-                No one to play with? Fill the {maxBots} open seat{maxBots === 1 ? "" : "s"} with AI opponents.
+                {t("fillOpenSeats", { n: maxBots, s: maxBots === 1 ? "" : "s" })}
             </p>
 
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "10px", margin: "10px 0" }}>
@@ -245,8 +287,40 @@ function BotsPanel({ matchID, openSeats, botCount, addingBots, onAddBots }) {
                 ))}
             </div>
 
+            <div style={{ margin: "2px 0 12px" }}>
+                <p style={{ fontSize: "0.68rem", color: "#5a4326", margin: "0 0 6px", textAlign: "center" }}>
+                    {t("difficulty")}
+                </p>
+                <div style={{ display: "flex", gap: "6px", justifyContent: "center" }}>
+                    {DIFFICULTIES.map((level) => (
+                        <button
+                            key={level}
+                            onClick={() => setDifficulty(level)}
+                            disabled={addingBots}
+                            title={DIFFICULTY_META[level].blurb}
+                            style={{
+                                flex: 1,
+                                padding: "6px 4px",
+                                borderRadius: "8px",
+                                border: `2px solid ${difficulty === level ? "#7a5320" : "rgba(122,83,32,0.4)"}`,
+                                background: difficulty === level
+                                    ? "linear-gradient(135deg, #8a5a20, #c9922f)"
+                                    : "rgba(255,255,255,0.4)",
+                                color: difficulty === level ? "white" : "#5a4326",
+                                fontWeight: "bold",
+                                fontSize: "0.72rem",
+                                cursor: addingBots ? "default" : "pointer",
+                                fontFamily: "Georgia, serif",
+                            }}
+                        >
+                            {DIFFICULTY_META[level].emoji} {DIFFICULTY_META[level].label}
+                        </button>
+                    ))}
+                </div>
+            </div>
+
             <button
-                onClick={() => onAddBots(selected)}
+                onClick={() => onAddBots(selected, difficulty)}
                 disabled={selected === 0 || addingBots}
                 style={{
                     width: "100%",
@@ -262,20 +336,21 @@ function BotsPanel({ matchID, openSeats, botCount, addingBots, onAddBots }) {
                 }}
             >
                 {addingBots
-                    ? "Adding…"
-                    : `Add ${selected || ""} Bot${selected === 1 ? "" : "s"}`.trim()}
+                    ? t("adding")
+                    : t("addBots", { n: selected || "", s: selected === 1 ? "" : "s" }).trim()}
             </button>
 
             {botCount > 0 && (
                 <p style={{ fontSize: "0.68rem", color: "#5a4326", textAlign: "center", marginBottom: 0 }}>
-                    {botCount} bot{botCount === 1 ? "" : "s"} seated.
+                    {t("botsSeated", { n: botCount, s: botCount === 1 ? "" : "s" })}
                 </p>
             )}
         </div>
     );
 }
 
-function LobbyChat({ matchID }) {
+function LobbyChat({ matchID, isMobile }) {
+    const { t } = useTranslation();
     const [messages, setMessages] = useState([]);
     const [draft, setDraft] = useState("");
     const listRef = useRef(null);
@@ -322,7 +397,8 @@ function LobbyChat({ matchID }) {
     return (
         <div
             style={{
-                width: "300px",
+                width: isMobile ? "100%" : "300px",
+                maxWidth: "360px",
                 borderRadius: "14px",
                 border: "3px solid #7a5320",
                 background: "linear-gradient(160deg, #f1e4bf, #e2cd9c)",
@@ -330,6 +406,8 @@ function LobbyChat({ matchID }) {
                 overflow: "hidden",
                 fontFamily: "Georgia, serif",
                 color: "#3a2409",
+                boxSizing: "border-box",
+                flexShrink: 0,
             }}
         >
             <div
@@ -341,7 +419,7 @@ function LobbyChat({ matchID }) {
                     borderBottom: "2px solid #7a5320",
                 }}
             >
-                Chat
+                {t("chat")}
             </div>
             <div
                 ref={listRef}
@@ -356,7 +434,7 @@ function LobbyChat({ matchID }) {
             >
                 {messages.length === 0 && (
                     <div style={{ fontStyle: "italic", fontSize: "0.8rem", color: "#8a7458", textAlign: "center", marginTop: "16px" }}>
-                        No messages yet — say hello!
+                        {t("noMessagesYet")}
                     </div>
                 )}
                 {messages.map((m) => (
@@ -370,7 +448,7 @@ function LobbyChat({ matchID }) {
                     value={draft}
                     onChange={(e) => setDraft(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && send()}
-                    placeholder="Type message here"
+                    placeholder={t("typeMessageHere")}
                     style={{
                         flex: 1,
                         padding: "7px 10px",
@@ -400,23 +478,26 @@ function LobbyChat({ matchID }) {
 }
 
 export default function LobbyRoom({ matchID, numPlayers, mySeat, onLeave, onStart, bots, onBotsChange }) {
+    const { t } = useTranslation();
+    const viewport = useViewportSize();
+    const isMobile = viewport.width < 820;
     const [profile, setProfile] = useState(loadProfile());
     const [players, setPlayers] = useState([]);
     const [theme, setTheme] = useState("sunset");
     const [addingBots, setAddingBots] = useState(false);
-  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
-const profileChipRef = useRef(null);
+    const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+    const profileChipRef = useRef(null);
 
-useEffect(() => {
-    if (!profileMenuOpen) return;
-    const handleClickOutside = (e) => {
-        if (profileChipRef.current && !profileChipRef.current.contains(e.target)) {
-            setProfileMenuOpen(false);
-        }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-}, [profileMenuOpen]);
+    useEffect(() => {
+        if (!profileMenuOpen) return;
+        const handleClickOutside = (e) => {
+            if (profileChipRef.current && !profileChipRef.current.contains(e.target)) {
+                setProfileMenuOpen(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [profileMenuOpen]);
 
     useEffect(() => subscribeToProfile(setProfile), []);
     useEffect(() => subscribeToSettings((s) => setTheme(s.theme)), []);
@@ -450,7 +531,7 @@ useEffect(() => {
         (seat) => !takenSeats.has(seat),
     );
 
-    const addBots = async (count) => {
+    const addBots = async (count, difficulty = DEFAULT_DIFFICULTY) => {
         if (count <= 0 || addingBots) return;
         setAddingBots(true);
         const seatsToFill = openSeats.slice(0, count);
@@ -498,7 +579,7 @@ useEffect(() => {
                 });
                 if (res.ok) {
                     const data = await res.json();
-                    newBots.push({ seat, name: identity, credentials: data.playerCredentials });
+                    newBots.push({ seat, name: identity, credentials: data.playerCredentials, difficulty });
                 }
             } catch {
             }
@@ -532,54 +613,62 @@ useEffect(() => {
                 boxSizing: "border-box",
             }}
         >
-           <div ref={profileChipRef} style={{ position: "absolute", top: "18px", left: "18px", zIndex: 20 }}>
-    <div
-        onClick={() => setProfileMenuOpen((o) => !o)}
-        title="Click to edit your profile"
-        style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "10px",
-            background: "rgba(20,14,6,0.6)",
-            border: `2px solid ${profileMenuOpen ? getColorByIndex(profile.colorIndex).soft : "#c9a96e"}`,
-            borderRadius: "999px",
-            padding: "6px 16px 6px 6px",
-            cursor: "pointer",
-            userSelect: "none",
-        }}
-    >
-        <div
-            style={{
-                width: "34px",
-                height: "34px",
-                borderRadius: "50%",
-                background: `radial-gradient(circle at 30% 30%, ${getColorByIndex(profile.colorIndex).soft}, ${getColorByIndex(profile.colorIndex).accent})`,
-                border: "2px solid #f1d38a",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexShrink: 0,
-            }}
-        >
-            {(() => {
-                const AvatarIcon = getAvatarById(profile.avatarId).Icon;
-                return <AvatarIcon size={18} color="#f2e6c9" />;
-            })()}
-        </div>
-        <span style={{ color: "#f2e6c9", fontWeight: "bold", fontFamily: "Georgia, serif" }}>
+            <div ref={profileChipRef} style={{ position: "absolute", top: "18px", left: "18px", zIndex: 20 }}>
+                <div
+                    onClick={() => setProfileMenuOpen((o) => !o)}
+                    title={t("editProfileTooltip")}
+                    style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: "10px",
+                        background: "rgba(20,14,6,0.6)",
+                        border: `2px solid ${profileMenuOpen ? getColorByIndex(profile.colorIndex).soft : "#c9a96e"}`,
+                        borderRadius: "999px",
+                        padding: "6px 16px 6px 6px",
+                        cursor: "pointer",
+                        userSelect: "none",
+                    }}
+                >
+                    <div
+                        style={{
+                            width: "34px",
+                            height: "34px",
+                            borderRadius: "50%",
+                            background: `radial-gradient(circle at 30% 30%, ${getColorByIndex(profile.colorIndex).soft}, ${getColorByIndex(profile.colorIndex).accent})`,
+                            border: "2px solid #f1d38a",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            flexShrink: 0,
+                        }}
+                    >
+                        {(() => {
+                            const AvatarIcon = getAvatarById(profile.avatarId).Icon;
+                            return <AvatarIcon size={18} color="#f2e6c9" />;
+                        })()}
+                    </div>
+                    <span style={{ color: "#f2e6c9", fontWeight: "bold", fontFamily: "Georgia, serif" }}>
             {profile.name} ✎
         </span>
-    </div>
+                </div>
 
-    {profileMenuOpen && (
-        <ProfileMenu
-            profile={profile}
-            onChange={(partial) => setProfile(saveProfile(partial))}
-        />
-    )}
-</div>
+                {profileMenuOpen && (
+                    <ProfileMenu
+                        profile={profile}
+                        onChange={(partial) => setProfile(saveProfile(partial))}
+                    />
+                )}
+            </div>
 
-            <img src={catanLogo} alt="Catan" style={{ width: "min(220px, 30vw)", marginBottom: "12px", flexShrink: 0 }} />
+            <img
+                src={catanLogo}
+                alt="Catan"
+                style={{
+                    width: isMobile ? "min(150px, 34vw)" : "min(220px, 30vw)",
+                    marginBottom: isMobile ? "8px" : "12px",
+                    flexShrink: 0,
+                }}
+            />
 
             <div
                 style={{
@@ -587,23 +676,27 @@ useEffect(() => {
                     minHeight: 0,
                     width: "100%",
                     display: "flex",
+                    flexDirection: isMobile ? "column" : "row",
                     justifyContent: "center",
-                    alignItems: "flex-start",
-                    gap: "20px",
-                    padding: "0 30px",
+                    alignItems: isMobile ? "center" : "flex-start",
+                    gap: isMobile ? "12px" : "20px",
+                    padding: isMobile ? "0 14px" : "0 30px",
                     boxSizing: "border-box",
-                    overflow: "hidden",
+                    overflowY: isMobile ? "auto" : "hidden",
+                    overflowX: "hidden",
+                    WebkitOverflowScrolling: "touch",
                 }}
             >
-                <LobbyChat matchID={matchID} />
-                <AdvancedRulesPanel matchID={matchID} />
-                <SettlersPanel matchID={matchID} numPlayers={numPlayers} mySeat={mySeat} players={players} onCopyLink={copyLink} />
+                <LobbyChat matchID={matchID} isMobile={isMobile} />
+                <AdvancedRulesPanel matchID={matchID} isMobile={isMobile} />
+                <SettlersPanel matchID={matchID} numPlayers={numPlayers} mySeat={mySeat} players={players} bots={bots} onCopyLink={copyLink} isMobile={isMobile} />
                 <BotsPanel
                     matchID={matchID}
                     openSeats={openSeats}
                     botCount={(bots || []).length}
                     addingBots={addingBots}
                     onAddBots={addBots}
+                    isMobile={isMobile}
                 />
             </div>
 
@@ -631,12 +724,12 @@ useEffect(() => {
                             cursor: "pointer",
                         }}
                     >
-                        Leave
+                        {t("leave")}
                     </button>
                     <button
                         onClick={onStart}
                         disabled={!canStart}
-                        title={canStart ? undefined : "Need at least 2 players to start"}
+                        title={canStart ? undefined : t("needTwoPlayers")}
                         style={{
                             padding: "12px 32px",
                             borderRadius: "8px",
@@ -652,12 +745,12 @@ useEffect(() => {
                             opacity: canStart ? 1 : 0.65,
                         }}
                     >
-                        Start Game
+                        {t("startGame")}
                     </button>
                 </div>
                 {!canStart && (
                     <span style={{ fontSize: "0.78rem", color: "#f2e6c9", fontStyle: "italic", textShadow: "1px 1px 3px rgba(0,0,0,0.8)" }}>
-            Waiting for at least 2 players to join ({joinedCount}/{numPlayers} so far)…
+            {t("waitingForPlayers", { joined: joinedCount, total: numPlayers })}
           </span>
                 )}
             </div>

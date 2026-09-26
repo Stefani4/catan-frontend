@@ -1,0 +1,873 @@
+{
+  "createLobby": "Crear Partida",
+  "createLobbyDesc": "Crea tu propia partida, invita a tus amigos y empieza tu aventura.",
+  "joinLobby": "Unirse a Partida",
+  "joinLobbyDesc": "Únete a una partida abierta y juega en línea con otros colonos.",
+  "joinPlaceholder": "Pega el enlace o código de la partida",
+  "go": "Ir",
+  "tutorial": "Tutorial",
+  "rules": "Reglas",
+  "settings": "Ajustes",
+  "yourName": "Tu nombre",
+  "pieceColor": "Color de fichas",
+  "avatar": "Avatar",
+  "comingSoon": "¡Próximamente!",
+  "close": "Cerrar",
+  "settingsTitle": "AJUSTES",
+  "navGeneral": "General",
+  "navGameplay": "Jugabilidad",
+  "navAudio": "Audio",
+  "navVideo": "Vídeo",
+  "navControls": "Controles",
+  "navAccount": "Cuenta",
+  "back": "‹ Atrás",
+  "apply": "✔ Aplicar",
+  "savedFlash": "Ajustes guardados ✓",
+  "language": "Idioma",
+  "theme": "Tema",
+  "themeHint": "Define el fondo del Menú Principal y la Sala de Espera.",
+  "animations": "Animaciones",
+  "tutorialHints": "Sugerencias del Tutorial",
+  "advancedRules": "Reglas Avanzadas",
+  "loadingRules": "Cargando reglas de la partida…",
+  "lockedByHost": "Fijado por el anfitrión al crear esta sala.",
+  "settlers": "Colonos",
+  "waitingForPlayer": "Esperando al jugador {seat}…",
+  "you": "(tú)",
+  "copyLink": "Copiar Enlace",
+  "copied": "✓ ¡Copiado!",
+  "playVsBots": "🤖 Jugar contra Bots",
+  "fillOpenSeats": "¿Sin gente con quien jugar? Llena {n} asiento{s} libre{s} con oponentes de IA.",
+  "difficulty": "Dificultad",
+  "adding": "Añadiendo…",
+  "addBots": "Añadir {n} Bot{s}",
+  "botsSeated": "{n} bot{s} sentado{s}.",
+  "chat": "Chat",
+  "noMessagesYet": "Aún no hay mensajes — ¡saluda!",
+  "typeMessageHere": "Escribe un mensaje aquí",
+  "leave": "Salir",
+  "startGame": "Empezar Partida",
+  "needTwoPlayers": "Se necesitan al menos 2 jugadores para empezar",
+  "waitingForPlayers": "Esperando al menos 2 jugadores para unirse ({joined}/{total} hasta ahora)…",
+  "botEasy": "Fácil",
+  "botEasyBlurb": "Juega de forma casual, comercia al azar.",
+  "botMedium": "Medio",
+  "botMediumBlurb": "Juego sólido y orientado a objetivos.",
+  "botHard": "Difícil",
+  "botHardBlurb": "Apunta al líder, negocia con dureza.",
+  "loadingPlayerData": "Cargando datos del jugador...",
+  "tradeSuccessful": "¡Intercambio exitoso!",
+  "payToClearRobber": "💰 Pagar para Quitar al Ladrón",
+  "payToClearRobberHint": "Paga 1 de cada recurso para enviar al Ladrón de vuelta al desierto",
+  "payToClearRobberNeedsHint": "Necesitas 1 de cada recurso",
+  "endTurnNow": "⏩ Terminar Turno Ahora",
+  "finishSetupFirst": "Termina la preparación primero",
+  "notYourTurn": "No es tu turno",
+  "alreadyRolled": "Ya tiraste este turno",
+  "spinTheWheel": "Girar la rueda",
+  "rollTheDice": "Tirar los dados",
+  "rolled": "Salió {value}",
+  "spin": "Girar",
+  "roll": "Tirar",
+  "typeMessage": "Escribe un mensaje",
+  "youWin": "¡Ganaste!",
+  "winnerWins": "¡{name} gana!",
+  "reachedVp": "{name} alcanzó {vp} Puntos de Victoria.",
+  "rematchProposed": "🔁 {name} inició una revancha con este grupo.",
+  "rematchError": "No se pudo unir a la revancha. Inténtalo de nuevo.",
+  "joining": "Uniéndose…",
+  "joinRematch": "🔁 Unirse a la Revancha",
+  "rematch": "🔁 Revancha",
+  "backToMenu": "Volver al Menú",
+  "phaseSetup": "preparación",
+  "phaseMain": "partida",
+  "placeRoad": "Coloca un Camino junto a tu asentamiento.",
+  "placeSettlement": "Coloca el Asentamiento #{n}",
+  "waitingDots": "Esperando...",
+  "turnsLeft": "{n} {unit} restantes",
+  "turnUnit": "turno",
+  "turnsUnit": "turnos",
+  "seasonSpring": "Primavera",
+  "seasonSpringTag": "Fertilidad",
+  "seasonSpringDesc": "+1 Grano y Lana en tiradas de 6 u 8",
+  "seasonSummer": "Verano",
+  "seasonSummerTag": "Cosecha",
+  "seasonSummerDesc": "Producción doble en tiradas de 5 o 9",
+  "seasonAutumn": "Otoño",
+  "seasonAutumnTag": "Abundancia",
+  "seasonAutumnDesc": "Madera y Ladrillo también producen en tiradas de 3 u 11",
+  "seasonWinter": "Invierno",
+  "seasonWinterTag": "Dificultad",
+  "seasonWinterDesc": "Tirar 2 o 12 mueve al Ladrón y quita un recurso",
+  "victoryPoints": "Puntos de Victoria",
+  "boardShape": "Forma del Tablero",
+  "diceMechanism": "Mecánica de Dados",
+  "optionalRules": "Reglas Opcionales",
+  "longerGame": "Partida más larga",
+  "standardGame": "Estándar",
+  "tilesCount": "{n} casillas",
+  "seasonsLabel": "Estaciones",
+  "seasonsHint": "Primavera/Verano/Otoño/Invierno modifican la producción",
+  "payToClearRobberLabel": "Pagar para Quitar al Ladrón",
+  "payToClearRobberSettingHint": "Paga 1 de cada recurso para reiniciar al Ladrón",
+  "resortLabel": "Complejo Turístico",
+  "resortHint": "Toma la ciudad de un oponente — no se puede deshacer",
+  "mapType_standard": "Hexágono",
+  "mapType_large": "Hexágono (Grande)",
+  "mapType_ribbon": "Cinta",
+  "mapType_delta": "Delta",
+  "diceMode_standard": "Dos Dados (estándar)",
+  "diceMode_wheel": "Rueda Giratoria",
+  "howManySettlers": "¿Cuántos colonos?",
+  "playersInMatch": "Jugadores en esta partida",
+  "playersSetRules": "{n} jugadores — configura las reglas de esta partida",
+  "setupBack": "← Atrás",
+  "couldntJoin": "⚠️ No se pudo unir",
+  "syncingWithServer": "Sincronizando con el servidor...",
+  "errMatchNotFound": "No se pudo encontrar esa partida. Revisa el enlace/código e inténtalo de nuevo.",
+  "errFull": "Esta partida está llena.",
+  "errReachServer": "No se pudo conectar con el servidor del juego.",
+  "errJoinSeat": "No se pudo unir a ese asiento — puede que ya esté ocupado o la partida no exista.",
+  "errSessionGone": "Tu partida anterior ya no está disponible en el servidor.",
+  "errReachServerWithUrl": "No se pudo conectar con el servidor. ¿Está corriendo en {url}?",
+  "errStartRematch": "No se pudo iniciar la revancha. Inténtalo de nuevo.",
+  "editProfileTooltip": "Haz clic para editar tu perfil",
+  "victoryPointsToWin": "Puntos de Victoria para Ganar",
+  "defaultBoardShape": "Forma de Tablero por Defecto",
+  "turnTimerLabel": "Temporizador de Turno",
+  "secondsToAct": "Segundos para actuar en tu turno",
+  "gameplayDefaultsHint": "Estos serán los valores por defecto de una nueva partida — aún puedes ajustarlos por sala.",
+  "muteAllAudio": "Silenciar Todo el Audio",
+  "masterVolumeLabel": "Volumen General",
+  "musicVolumeLabel": "Volumen de Música",
+  "soundEffectsLabel": "Efectos de Sonido",
+  "ambientVolumeLabel": "Volumen Ambiental",
+  "voiceChatLabel": "Chat de Voz",
+  "audioHint": "Ajusta los sonidos. General y Efectos reproducen una vista previa al soltar el control.",
+  "graphicsQualityLabel": "Calidad Gráfica",
+  "qualityLow": "Baja",
+  "qualityMedium": "Media",
+  "qualityHigh": "Alta",
+  "fullscreenLabel": "Pantalla Completa",
+  "showFpsLabel": "Mostrar FPS",
+  "videoHint": "Ajusta la apariencia del tablero.",
+  "cameraSensitivityLabel": "Sensibilidad de Cámara",
+  "invertCameraLabel": "Invertir Cámara",
+  "keybindsLabel": "Atajos de Teclado",
+  "rollDiceBind": "Tirar Dados",
+  "endTurnBind": "Terminar Turno",
+  "openTradeBind": "Abrir Intercambio",
+  "openChatBind": "Abrir Chat",
+  "controlsHint": "Personaliza cómo juegas.",
+  "playerNameLabel": "Nombre de Jugador",
+  "saveBtn": "Guardar",
+  "changeNameBtn": "Cambiar Nombre",
+  "linkedAccountsLabel": "Cuentas Vinculadas",
+  "logOutBtn": "Cerrar Sesión",
+  "loggedOutAlert": "Has cerrado sesión.",
+  "deleteAccountBtn": "Eliminar Cuenta",
+  "deleteConfirm": "¿Seguro que quieres eliminar tu cuenta? Esto no se puede deshacer.",
+  "deleteRequestedAlert": "Solicitud de eliminación de cuenta enviada.",
+  "resLumber": "Madera",
+  "resGrain": "Grano",
+  "resWool": "Lana",
+  "resBrick": "Ladrillo",
+  "resOre": "Mineral",
+  "cardKnight": "Caballero",
+  "cardVictoryPoint": "Punto de Victoria",
+  "cardMonopoly": "Monopolio",
+  "cardRoadBuilding": "Construcción de Caminos",
+  "cardYearOfPlenty": "Año de Abundancia",
+  "buildRoad": "Camino",
+  "buildSettlement": "Poblado",
+  "buildCity": "Ciudad",
+  "buildResort": "Complejo",
+  "buildDevCard": "Carta de Desarrollo",
+  "buildClearRobber": "Quitar Ladrón",
+  "resortSeizeHint": "Haz clic en la ciudad de un oponente para tomarla.",
+  "clearRobberHint": "Paga para enviar al Ladrón de vuelta al desierto.",
+  "sendOffer": "Enviar Oferta",
+  "offerPending": "Oferta Pendiente...",
+  "victoryPointsTt": "Puntos de Victoria",
+  "settlementsTt": "Poblados",
+  "citiesTt": "Ciudades",
+  "resortsTt": "Complejos",
+  "devCardsTt": "Cartas de Desarrollo",
+  "longestRoadTt": "Camino Más Largo",
+  "largestArmyTt": "Ejército Más Grande",
+  "sendReactionTt": "Enviar una reacción",
+  "monopolyTitle": "Monopolio",
+  "monopolySubtitle": "Elige un recurso — cada oponente te entrega todo el suyo.",
+  "yearOfPlentyTitle": "Año de Abundancia",
+  "yearOfPlentySubtitle": "Elige {n} recurso(s) más para tomar del banco.",
+  "deckEmpty": "El mazo está vacío",
+  "devCardCostTt": "Cuesta 1 Mineral + 1 Grano + 1 Lana",
+  "resortCantBeTaken": "Complejo — no puede ser tomado",
+  "clickToSeizeCity": "Haz clic para tomar esta ciudad y construir un Complejo",
+  "legalSettlementSpot": "Lugar válido para un poblado",
+  "resortTt": "Complejo",
+  "muteAllAudioTt": "Silenciar todo el audio",
+  "unmuteTt": "Reactivar sonido",
+  "avatarSailor": "Marinero",
+  "avatarExplorer": "Explorador",
+  "avatarNoble": "Noble",
+  "avatarKnight": "Caballero",
+  "avatarFarmer": "Granjero",
+  "avatarMiner": "Minero",
+  "avatarNavigator": "Navegante",
+  "avatarLord": "Señor",
+  "avatarFisherman": "Pescador",
+  "avatarPioneer": "Pionero",
+  "cancel": "Cancelar",
+  "roadBuildingTitle": "Construcción de Caminos",
+  "roadBuildingSubtitle": "Haz clic en hasta 2 caminos del tablero para colocarlos gratis.",
+  "picked": "{n}/2 elegidos",
+  "done": "Listo",
+  "buyCard": "Comprar Carta",
+  "cardsLeft": "{n} restantes",
+  "playCard": "Jugar {label}",
+  "secretSuffix": "{label} (secreta)",
+  "buildCostsTitle": "Costos de Construcción",
+  "maritimeTrade": "Comercio Marítimo ({ratio}:1)",
+  "tradeWithBank": "Comerciar con el Banco ({ratio} {give} ➜ 1 {receive})",
+  "tradeWithPlayer": "Comerciar con Jugador",
+  "targetPlayer": "Jugador Objetivo:",
+  "give": "Dar:",
+  "get": "Recibir:",
+  "roadsTt": "Caminos",
+  "roadsWithChainTt": "Caminos (cadena más larga: {n})",
+  "ptsLabel": "pts",
+  "colorRed": "Rojo",
+  "colorBlue": "Azul",
+  "colorGreen": "Verde",
+  "colorOrange": "Naranja",
+  "colorYellow": "Amarillo",
+  "colorPurple": "Morado",
+  "colorPink": "Rosa",
+  "colorCyan": "Cian",
+  "colorLavender": "Lavanda",
+  "tabTrades": "Comercio",
+  "tabChat": "Chat",
+  "tradesHeader": "Comercio",
+  "incomingTrade": "¡Oferta de Intercambio!",
+  "offerOffers": "{name} ofrece",
+  "forYour": "por tu",
+  "accept": "Aceptar",
+  "decline": "Rechazar",
+  "rulesPages": [
+    {
+      "title": "Objetivo del Juego",
+      "icon": "🏆",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Sé el primer jugador en alcanzar 10 Puntos de Victoria para ganar."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Poblado — +1",
+            "Ciudad — +2",
+            "Camino Más Largo — +2",
+            "Ejército Más Grande — +2",
+            "Carta de Punto de Victoria — +1"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El juego termina de inmediato en el momento en que un jugador alcanza 10 o más puntos en su turno."
+        }
+      ]
+    },
+    {
+      "title": "El Tablero de Juego",
+      "icon": "🗺️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El tablero está formado por casillas hexagonales de terreno, cada una produciendo un recurso, además de fichas numéricas que activan la producción."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Bosque → Madera",
+            "Colinas → Ladrillo",
+            "Campos → Grano",
+            "Pastos → Lana",
+            "Montañas → Mineral",
+            "Desierto → nada"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Los caminos y edificios se colocan en las intersecciones y los bordes entre casillas."
+        }
+      ]
+    },
+    {
+      "title": "Jugadores y Configuración Inicial",
+      "icon": "👥",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Cada jugador elige un color y recibe sus caminos, poblados, ciudades y cartas de desarrollo."
+        },
+        {
+          "type": "p",
+          "text": "En orden de turno, los jugadores colocan dos poblados iniciales y dos caminos conectados; ambos poblados deben seguir la Regla de Distancia."
+        },
+        {
+          "type": "p",
+          "text": "Después del segundo poblado, recoge una carta de recurso de cada casilla de terreno que lo toque."
+        }
+      ]
+    },
+    {
+      "title": "La Regla de Distancia",
+      "icon": "📏",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Los poblados y ciudades nunca pueden estar directamente uno junto al otro — al menos una intersección vacía debe separarlos."
+        },
+        {
+          "type": "p",
+          "text": "Esto se aplica tanto durante la configuración como en toda construcción posterior."
+        }
+      ]
+    },
+    {
+      "title": "Estructura del Turno",
+      "icon": "🔄",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "1. Determinar el número de producción",
+            "2. Aplicar la Estación actual",
+            "3. Producir recursos",
+            "4. Resolver al ladrón",
+            "5. Comerciar",
+            "6. Construir",
+            "7. Jugar cartas",
+            "8. Terminar el turno"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Puedes comerciar y construir tantas veces como puedas costear durante tu turno."
+        }
+      ]
+    },
+    {
+      "title": "Producción de Recursos",
+      "icon": "🌾",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Cuando se tira el número de una casilla, cada poblado que la toca produce 1 de su recurso, y cada ciudad produce 2. El desierto nunca produce."
+        },
+        {
+          "type": "p",
+          "text": "Ejemplo: un Poblado junto a un Bosque con el número 6 produce 1 Madera cuando sale un 6 — una Ciudad allí produce 2."
+        }
+      ]
+    },
+    {
+      "title": "La Mecánica de Estaciones",
+      "icon": "🍂",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Una Pista de Estaciones cicla entre Primavera → Verano → Otoño → Invierno → Primavera, cada una cambiando cómo se producen los recursos."
+        },
+        {
+          "type": "p",
+          "text": "La estación avanza cada 5 turnos completados, o cuando un jugador reclama el Ejército Más Grande."
+        }
+      ]
+    },
+    {
+      "title": "Primavera — Fertilidad",
+      "icon": "🌸",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Cuando sale un 6 u 8 durante la Primavera, los Campos y Pastos producen un recurso extra además de su producción normal."
+        },
+        {
+          "type": "p",
+          "text": "Ejemplo: un Poblado en un Campo con 6 normalmente hace 1 Grano — 2 Grano en Primavera, o 3 Grano para una Ciudad."
+        }
+      ]
+    },
+    {
+      "title": "Verano — Cosecha",
+      "icon": "☀️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Durante el Verano, cualquier casilla con el número 5 o 9 produce el doble de su rendimiento normal, para cada tipo de recurso."
+        },
+        {
+          "type": "p",
+          "text": "Ejemplo: un Poblado en un Bosque con 5 normalmente hace 1 Madera — 2 en Verano; una Ciudad allí haría 4."
+        }
+      ]
+    },
+    {
+      "title": "Otoño — Abundancia",
+      "icon": "🍁",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Durante el Otoño, los Bosques y Colinas también producen con tiradas de 3 y 11, además de su número normal."
+        },
+        {
+          "type": "p",
+          "text": "Ejemplo: un Bosque con el número 8 produce Madera con 8, 3 y 11 — haciendo valiosos de nuevo a los números más débiles."
+        }
+      ]
+    },
+    {
+      "title": "Invierno — Dificultad",
+      "icon": "❄️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Cuando sale un 2 o 12 durante el Invierno, se omite la producción normal — en su lugar, el ladrón se mueve a esa casilla."
+        },
+        {
+          "type": "p",
+          "text": "Cada jugador con un Poblado o Ciudad en ese hexágono pierde 1 carta de recurso al azar. El ladrón no roba en este caso."
+        }
+      ]
+    },
+    {
+      "title": "Cambio de Estaciones",
+      "icon": "📅",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La estación actual es visible para todos y permanece activa hasta que ocurra el siguiente cambio."
+        },
+        {
+          "type": "p",
+          "text": "Si un cambio de estación y una reclamación del Ejército Más Grande ocurren al mismo tiempo, la estación solo avanza una vez."
+        }
+      ]
+    },
+    {
+      "title": "Caminos",
+      "icon": "🛤️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Costo: 1 Madera + 1 Ladrillo."
+        },
+        {
+          "type": "p",
+          "text": "Un nuevo camino debe conectarse a uno de tus caminos, poblados o ciudades existentes, y nunca puede cruzar el poblado o ciudad de un oponente."
+        }
+      ]
+    },
+    {
+      "title": "Poblados",
+      "icon": "🏠",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Costo: 1 Madera + 1 Ladrillo + 1 Grano + 1 Lana."
+        },
+        {
+          "type": "p",
+          "text": "Debe colocarse en una intersección vacía conectada a uno de tus caminos, y debe seguir la Regla de Distancia. Produce 1 recurso de cada casilla adyacente."
+        }
+      ]
+    },
+    {
+      "title": "Ciudades",
+      "icon": "🏛️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Costo: 2 Grano + 3 Mineral."
+        },
+        {
+          "type": "p",
+          "text": "Se construye mejorando uno de tus poblados existentes — el poblado es reemplazado. Una ciudad produce 2 recursos en lugar de 1 de cada casilla adyacente."
+        }
+      ]
+    },
+    {
+      "title": "Complejo Turístico — Edificio Especial",
+      "icon": "🏨",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Un edificio único que te permite tomar una ubicación ocupada por la ciudad de un oponente, pagando 3 Mineral + 4 Madera + 2 Lana + 1 Ladrillo."
+        },
+        {
+          "type": "p",
+          "text": "La ciudad del oponente es eliminada y reemplazada por tu Complejo Turístico, y se pierden los Puntos de Victoria que tenía."
+        },
+        {
+          "type": "p",
+          "text": "Un Complejo Turístico nunca puede construirse sobre un Poblado, y una vez colocado no puede ser sobrescrito ni reemplazado."
+        }
+      ]
+    },
+    {
+      "title": "Comercio",
+      "icon": "🤝",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "En tu turno, puedes negociar cualquier intercambio con otro jugador, siempre que ambas partes estén de acuerdo y siga las reglas de recursos."
+        },
+        {
+          "type": "p",
+          "text": "Por ejemplo: \"1 Mineral por 2 Grano\"."
+        }
+      ]
+    },
+    {
+      "title": "Comercio con el Banco",
+      "icon": "🏦",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Intercambia 4 de un mismo recurso por 1 recurso de tu elección, en cualquier momento de tu turno."
+        },
+        {
+          "type": "p",
+          "text": "Los puertos pueden ofrecer mejores tasas que el intercambio estándar con el banco."
+        }
+      ]
+    },
+    {
+      "title": "Puertos / Muelles",
+      "icon": "⚓",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "Puerto General — 3 de un recurso → 1 de tu elección",
+            "Puerto Especializado — 2 del recurso correspondiente → 1 de tu elección"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Los puertos disponibles dependen del mapa en juego."
+        }
+      ]
+    },
+    {
+      "title": "Cartas de Desarrollo / Progreso",
+      "icon": "🃏",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Costo: 1 Grano + 1 Lana + 1 Mineral."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Caballero — mueve al ladrón y roba",
+            "Construcción de Caminos — construye 2 caminos gratis",
+            "Año de Abundancia — toma 2 recursos cualquiera",
+            "Monopolio — reclama todo de un recurso de cada jugador",
+            "Punto de Victoria — vale 1 punto"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "A menos que una carta indique lo contrario, no se puede jugar el mismo turno en que fue comprada."
+        }
+      ]
+    },
+    {
+      "title": "El Ladrón",
+      "icon": "🥷",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Sacar un 7 detiene toda la producción. Cualquiera con más de 7 cartas descarta la mitad, redondeando hacia abajo."
+        },
+        {
+          "type": "p",
+          "text": "El jugador activo mueve al ladrón a cualquier hexágono, bloqueándolo, y puede robar un recurso al azar de un oponente que toque ese hexágono."
+        }
+      ]
+    },
+    {
+      "title": "Tregua con el Ladrón",
+      "icon": "🕊️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Si el ladrón cae en tu propio poblado o ciudad, puedes pagar 1 Madera + 1 Ladrillo + 1 Grano + 1 Lana + 1 Mineral, una vez por turno, para enviarlo directamente a la Zona Neutral."
+        },
+        {
+          "type": "p",
+          "text": "La Zona Neutral nunca produce recursos y no se considera territorio de nadie."
+        }
+      ]
+    },
+    {
+      "title": "Ejército Más Grande",
+      "icon": "⚔️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Reclama esto una vez que hayas jugado al menos 3 Caballeros y tengas más que cualquier otro jugador — vale 2 Puntos de Victoria."
+        },
+        {
+          "type": "p",
+          "text": "Reclamarlo también avanza la Pista de Estaciones. Otro jugador puede arrebatártelo jugando más Caballeros que tú."
+        }
+      ]
+    },
+    {
+      "title": "Camino Más Largo",
+      "icon": "🛣️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Se otorga al jugador con la cadena ininterrumpida más larga de 5 o más caminos conectados — vale 2 Puntos de Victoria."
+        },
+        {
+          "type": "p",
+          "text": "El poblado o ciudad de un oponente rompe tu cadena, y otro jugador puede arrebatarte el título con una red más larga."
+        }
+      ]
+    },
+    {
+      "title": "Puntos de Victoria",
+      "icon": "⭐",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "Poblado — +1",
+            "Ciudad — +2",
+            "Carta de Punto de Victoria — +1",
+            "Camino Más Largo — +2",
+            "Ejército Más Grande — +2"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El valor exacto en puntos de un Complejo Turístico depende de la implementación de tu partida."
+        }
+      ]
+    },
+    {
+      "title": "Generación de Números Alternativa",
+      "icon": "🎲",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Opcional: en lugar de dados, puedes usar un dado numérico o una rueda numérica para determinar el número de producción."
+        },
+        {
+          "type": "p",
+          "text": "Cualquiera de los dos métodos interactúa con el sistema de Estaciones exactamente igual que de costumbre."
+        }
+      ]
+    },
+    {
+      "title": "Mapas Personalizados",
+      "icon": "🧭",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Opcional: los jugadores pueden elegir entre diferentes mapas, cada uno con su propio diseño de terreno, fichas numéricas, puertos y ubicación del desierto."
+        },
+        {
+          "type": "p",
+          "text": "El mapa elegido permanece activo durante toda la partida."
+        }
+      ]
+    },
+    {
+      "title": "Número de Jugadores — Escala del Mapa",
+      "icon": "📐",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "2 Jugadores → Mapa más pequeño",
+            "3–4 Jugadores → Mapa estándar",
+            "5+ Jugadores → Mapa más grande"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Escalar el mapa mantiene suficiente espacio para expandirse mientras se compite por buenas ubicaciones."
+        }
+      ]
+    },
+    {
+      "title": "Final del Juego",
+      "icon": "🏁",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El juego termina en el instante en que un jugador alcanza 10 o más Puntos de Victoria — ese jugador gana de inmediato."
+        }
+      ]
+    },
+    {
+      "title": "Feliz Colonización",
+      "icon": "🎉",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Eso es todo lo que necesitas saber. Ahora ve a construir, comerciar, conspirar y conquistar."
+        },
+        {
+          "type": "p",
+          "text": "¡Buena suerte y feliz colonización!"
+        }
+      ]
+    }
+  ],
+  "closeSettingsAria": "Cerrar ajustes",
+  "chapAlmanac": "Almanaque",
+  "chapRoads": "Caminos",
+  "chapSettlements": "Poblados",
+  "chapCities": "Ciudades",
+  "chapRobber": "El Ladrón",
+  "chapSeasons": "Estaciones y Dados",
+  "chapResort": "El Complejo Turístico",
+  "closeTutorialAria": "Cerrar tutorial",
+  "tutMsgClickSettlementSetup": "Haz clic en una intersección resaltada para colocar un poblado inicial gratis.",
+  "tutMsgClickSettlementBuild": "Haz clic en una intersección resaltada conectada a tu camino para construir un poblado.",
+  "tutMsgClickCity": "Haz clic en uno de tus poblados dorados para mejorarlo a Ciudad.",
+  "tutMsgClickRobber": "Haz clic en cualquier casilla para mover al Ladrón allí.",
+  "tutMsgClickResort": "Haz clic en la Ciudad rival para intentar tomarla.",
+  "tutErrTooCloseSettlement": "❌ Demasiado cerca de otro poblado — deja al menos una intersección vacía entre ellos.",
+  "tutMsgFreeSettlementSetup": "🏠 ¡Poblado inicial gratuito colocado! Durante la preparación, los poblados no cuestan nada — pero la regla de distancia sigue aplicando.",
+  "tutErrTooCloseSettlementCity": "❌ Demasiado cerca de otro poblado o ciudad.",
+  "tutErrNotConnectedRoad": "❌ Este lugar aún no está conectado a uno de tus caminos. Construye un camino aquí primero (ver el capítulo de Caminos).",
+  "tutErrCantAffordSettlement": "❌ No hay suficientes recursos. Un poblado cuesta 1 Madera + 1 Ladrillo + 1 Grano + 1 Lana.",
+  "tutMsgSettlementBuiltFree": "🏠 ¡Poblado construido! El primero va por cuenta de la casa — a partir de ahora, los poblados cuestan 1 Madera + 1 Ladrillo + 1 Grano + 1 Lana. Ganaste +1 Punto de Victoria.",
+  "tutMsgSettlementBuiltPaid": "🏠 ¡Poblado construido! Pagaste 1 Madera + 1 Ladrillo + 1 Grano + 1 Lana, y ganaste +1 Punto de Victoria.",
+  "tutErrPickOwnSettlement": "❌ Elige uno de tus propios poblados para mejorarlo.",
+  "tutErrCantAffordCity": "❌ No hay suficientes recursos. Una Ciudad cuesta 2 Grano + 3 Mineral.",
+  "tutMsgCityBuiltFree": "🏙️ ¡Mejorado a Ciudad! Esta primera mejora es gratis — después de esto, las Ciudades cuestan 2 Grano + 3 Mineral. Ahora produce 2 recursos por tirada y vale 2 Puntos de Victoria.",
+  "tutMsgCityBuiltPaid": "🏙️ ¡Mejorado a Ciudad! Pagaste 2 Grano + 3 Mineral. Ahora produce 2 recursos por tirada en lugar de 1, y vale 2 Puntos de Victoria.",
+  "tutErrResortNeedsRivalCity": "❌ Solo puedes construir un Complejo Turístico sobre la Ciudad de un oponente.",
+  "tutErrCantAffordResort": "❌ No hay suficientes recursos. Un Complejo Turístico cuesta 3 Mineral + 4 Madera + 2 Lana + 1 Ladrillo.",
+  "tutMsgResortBuiltFree": "🏝️ ¡Complejo Turístico construido gratis esta primera vez! Después, los Complejos cuestan 3 Mineral + 4 Madera + 2 Lana + 1 Ladrillo. La Ciudad rival es eliminada y pierden los 2 Puntos de Victoria que valía.",
+  "tutMsgResortBuiltPaid": "🏝️ ¡Complejo Turístico construido! Pagaste 3 Mineral + 4 Madera + 2 Lana + 1 Ladrillo. La Ciudad rival es eliminada y pierden los 2 Puntos de Victoria que valía.",
+  "tutErrRoadHere": "❌ Ya hay un camino aquí.",
+  "tutErrRoadMustConnect": "❌ Los caminos deben conectarse a uno de tus caminos o edificios existentes.",
+  "tutErrCantAffordRoad": "❌ No hay suficientes recursos. Un camino cuesta 1 Madera + 1 Ladrillo.",
+  "tutMsgRoadBuiltFree": "🛣️ ¡Camino construido! Este primero es gratis — después de esto, los caminos cuestan 1 Madera + 1 Ladrillo. Los caminos siempre deben conectarse a tu red existente.",
+  "tutMsgRoadBuiltPaid": "🛣️ Camino construido por 1 Madera + 1 Ladrillo. Los caminos siempre deben conectarse a tu red existente.",
+  "tutMsgRobberAlreadyHere": "El Ladrón ya está en esta casilla.",
+  "tutMsgRobberMovedOccupied": "🏴 El Ladrón se desliza hacia la casilla {tile}. Ahora bloquea la producción de esa casilla, y puedes robar una carta de recurso al azar de cualquier jugador con un Poblado o Ciudad allí.",
+  "tutMsgRobberMovedEmpty": "🏴 El Ladrón se mueve a la casilla {tile}. Nadie está asentado allí todavía, así que no hay nada que robar — pero la casilla queda bloqueada hasta que el Ladrón se mueva de nuevo.",
+  "tutMsgRobberPeaceNeedsOwn": "La Tregua con el Ladrón solo funciona cuando el Ladrón está en una casilla donde tienes un Poblado o Ciudad.",
+  "tutErrCantAffordRobberPeace": "❌ La Tregua con el Ladrón cuesta uno de cada recurso (Madera, Ladrillo, Grano, Lana, Mineral) — no tienes suficientes.",
+  "tutMsgRobberPeaceFree": "🕊️ ¡Tregua con el Ladrón usada gratis esta primera vez! Después de esto, cuesta uno de cada recurso. El Ladrón se retira a la Zona Neutral — solo una vez por turno.",
+  "tutMsgRobberPeacePaid": "🕊️ Pagaste uno de cada recurso. El Ladrón se retira a la Zona Neutral, fuera de tu tierra — solo una vez por turno.",
+  "tutMsgRolled7": "🎲 ¡Sacaste un 7! Ninguna casilla produce este turno — hora de mover al Ladrón y revisar descartes.",
+  "tutMsgWinterHardship": "❄️ ¡Dificultad de Invierno! Con un 2 o 12, la producción normal se omite por completo y el Ladrón se desliza hacia el hexágono activo.",
+  "tutMsgLoseToHardship": "Pierdes 1 {resource} por la dificultad.",
+  "tutMsgAutumnBonus": "🍂 Abundancia de Otoño: ¡la casilla {tile} también produce con 3 y 11!",
+  "tutMsgYouCollect": "Recolectas: {list}",
+  "tutMsgNoResourceLands": "Ningún recurso cae en uno de tus edificios en esta tirada.",
+  "terrainDesert": "Desierto",
+  "terrainForest": "Bosque",
+  "terrainHills": "Colinas",
+  "terrainFields": "Campos",
+  "terrainPasture": "Pastos",
+  "terrainMountains": "Montañas",
+  "tutMsgClickRoad": "Haz clic en un camino resaltado en el mapa para construir una ruta.",
+  "islandAlmanacBrand": "Almanaque de la Isla",
+  "victoryPointsLabel": "Puntos de Victoria:",
+  "welcomeIslander": "Bienvenido, Isleño",
+  "theIslandAlmanac": "El Almanaque de la Isla",
+  "tutIntroParagraph": "Alcanza {vp} Puntos de Victoria antes que nadie y la isla será tuya. Los puntos vienen de Poblados, Ciudades, Complejos Turísticos, el Camino Más Largo y el Ejército Más Grande. Esta guía se centra en la mecánica práctica — la que realmente vas a hacer clic, colocar y tirar. Elige un capítulo abajo, o usa el estante de la izquierda.",
+  "chapterLabel": "Capítulo {roman}",
+  "costLabel": "Costo",
+  "roadsLead": "Los caminos conectan tu territorio. Todo camino debe tocar uno de tus caminos, poblados o ciudades existentes — no puedes construir de forma aislada.",
+  "roadsRuleCard": "Un camino nunca puede construirse a través del poblado o ciudad de otro jugador.",
+  "roadsTryIt": "Pruébalo: haz clic en cualquier borde resplandeciente del mapa para trazar tu primer camino, y sigue extendiendo tu red desde ahí.",
+  "settlementsLead": "Los poblados vienen en dos sabores según cuándo los coloques.",
+  "setupPhaseFree": "Fase de Preparación — Gratis",
+  "buildingPhaseCosts": "Fase de Construcción — Cuesta Recursos",
+  "setupPlacementTitle": "Colocación Inicial",
+  "setupPlacementText": "Al comienzo de la partida, tus primeros dos poblados son gratis. La Regla de Distancia sigue aplicando — no puedes colocar uno justo al lado de otro poblado o ciudad. Después de tu segundo poblado, recoges recursos iniciales de sus casillas adyacentes.",
+  "buildingPhaseTitle": "Fase de Construcción",
+  "buildingPhaseText": "Todo poblado después de la preparación debe estar conectado a uno de tus caminos y seguir la Regla de Distancia.",
+  "citiesLead": "Una ciudad es un poblado mejorado — reemplaza al poblado en el mismo lugar y produce el doble.",
+  "citiesCostCard": "Un poblado produce 1 recurso por tirada; una ciudad produce 2. Vale 2 Puntos de Victoria en lugar de 1.",
+  "citiesNeedSettlement": "Necesitas un poblado para mejorar primero. Ve al Capítulo II si tu mapa aún no tiene uno tuyo.",
+  "robberLead": "Sacas un 7 y el Ladrón despierta: ninguna casilla produce ese turno, los jugadores con más de 7 cartas descartan la mitad, y mueves al Ladrón a la casilla que elijas — bloqueándola y permitiéndote robar una carta a quien esté asentado allí.",
+  "robberPeaceTitle": "🕊️ Tregua con el Ladrón",
+  "robberPeaceText": "Si el Ladrón cae en una casilla donde tienes un poblado o ciudad, puedes pagar uno de cada recurso, una vez por turno, para enviarlo directamente a la Zona Neutral.",
+  "robberPeaceBtn": "Pagar y Desterrar a la Zona Neutral",
+  "seasonsChapterTitle": "Estaciones y Tiradas Especiales",
+  "seasonsLead": "La Pista de Estaciones cambia cada 5 turnos, o en el momento en que alguien reclama el Ejército Más Grande. Cada estación altera el comportamiento de los dados.",
+  "advanceSeasonBtn": "Avanzar a la Siguiente Estación →",
+  "seasonSpringRule": "🌸 Primavera — Fertilidad: tirar 6 u 8 da a Campos y Pastos +1 recurso extra.",
+  "seasonSummerRule": "☀️ Verano — Cosecha: tirar 5 o 9 duplica la producción de esa casilla.",
+  "seasonAutumnRule": "🍂 Otoño — Abundancia: Bosques y Colinas también producen con 3 y 11.",
+  "seasonWinterRule": "❄️ Invierno — Dificultad: tirar 2 o 12 omite la producción y te cuesta un recurso al azar.",
+  "rollDiceBtn": "🎲 Tirar los Dados",
+  "diceTotalLabel": "Total: {total} · {season}",
+  "resortLead": "Un Complejo Turístico te permite tomar la ciudad de un oponente directamente. Su ciudad es eliminada, tu Complejo la reemplaza, y pierden los Puntos de Victoria que esa ciudad valía. Un Complejo nunca puede construirse encima ni ser reemplazado.",
+  "resortCostCard": "Solo puede tomar una ciudad — nunca un simple poblado.",
+  "resortTryIt": "El marcador granate en el mapa es la ciudad de un rival. Intenta tomarla.",
+  "legendYours": "Tuyo",
+  "legendRival": "Rival",
+  "legendDesertRobber": "Desierto / Inicio del Ladrón",
+  "seasonsAmpTitle": "Estaciones y Tiradas Especiales",
+  "exitGameTt": "Salir de la Partida",
+  "exitConfirmTitle": "¿Abandonar esta partida?",
+  "exitConfirmBody": "Volverás al menú principal. Los demás jugadores pueden continuar sin ti.",
+  "exitConfirmYes": "Abandonar Partida",
+  "exitConfirmCancel": "Cancelar",
+  "statsBtn": "📊 Ver Estadísticas",
+  "statsTitle": "Estadísticas de la Partida",
+  "statsClose": "Cerrar",
+  "statsBackToVictory": "← Volver",
+  "statsDiceRolls": "Distribución de Tiradas",
+  "statsPerPlayer": "Resumen por Jugador",
+  "statsResourcesCollected": "Recursos Recolectados",
+  "statsBuildings": "Construcciones",
+  "statsTrading": "Comercio",
+  "statsBankTrades": "Intercambios con el Banco",
+  "statsPlayerTrades": "Intercambios con Jugadores",
+  "statsDevCards": "Cartas de Desarrollo",
+  "statsBought": "Compradas",
+  "statsPlayed": "Jugadas",
+  "statsRobberMoves": "Movimientos del Ladrón",
+  "statsTotalResources": "Recursos Totales",
+  "statsRolls": "tiradas",
+  "statsMostRolled": "Tirada más común",
+  "statsSettlements": "Poblados",
+  "statsCities": "Ciudades",
+  "statsRoadsBuilt": "Caminos",
+  "statsResorts": "Complejos",
+  "editBoardBtn": "🎨 Editar Tablero",
+  "boardEditorTitle": "Editor de Tablero Personalizado",
+  "boardEditorHint": "Haz clic en una casilla para cambiar su terreno. Haz clic en el número para cambiarlo. Necesitas exactamente 1 Desierto.",
+  "randomFill": "🎲 Relleno Aleatorio",
+  "saveBoard": "Guardar Tablero",
+  "cancelEdit": "Cancelar",
+  "desertCountOk": "✅ 1 Desierto — listo para guardar",
+  "desertCountBad": "⚠️ Necesitas exactamente 1 Desierto (actualmente {n})",
+  "terrainForestBtn": "Bosque",
+  "terrainHillsBtn": "Colinas",
+  "terrainFieldsBtn": "Campos",
+  "terrainPastureBtn": "Pastos",
+  "terrainMountainsBtn": "Montañas",
+  "terrainDesertBtn": "Desierto",
+  "customBoardActive": "Tablero personalizado guardado ✓",
+  "mapType_custom": "Personalizado"
+}

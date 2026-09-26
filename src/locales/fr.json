@@ -1,0 +1,873 @@
+{
+  "createLobby": "Créer une Partie",
+  "createLobbyDesc": "Créez votre propre partie, invitez des amis et lancez l'aventure.",
+  "joinLobby": "Rejoindre une Partie",
+  "joinLobbyDesc": "Rejoignez une partie ouverte et jouez en ligne avec d'autres colons.",
+  "joinPlaceholder": "Collez le lien ou le code de la partie",
+  "go": "Aller",
+  "tutorial": "Didacticiel",
+  "rules": "Règles",
+  "settings": "Paramètres",
+  "yourName": "Votre nom",
+  "pieceColor": "Couleur des pièces",
+  "avatar": "Avatar",
+  "comingSoon": "Bientôt disponible !",
+  "close": "Fermer",
+  "settingsTitle": "PARAMÈTRES",
+  "navGeneral": "Général",
+  "navGameplay": "Jouabilité",
+  "navAudio": "Audio",
+  "navVideo": "Vidéo",
+  "navControls": "Contrôles",
+  "navAccount": "Compte",
+  "back": "‹ Retour",
+  "apply": "✔ Appliquer",
+  "savedFlash": "Paramètres enregistrés ✓",
+  "language": "Langue",
+  "theme": "Thème",
+  "themeHint": "Définit le fond du Menu Principal et du Salon.",
+  "animations": "Animations",
+  "tutorialHints": "Astuces du Didacticiel",
+  "advancedRules": "Règles Avancées",
+  "loadingRules": "Chargement des règles de la partie…",
+  "lockedByHost": "Fixé par l'hôte à la création de ce salon.",
+  "settlers": "Colons",
+  "waitingForPlayer": "En attente du joueur {seat}…",
+  "you": "(vous)",
+  "copyLink": "Copier le Lien",
+  "copied": "✓ Copié !",
+  "playVsBots": "🤖 Jouer contre des Bots",
+  "fillOpenSeats": "Personne avec qui jouer ? Remplissez {n} place{s} libre{s} avec des adversaires IA.",
+  "difficulty": "Difficulté",
+  "adding": "Ajout…",
+  "addBots": "Ajouter {n} Bot{s}",
+  "botsSeated": "{n} bot{s} installé{s}.",
+  "chat": "Discussion",
+  "noMessagesYet": "Pas encore de messages — dites bonjour !",
+  "typeMessageHere": "Écrivez un message ici",
+  "leave": "Quitter",
+  "startGame": "Démarrer la Partie",
+  "needTwoPlayers": "Il faut au moins 2 joueurs pour commencer",
+  "waitingForPlayers": "En attente d'au moins 2 joueurs ({joined}/{total} pour l'instant)…",
+  "botEasy": "Facile",
+  "botEasyBlurb": "Joue avec désinvolture, échange au hasard.",
+  "botMedium": "Moyen",
+  "botMediumBlurb": "Jeu solide, orienté objectifs.",
+  "botHard": "Difficile",
+  "botHardBlurb": "Vise le leader, négocie durement.",
+  "loadingPlayerData": "Chargement des données du joueur...",
+  "tradeSuccessful": "Échange réussi !",
+  "payToClearRobber": "💰 Payer pour Écarter le Voleur",
+  "payToClearRobberHint": "Payez 1 de chaque ressource pour renvoyer le Voleur dans le désert",
+  "payToClearRobberNeedsHint": "Nécessite 1 de chaque ressource",
+  "endTurnNow": "⏩ Terminer le Tour Maintenant",
+  "finishSetupFirst": "Terminez d'abord la mise en place",
+  "notYourTurn": "Ce n'est pas votre tour",
+  "alreadyRolled": "Déjà lancé ce tour",
+  "spinTheWheel": "Faire tourner la roue",
+  "rollTheDice": "Lancer les dés",
+  "rolled": "Résultat {value}",
+  "spin": "Tourner",
+  "roll": "Lancer",
+  "typeMessage": "Écrivez un message",
+  "youWin": "Vous gagnez !",
+  "winnerWins": "{name} gagne !",
+  "reachedVp": "{name} a atteint {vp} points de victoire.",
+  "rematchProposed": "🔁 {name} a lancé une revanche avec ce groupe.",
+  "rematchError": "Impossible de rejoindre la revanche. Réessayez.",
+  "joining": "Connexion…",
+  "joinRematch": "🔁 Rejoindre la Revanche",
+  "rematch": "🔁 Revanche",
+  "backToMenu": "Retour au Menu",
+  "phaseSetup": "mise en place",
+  "phaseMain": "partie",
+  "placeRoad": "Placez une Route à côté de votre colonie.",
+  "placeSettlement": "Placez la Colonie n°{n}",
+  "waitingDots": "En attente...",
+  "turnsLeft": "{n} {unit} restants",
+  "turnUnit": "tour",
+  "turnsUnit": "tours",
+  "seasonSpring": "Printemps",
+  "seasonSpringTag": "Fertilité",
+  "seasonSpringDesc": "+1 Céréale et Laine sur les jets de 6 ou 8",
+  "seasonSummer": "Été",
+  "seasonSummerTag": "Récolte",
+  "seasonSummerDesc": "Production doublée sur les jets de 5 ou 9",
+  "seasonAutumn": "Automne",
+  "seasonAutumnTag": "Abondance",
+  "seasonAutumnDesc": "Bois et Argile produisent aussi sur les jets de 3 ou 11",
+  "seasonWinter": "Hiver",
+  "seasonWinterTag": "Épreuve",
+  "seasonWinterDesc": "Un jet de 2 ou 12 déplace le Voleur et retire une ressource",
+  "victoryPoints": "Points de Victoire",
+  "boardShape": "Forme du Plateau",
+  "diceMechanism": "Mécanique de Dés",
+  "optionalRules": "Règles Optionnelles",
+  "longerGame": "Partie plus longue",
+  "standardGame": "Standard",
+  "tilesCount": "{n} tuiles",
+  "seasonsLabel": "Saisons",
+  "seasonsHint": "Printemps/Été/Automne/Hiver modifient la production",
+  "payToClearRobberLabel": "Payer pour Écarter le Voleur",
+  "payToClearRobberSettingHint": "Payez 1 de chaque ressource pour réinitialiser le Voleur",
+  "resortLabel": "Complexe Touristique",
+  "resortHint": "Prend la ville d'un adversaire — irréversible",
+  "mapType_standard": "Hexagone",
+  "mapType_large": "Hexagone (Grand)",
+  "mapType_ribbon": "Ruban",
+  "mapType_delta": "Delta",
+  "diceMode_standard": "Deux Dés (standard)",
+  "diceMode_wheel": "Roue Tournante",
+  "howManySettlers": "Combien de colons ?",
+  "playersInMatch": "Joueurs dans cette partie",
+  "playersSetRules": "{n} joueurs — définissez les règles de cette partie",
+  "setupBack": "← Retour",
+  "couldntJoin": "⚠️ Impossible de rejoindre",
+  "syncingWithServer": "Synchronisation avec le serveur...",
+  "errMatchNotFound": "Cette partie est introuvable. Vérifiez le lien/code et réessayez.",
+  "errFull": "Cette partie est complète.",
+  "errReachServer": "Impossible de contacter le serveur de jeu.",
+  "errJoinSeat": "Impossible de rejoindre cette place — elle est peut-être déjà prise, ou la partie n'existe plus.",
+  "errSessionGone": "Votre partie précédente n'est plus disponible sur le serveur.",
+  "errReachServerWithUrl": "Impossible de contacter le serveur. Fonctionne-t-il sur {url} ?",
+  "errStartRematch": "Impossible de démarrer la revanche. Réessayez.",
+  "editProfileTooltip": "Cliquez pour modifier votre profil",
+  "victoryPointsToWin": "Points de Victoire pour Gagner",
+  "defaultBoardShape": "Forme de Plateau par Défaut",
+  "turnTimerLabel": "Minuteur de Tour",
+  "secondsToAct": "Secondes pour agir à votre tour",
+  "gameplayDefaultsHint": "Ce sont les réglages par défaut d'une nouvelle partie — vous pouvez toujours les ajuster par salon.",
+  "muteAllAudio": "Couper Tout le Son",
+  "masterVolumeLabel": "Volume Général",
+  "musicVolumeLabel": "Volume de Musique",
+  "soundEffectsLabel": "Effets Sonores",
+  "ambientVolumeLabel": "Volume d'Ambiance",
+  "voiceChatLabel": "Chat Vocal",
+  "audioHint": "Ajustez les sons. Général et Effets jouent un aperçu quand vous relâchez le curseur.",
+  "graphicsQualityLabel": "Qualité Graphique",
+  "qualityLow": "Basse",
+  "qualityMedium": "Moyenne",
+  "qualityHigh": "Haute",
+  "fullscreenLabel": "Plein Écran",
+  "showFpsLabel": "Afficher les FPS",
+  "videoHint": "Ajustez l'apparence du plateau.",
+  "cameraSensitivityLabel": "Sensibilité de Caméra",
+  "invertCameraLabel": "Inverser la Caméra",
+  "keybindsLabel": "Raccourcis Clavier",
+  "rollDiceBind": "Lancer les Dés",
+  "endTurnBind": "Terminer le Tour",
+  "openTradeBind": "Ouvrir l'Échange",
+  "openChatBind": "Ouvrir le Chat",
+  "controlsHint": "Personnalisez votre façon de jouer.",
+  "playerNameLabel": "Nom du Joueur",
+  "saveBtn": "Enregistrer",
+  "changeNameBtn": "Changer de Nom",
+  "linkedAccountsLabel": "Comptes Liés",
+  "logOutBtn": "Se Déconnecter",
+  "loggedOutAlert": "Vous avez été déconnecté.",
+  "deleteAccountBtn": "Supprimer le Compte",
+  "deleteConfirm": "Voulez-vous vraiment supprimer votre compte ? Cette action est irréversible.",
+  "deleteRequestedAlert": "Demande de suppression de compte envoyée.",
+  "resLumber": "Bois",
+  "resGrain": "Blé",
+  "resWool": "Laine",
+  "resBrick": "Argile",
+  "resOre": "Minerai",
+  "cardKnight": "Chevalier",
+  "cardVictoryPoint": "Point de Victoire",
+  "cardMonopoly": "Monopole",
+  "cardRoadBuilding": "Construction de Routes",
+  "cardYearOfPlenty": "Année d'Abondance",
+  "buildRoad": "Route",
+  "buildSettlement": "Colonie",
+  "buildCity": "Ville",
+  "buildResort": "Complexe",
+  "buildDevCard": "Carte Développement",
+  "buildClearRobber": "Écarter le Voleur",
+  "resortSeizeHint": "Cliquez sur la ville d'un adversaire pour la prendre.",
+  "clearRobberHint": "Payez pour renvoyer le Voleur dans le désert.",
+  "sendOffer": "Envoyer l'Offre",
+  "offerPending": "Offre en Attente...",
+  "victoryPointsTt": "Points de Victoire",
+  "settlementsTt": "Colonies",
+  "citiesTt": "Villes",
+  "resortsTt": "Complexes",
+  "devCardsTt": "Cartes Développement",
+  "longestRoadTt": "Route la Plus Longue",
+  "largestArmyTt": "Plus Grande Armée",
+  "sendReactionTt": "Envoyer une réaction",
+  "monopolyTitle": "Monopole",
+  "monopolySubtitle": "Choisissez une ressource — chaque adversaire vous donne toute la sienne.",
+  "yearOfPlentyTitle": "Année d'Abondance",
+  "yearOfPlentySubtitle": "Choisissez {n} ressource(s) de plus à prendre à la banque.",
+  "deckEmpty": "La pioche est vide",
+  "devCardCostTt": "Coûte 1 Minerai + 1 Blé + 1 Laine",
+  "resortCantBeTaken": "Complexe — ne peut pas être repris",
+  "clickToSeizeCity": "Cliquez pour prendre cette ville et construire un Complexe",
+  "legalSettlementSpot": "Emplacement valide pour une colonie",
+  "resortTt": "Complexe",
+  "muteAllAudioTt": "Couper tout le son",
+  "unmuteTt": "Réactiver le son",
+  "avatarSailor": "Marin",
+  "avatarExplorer": "Explorateur",
+  "avatarNoble": "Noble",
+  "avatarKnight": "Chevalier",
+  "avatarFarmer": "Fermier",
+  "avatarMiner": "Mineur",
+  "avatarNavigator": "Navigateur",
+  "avatarLord": "Seigneur",
+  "avatarFisherman": "Pêcheur",
+  "avatarPioneer": "Pionnier",
+  "cancel": "Annuler",
+  "roadBuildingTitle": "Construction de Routes",
+  "roadBuildingSubtitle": "Cliquez sur jusqu'à 2 routes du plateau pour les placer gratuitement.",
+  "picked": "{n}/2 choisies",
+  "done": "Terminé",
+  "buyCard": "Acheter une Carte",
+  "cardsLeft": "{n} restantes",
+  "playCard": "Jouer {label}",
+  "secretSuffix": "{label} (secrète)",
+  "buildCostsTitle": "Coûts de Construction",
+  "maritimeTrade": "Commerce Maritime ({ratio}:1)",
+  "tradeWithBank": "Échanger avec la Banque ({ratio} {give} ➜ 1 {receive})",
+  "tradeWithPlayer": "Échanger avec un Joueur",
+  "targetPlayer": "Joueur Cible :",
+  "give": "Donner :",
+  "get": "Recevoir :",
+  "roadsTt": "Routes",
+  "roadsWithChainTt": "Routes (chaîne la plus longue : {n})",
+  "ptsLabel": "pts",
+  "colorRed": "Rouge",
+  "colorBlue": "Bleu",
+  "colorGreen": "Vert",
+  "colorOrange": "Orange",
+  "colorYellow": "Jaune",
+  "colorPurple": "Violet",
+  "colorPink": "Rose",
+  "colorCyan": "Cyan",
+  "colorLavender": "Lavande",
+  "tabTrades": "Échanges",
+  "tabChat": "Discussion",
+  "tradesHeader": "Échanges",
+  "incomingTrade": "Offre d'Échange !",
+  "offerOffers": "{name} propose",
+  "forYour": "contre votre",
+  "accept": "Accepter",
+  "decline": "Refuser",
+  "rulesPages": [
+    {
+      "title": "Objectif du Jeu",
+      "icon": "🏆",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Soyez le premier joueur à atteindre 10 Points de Victoire pour gagner."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Colonie — +1",
+            "Ville — +2",
+            "Route la Plus Longue — +2",
+            "Plus Grande Armée — +2",
+            "Carte Point de Victoire — +1"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La partie se termine immédiatement dès qu'un joueur atteint 10 points ou plus lors de son tour."
+        }
+      ]
+    },
+    {
+      "title": "Le Plateau de Jeu",
+      "icon": "🗺️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Le plateau est composé de tuiles hexagonales de terrain, chacune produisant une ressource, ainsi que de jetons numérotés qui déclenchent la production."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Forêt → Bois",
+            "Collines → Argile",
+            "Champs → Blé",
+            "Pâturages → Laine",
+            "Montagnes → Minerai",
+            "Désert → rien"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Les routes et bâtiments sont placés sur les intersections et les arêtes entre les tuiles."
+        }
+      ]
+    },
+    {
+      "title": "Joueurs et Mise en Place",
+      "icon": "👥",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Chaque joueur choisit une couleur et reçoit ses routes, colonies, villes et cartes de développement."
+        },
+        {
+          "type": "p",
+          "text": "Dans l'ordre du tour, les joueurs placent deux colonies de départ et deux routes connectées ; les deux colonies doivent respecter la Règle de Distance."
+        },
+        {
+          "type": "p",
+          "text": "Après la seconde colonie, récupérez une carte ressource de chaque tuile de terrain qui la touche."
+        }
+      ]
+    },
+    {
+      "title": "La Règle de Distance",
+      "icon": "📏",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Les colonies et villes ne peuvent jamais être directement adjacentes — au moins une intersection vide doit les séparer."
+        },
+        {
+          "type": "p",
+          "text": "Cela s'applique aussi bien pendant la mise en place que pour toute construction ultérieure."
+        }
+      ]
+    },
+    {
+      "title": "Structure du Tour",
+      "icon": "🔄",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "1. Déterminer le numéro de production",
+            "2. Appliquer la Saison en cours",
+            "3. Produire les ressources",
+            "4. Résoudre le voleur",
+            "5. Échanger",
+            "6. Construire",
+            "7. Jouer des cartes",
+            "8. Terminer le tour"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Vous pouvez échanger et construire autant de fois que vous le pouvez pendant votre tour."
+        }
+      ]
+    },
+    {
+      "title": "Production de Ressources",
+      "icon": "🌾",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Quand le numéro d'une tuile est tiré, chaque colonie qui la touche produit 1 de sa ressource, et chaque ville en produit 2. Le désert ne produit jamais."
+        },
+        {
+          "type": "p",
+          "text": "Exemple : une Colonie à côté d'une Forêt numérotée 6 produit 1 Bois quand un 6 est tiré — une Ville là-bas en produit 2."
+        }
+      ]
+    },
+    {
+      "title": "La Mécanique des Saisons",
+      "icon": "🍂",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Une Piste des Saisons cycle entre Printemps → Été → Automne → Hiver → Printemps, chacune changeant la façon dont les ressources sont produites."
+        },
+        {
+          "type": "p",
+          "text": "La saison avance tous les 5 tours complétés, ou dès qu'un joueur remporte la Plus Grande Armée."
+        }
+      ]
+    },
+    {
+      "title": "Printemps — Fertilité",
+      "icon": "🌸",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Quand un 6 ou un 8 est tiré au Printemps, les Champs et Pâturages produisent une ressource supplémentaire en plus de leur production normale."
+        },
+        {
+          "type": "p",
+          "text": "Exemple : une Colonie sur un Champ à 6 fait normalement 1 Blé — 2 Blé au Printemps, ou 3 Blé pour une Ville."
+        }
+      ]
+    },
+    {
+      "title": "Été — Récolte",
+      "icon": "☀️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "En Été, toute tuile numérotée 5 ou 9 produit le double de sa production normale, pour chaque type de ressource."
+        },
+        {
+          "type": "p",
+          "text": "Exemple : une Colonie sur une Forêt à 5 fait normalement 1 Bois — 2 en Été ; une Ville là-bas en ferait 4."
+        }
+      ]
+    },
+    {
+      "title": "Automne — Abondance",
+      "icon": "🍁",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "En Automne, les Forêts et Collines produisent aussi sur des tirages de 3 et 11, en plus de leur numéro normal."
+        },
+        {
+          "type": "p",
+          "text": "Exemple : une Forêt numérotée 8 produit du Bois sur 8, 3 et 11 — rendant les numéros faibles utiles à nouveau."
+        }
+      ]
+    },
+    {
+      "title": "Hiver — Épreuve",
+      "icon": "❄️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Quand un 2 ou un 12 est tiré en Hiver, la production normale est ignorée — à la place, le voleur se déplace sur cette tuile."
+        },
+        {
+          "type": "p",
+          "text": "Chaque joueur ayant une Colonie ou une Ville sur cet hexagone perd 1 carte ressource au hasard. Le voleur ne vole pas dans ce cas."
+        }
+      ]
+    },
+    {
+      "title": "Changement de Saisons",
+      "icon": "📅",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La saison actuelle est visible par tous et reste active jusqu'au prochain déclencheur."
+        },
+        {
+          "type": "p",
+          "text": "Si un changement de saison et une prise de la Plus Grande Armée surviennent en même temps, la saison n'avance qu'une seule fois."
+        }
+      ]
+    },
+    {
+      "title": "Routes",
+      "icon": "🛤️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Coût : 1 Bois + 1 Argile."
+        },
+        {
+          "type": "p",
+          "text": "Une nouvelle route doit se connecter à l'une de vos routes, colonies ou villes existantes, et ne peut jamais traverser la colonie ou la ville d'un adversaire."
+        }
+      ]
+    },
+    {
+      "title": "Colonies",
+      "icon": "🏠",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Coût : 1 Bois + 1 Argile + 1 Blé + 1 Laine."
+        },
+        {
+          "type": "p",
+          "text": "Doit être placée sur une intersection vide connectée à l'une de vos routes, et doit respecter la Règle de Distance. Produit 1 ressource de chaque tuile adjacente."
+        }
+      ]
+    },
+    {
+      "title": "Villes",
+      "icon": "🏛️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Coût : 2 Blé + 3 Minerai."
+        },
+        {
+          "type": "p",
+          "text": "Construite en améliorant l'une de vos colonies existantes — la colonie est remplacée. Une ville produit 2 ressources au lieu d'1 de chaque tuile adjacente."
+        }
+      ]
+    },
+    {
+      "title": "Complexe Touristique — Bâtiment Spécial",
+      "icon": "🏨",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Un bâtiment unique qui vous permet de prendre un emplacement occupé par la ville d'un adversaire, en payant 3 Minerai + 4 Bois + 2 Laine + 1 Argile."
+        },
+        {
+          "type": "p",
+          "text": "La ville de l'adversaire est retirée et remplacée par votre Complexe Touristique, et les Points de Victoire qu'elle rapportait sont perdus."
+        },
+        {
+          "type": "p",
+          "text": "Un Complexe Touristique ne peut jamais être construit sur une Colonie, et une fois placé, il ne peut être ni remplacé ni écrasé."
+        }
+      ]
+    },
+    {
+      "title": "Échanges",
+      "icon": "🤝",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Pendant votre tour, vous pouvez négocier n'importe quel échange avec un autre joueur, tant que les deux parties sont d'accord et que cela respecte les règles de ressources."
+        },
+        {
+          "type": "p",
+          "text": "Par exemple : \"1 Minerai contre 2 Blé\"."
+        }
+      ]
+    },
+    {
+      "title": "Échanger avec la Banque",
+      "icon": "🏦",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Échangez 4 d'une même ressource contre 1 ressource de votre choix, à tout moment pendant votre tour."
+        },
+        {
+          "type": "p",
+          "text": "Les ports peuvent offrir de meilleurs taux que l'échange bancaire standard."
+        }
+      ]
+    },
+    {
+      "title": "Ports / Quais",
+      "icon": "⚓",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "Port Général — 3 d'une ressource → 1 de votre choix",
+            "Port Spécialisé — 2 de la ressource correspondante → 1 de votre choix"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Les ports disponibles dépendent de la carte en jeu."
+        }
+      ]
+    },
+    {
+      "title": "Cartes Développement / Progrès",
+      "icon": "🃏",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Coût : 1 Blé + 1 Laine + 1 Minerai."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Chevalier — déplace le voleur et vole",
+            "Construction de Routes — construit 2 routes gratuites",
+            "Année d'Abondance — prenez 2 ressources au choix",
+            "Monopole — récupère toute une ressource de chaque joueur",
+            "Point de Victoire — vaut 1 point"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Sauf indication contraire sur la carte, elle ne peut pas être jouée le même tour où elle a été achetée."
+        }
+      ]
+    },
+    {
+      "title": "Le Voleur",
+      "icon": "🥷",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Tirer un 7 arrête toute production. Quiconque a plus de 7 cartes en défausse la moitié, arrondie au chiffre inférieur."
+        },
+        {
+          "type": "p",
+          "text": "Le joueur actif déplace le voleur sur n'importe quel hexagone, le bloquant, et peut voler une ressource au hasard à un adversaire touchant cet hexagone."
+        }
+      ]
+    },
+    {
+      "title": "Paix avec le Voleur",
+      "icon": "🕊️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Si le voleur atterrit sur votre propre colonie ou ville, vous pouvez payer 1 Bois + 1 Argile + 1 Blé + 1 Laine + 1 Minerai, une fois par tour, pour l'envoyer directement en Zone Neutre."
+        },
+        {
+          "type": "p",
+          "text": "La Zone Neutre ne produit jamais de ressources et n'est considérée comme le territoire de personne."
+        }
+      ]
+    },
+    {
+      "title": "Plus Grande Armée",
+      "icon": "⚔️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Remportez-la une fois que vous avez joué au moins 3 Chevaliers et en avez plus que tout autre joueur — vaut 2 Points de Victoire."
+        },
+        {
+          "type": "p",
+          "text": "La remporter fait aussi avancer la Piste des Saisons. Un autre joueur peut vous la reprendre en jouant plus de Chevaliers que vous."
+        }
+      ]
+    },
+    {
+      "title": "Route la Plus Longue",
+      "icon": "🛣️",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Attribuée au joueur avec la chaîne ininterrompue la plus longue de 5 routes connectées ou plus — vaut 2 Points de Victoire."
+        },
+        {
+          "type": "p",
+          "text": "La colonie ou ville d'un adversaire coupe votre chaîne, et un autre joueur peut reprendre le titre avec un réseau plus long."
+        }
+      ]
+    },
+    {
+      "title": "Points de Victoire",
+      "icon": "⭐",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "Colonie — +1",
+            "Ville — +2",
+            "Carte Point de Victoire — +1",
+            "Route la Plus Longue — +2",
+            "Plus Grande Armée — +2"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La valeur exacte en points d'un Complexe Touristique dépend de l'implémentation de votre partie."
+        }
+      ]
+    },
+    {
+      "title": "Génération de Nombres Alternative",
+      "icon": "🎲",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Optionnel : au lieu des dés, vous pouvez utiliser un dé numéroté ou une roue numérotée pour déterminer le numéro de production."
+        },
+        {
+          "type": "p",
+          "text": "Les deux méthodes interagissent avec le système des Saisons exactement comme d'habitude."
+        }
+      ]
+    },
+    {
+      "title": "Cartes Personnalisées",
+      "icon": "🧭",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Optionnel : les joueurs peuvent choisir parmi différentes cartes, chacune avec sa propre disposition de terrain, ses jetons numérotés, ses ports et l'emplacement du désert."
+        },
+        {
+          "type": "p",
+          "text": "Quelle que soit la carte choisie, elle reste active pour toute la partie."
+        }
+      ]
+    },
+    {
+      "title": "Nombre de Joueurs — Mise à l'Échelle",
+      "icon": "📐",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "2 Joueurs → Plus petite carte",
+            "3–4 Joueurs → Carte standard",
+            "5+ Joueurs → Plus grande carte"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Mettre la carte à l'échelle garde assez d'espace pour s'étendre tout en se disputant les bons emplacements."
+        }
+      ]
+    },
+    {
+      "title": "Fin de la Partie",
+      "icon": "🏁",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La partie se termine dès qu'un joueur atteint 10 Points de Victoire ou plus — ce joueur gagne immédiatement."
+        }
+      ]
+    },
+    {
+      "title": "Bonne Colonisation",
+      "icon": "🎉",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Voilà tout ce que vous devez savoir. Allez maintenant construire, échanger, comploter et conquérir."
+        },
+        {
+          "type": "p",
+          "text": "Bonne chance et bonne colonisation !"
+        }
+      ]
+    }
+  ],
+  "closeSettingsAria": "Fermer les paramètres",
+  "chapAlmanac": "Almanach",
+  "chapRoads": "Routes",
+  "chapSettlements": "Colonies",
+  "chapCities": "Villes",
+  "chapRobber": "Le Voleur",
+  "chapSeasons": "Saisons et Dés",
+  "chapResort": "Le Complexe Touristique",
+  "closeTutorialAria": "Fermer le didacticiel",
+  "tutMsgClickSettlementSetup": "Cliquez sur une intersection en surbrillance pour placer une colonie de départ gratuite.",
+  "tutMsgClickSettlementBuild": "Cliquez sur une intersection en surbrillance connectée à votre route pour construire une colonie.",
+  "tutMsgClickCity": "Cliquez sur l'une de vos colonies dorées pour l'améliorer en Ville.",
+  "tutMsgClickRobber": "Cliquez sur n'importe quelle tuile pour y déplacer le Voleur.",
+  "tutMsgClickResort": "Cliquez sur la Ville adverse pour tenter une prise de contrôle.",
+  "tutErrTooCloseSettlement": "❌ Trop proche d'une autre colonie — laissez au moins une intersection vide entre elles.",
+  "tutMsgFreeSettlementSetup": "🏠 Colonie de départ gratuite placée ! Pendant la mise en place, les colonies ne coûtent rien — mais la règle de distance s'applique toujours.",
+  "tutErrTooCloseSettlementCity": "❌ Trop proche d'une autre colonie ou ville.",
+  "tutErrNotConnectedRoad": "❌ Cet endroit n'est pas encore connecté à l'une de vos routes. Construisez d'abord une route ici (voir le chapitre Routes).",
+  "tutErrCantAffordSettlement": "❌ Ressources insuffisantes. Une colonie coûte 1 Bois + 1 Argile + 1 Blé + 1 Laine.",
+  "tutMsgSettlementBuiltFree": "🏠 Colonie construite ! La première est offerte — désormais, les colonies coûtent 1 Bois + 1 Argile + 1 Blé + 1 Laine. Vous gagnez +1 Point de Victoire.",
+  "tutMsgSettlementBuiltPaid": "🏠 Colonie construite ! Vous avez payé 1 Bois + 1 Argile + 1 Blé + 1 Laine, et gagné +1 Point de Victoire.",
+  "tutErrPickOwnSettlement": "❌ Choisissez l'une de vos propres colonies à améliorer.",
+  "tutErrCantAffordCity": "❌ Ressources insuffisantes. Une Ville coûte 2 Blé + 3 Minerai.",
+  "tutMsgCityBuiltFree": "🏙️ Améliorée en Ville ! Cette première amélioration est gratuite — ensuite, les Villes coûtent 2 Blé + 3 Minerai. Elle produit désormais 2 ressources par tirage et vaut 2 Points de Victoire.",
+  "tutMsgCityBuiltPaid": "🏙️ Améliorée en Ville ! Vous avez payé 2 Blé + 3 Minerai. Elle produit désormais 2 ressources par tirage au lieu d'1, et vaut 2 Points de Victoire.",
+  "tutErrResortNeedsRivalCity": "❌ Vous ne pouvez construire un Complexe Touristique que sur la Ville d'un adversaire.",
+  "tutErrCantAffordResort": "❌ Ressources insuffisantes. Un Complexe Touristique coûte 3 Minerai + 4 Bois + 2 Laine + 1 Argile.",
+  "tutMsgResortBuiltFree": "🏝️ Complexe Touristique construit gratuitement cette première fois ! Ensuite, les Complexes coûtent 3 Minerai + 4 Bois + 2 Laine + 1 Argile. La Ville adverse est retirée et perd les 2 Points de Victoire qu'elle valait.",
+  "tutMsgResortBuiltPaid": "🏝️ Complexe Touristique construit ! Vous avez payé 3 Minerai + 4 Bois + 2 Laine + 1 Argile. La Ville adverse est retirée et perd les 2 Points de Victoire qu'elle valait.",
+  "tutErrRoadHere": "❌ Il y a déjà une route ici.",
+  "tutErrRoadMustConnect": "❌ Les routes doivent se connecter à l'une de vos routes ou bâtiments existants.",
+  "tutErrCantAffordRoad": "❌ Ressources insuffisantes. Une route coûte 1 Bois + 1 Argile.",
+  "tutMsgRoadBuiltFree": "🛣️ Route construite ! La première est gratuite — ensuite, les routes coûtent 1 Bois + 1 Argile. Les routes doivent toujours se connecter à votre réseau existant.",
+  "tutMsgRoadBuiltPaid": "🛣️ Route construite pour 1 Bois + 1 Argile. Les routes doivent toujours se connecter à votre réseau existant.",
+  "tutMsgRobberAlreadyHere": "Le Voleur est déjà sur cette tuile.",
+  "tutMsgRobberMovedOccupied": "🏴 Le Voleur se glisse sur la tuile {tile}. Il bloque désormais la production de cette tuile, et vous pouvez voler une carte ressource au hasard à tout joueur ayant une Colonie ou une Ville là-bas.",
+  "tutMsgRobberMovedEmpty": "🏴 Le Voleur se déplace sur la tuile {tile}. Personne n'y est encore installé, donc il n'y a rien à voler — mais la tuile reste bloquée jusqu'à ce que le Voleur bouge à nouveau.",
+  "tutMsgRobberPeaceNeedsOwn": "La Paix avec le Voleur ne fonctionne que lorsque le Voleur est sur une tuile où vous avez une Colonie ou une Ville.",
+  "tutErrCantAffordRobberPeace": "❌ La Paix avec le Voleur coûte une de chaque ressource (Bois, Argile, Blé, Laine, Minerai) — vous n'en avez pas assez.",
+  "tutMsgRobberPeaceFree": "🕊️ Paix avec le Voleur utilisée gratuitement cette première fois ! Ensuite, elle coûte une de chaque ressource. Le Voleur retourne discrètement en Zone Neutre — une seule fois par tour.",
+  "tutMsgRobberPeacePaid": "🕊️ Vous avez payé une de chaque ressource. Le Voleur retourne en Zone Neutre, hors de vos terres — une seule fois par tour.",
+  "tutMsgRolled7": "🎲 Vous avez fait un 7 ! Aucune tuile ne produit ce tour-ci — il est temps de déplacer le Voleur et de vérifier les défausses.",
+  "tutMsgWinterHardship": "❄️ Épreuve Hivernale ! Avec un 2 ou 12, la production normale est entièrement ignorée et le Voleur se glisse vers l'hexagone actif.",
+  "tutMsgLoseToHardship": "Vous perdez 1 {resource} à cause de l'épreuve.",
+  "tutMsgAutumnBonus": "🍂 Abondance Automnale : la tuile {tile} produit aussi sur 3 et 11 !",
+  "tutMsgYouCollect": "Vous récoltez : {list}",
+  "tutMsgNoResourceLands": "Aucune ressource n'atterrit sur l'un de vos bâtiments ce tirage.",
+  "terrainDesert": "Désert",
+  "terrainForest": "Forêt",
+  "terrainHills": "Collines",
+  "terrainFields": "Champs",
+  "terrainPasture": "Pâturage",
+  "terrainMountains": "Montagnes",
+  "tutMsgClickRoad": "Cliquez sur un chemin en surbrillance sur la carte pour construire une route.",
+  "islandAlmanacBrand": "Almanach de l'Île",
+  "victoryPointsLabel": "Points de Victoire :",
+  "welcomeIslander": "Bienvenue, Insulaire",
+  "theIslandAlmanac": "L'Almanach de l'Île",
+  "tutIntroParagraph": "Atteignez {vp} Points de Victoire avant tout le monde et l'île est à vous. Les points viennent des Colonies, Villes, Complexes Touristiques, de la Route la Plus Longue et de la Plus Grande Armée. Ce guide se concentre sur la mécanique pratique — celle que vous allez réellement cliquer, placer et lancer. Choisissez un chapitre ci-dessous, ou utilisez l'étagère à gauche.",
+  "chapterLabel": "Chapitre {roman}",
+  "costLabel": "Coût",
+  "roadsLead": "Les routes relient votre territoire. Chaque route doit toucher l'une de vos routes, colonies ou villes existantes — vous ne pouvez pas construire de façon isolée.",
+  "roadsRuleCard": "Une route ne peut jamais être construite à travers la colonie ou la ville d'un autre joueur.",
+  "roadsTryIt": "Essayez : cliquez sur n'importe quelle arête en surbrillance sur la carte pour poser votre première route, puis continuez à étendre votre réseau à partir de là.",
+  "settlementsLead": "Les colonies se déclinent en deux versions selon le moment où vous les placez.",
+  "setupPhaseFree": "Phase de Mise en Place — Gratuite",
+  "buildingPhaseCosts": "Phase de Construction — Coûte des Ressources",
+  "setupPlacementTitle": "Placement Initial",
+  "setupPlacementText": "Au début de la partie, vos deux premières colonies sont gratuites. La Règle de Distance s'applique toujours — vous ne pouvez pas en placer une juste à côté d'une autre colonie ou ville. Après votre seconde colonie, vous récupérez les ressources de départ de ses tuiles adjacentes.",
+  "buildingPhaseTitle": "Phase de Construction",
+  "buildingPhaseText": "Toute colonie après la mise en place doit être connectée à l'une de vos routes et respecter la Règle de Distance.",
+  "citiesLead": "Une ville est une colonie améliorée — elle remplace la colonie au même endroit et produit le double.",
+  "citiesCostCard": "Une colonie produit 1 ressource par tirage ; une ville en produit 2. Elle vaut 2 Points de Victoire au lieu d'1.",
+  "citiesNeedSettlement": "Il vous faut d'abord une colonie à améliorer. Rendez-vous au Chapitre II si votre carte n'en a pas encore.",
+  "robberLead": "Tirez un 7 et le Voleur se réveille : aucune tuile ne produit ce tour-ci, les joueurs avec plus de 7 cartes en défaussent la moitié, et vous déplacez le Voleur sur la tuile de votre choix — la bloquant et vous permettant de voler une carte à quiconque y est installé.",
+  "robberPeaceTitle": "🕊️ Paix avec le Voleur",
+  "robberPeaceText": "Si le Voleur atterrit sur une tuile où vous avez une colonie ou une ville, vous pouvez payer une de chaque ressource, une fois par tour, pour l'envoyer directement en Zone Neutre.",
+  "robberPeaceBtn": "Payer et Bannir en Zone Neutre",
+  "seasonsChapterTitle": "Saisons et Tirages Spéciaux",
+  "seasonsLead": "La Piste des Saisons change tous les 5 tours, ou dès que quelqu'un remporte la Plus Grande Armée. Chaque saison modifie le comportement des dés.",
+  "advanceSeasonBtn": "Passer à la Saison Suivante →",
+  "seasonSpringRule": "🌸 Printemps — Fertilité : un jet de 6 ou 8 donne +1 ressource supplémentaire aux Champs et Pâturages.",
+  "seasonSummerRule": "☀️ Été — Récolte : un jet de 5 ou 9 double la production de cette tuile.",
+  "seasonAutumnRule": "🍂 Automne — Abondance : les Forêts et Collines produisent aussi sur 3 et 11.",
+  "seasonWinterRule": "❄️ Hiver — Épreuve : un jet de 2 ou 12 annule la production et vous coûte une ressource au hasard.",
+  "rollDiceBtn": "🎲 Lancer les Dés",
+  "diceTotalLabel": "Total : {total} · {season}",
+  "resortLead": "Un Complexe Touristique vous permet de vous emparer directement de la ville d'un adversaire. Sa ville est retirée, votre Complexe prend sa place, et il perd les Points de Victoire que cette ville valait. Un Complexe ne peut jamais être remplacé ou reconstruit dessus.",
+  "resortCostCard": "Ne peut prendre qu'une ville — jamais une simple colonie.",
+  "resortTryIt": "Le marqueur bordeaux sur la carte est la ville d'un rival. Essayez de la prendre.",
+  "legendYours": "Vous",
+  "legendRival": "Rival",
+  "legendDesertRobber": "Désert / Départ du Voleur",
+  "seasonsAmpTitle": "Saisons et Tirages Spéciaux",
+  "exitGameTt": "Quitter la Partie",
+  "exitConfirmTitle": "Quitter cette partie ?",
+  "exitConfirmBody": "Vous reviendrez au menu principal. Les autres joueurs peuvent continuer sans vous.",
+  "exitConfirmYes": "Quitter la Partie",
+  "exitConfirmCancel": "Annuler",
+  "statsBtn": "📊 Voir les Statistiques",
+  "statsTitle": "Statistiques de la Partie",
+  "statsClose": "Fermer",
+  "statsBackToVictory": "← Retour",
+  "statsDiceRolls": "Répartition des Lancers",
+  "statsPerPlayer": "Résumé par Joueur",
+  "statsResourcesCollected": "Ressources Récoltées",
+  "statsBuildings": "Constructions",
+  "statsTrading": "Échanges",
+  "statsBankTrades": "Échanges avec la Banque",
+  "statsPlayerTrades": "Échanges entre Joueurs",
+  "statsDevCards": "Cartes Développement",
+  "statsBought": "Achetées",
+  "statsPlayed": "Jouées",
+  "statsRobberMoves": "Déplacements du Voleur",
+  "statsTotalResources": "Ressources Totales",
+  "statsRolls": "lancers",
+  "statsMostRolled": "Lancer le plus fréquent",
+  "statsSettlements": "Colonies",
+  "statsCities": "Villes",
+  "statsRoadsBuilt": "Routes",
+  "statsResorts": "Complexes",
+  "editBoardBtn": "🎨 Modifier le Plateau",
+  "boardEditorTitle": "Éditeur de Plateau Personnalisé",
+  "boardEditorHint": "Cliquez sur une tuile pour changer son terrain. Cliquez sur le numéro pour le changer. Il vous faut exactement 1 Désert.",
+  "randomFill": "🎲 Remplissage Aléatoire",
+  "saveBoard": "Enregistrer le Plateau",
+  "cancelEdit": "Annuler",
+  "desertCountOk": "✅ 1 Désert — prêt à enregistrer",
+  "desertCountBad": "⚠️ Il faut exactement 1 Désert (actuellement {n})",
+  "terrainForestBtn": "Forêt",
+  "terrainHillsBtn": "Collines",
+  "terrainFieldsBtn": "Champs",
+  "terrainPastureBtn": "Pâturage",
+  "terrainMountainsBtn": "Montagnes",
+  "terrainDesertBtn": "Désert",
+  "customBoardActive": "Plateau personnalisé enregistré ✓",
+  "mapType_custom": "Personnalisé"
+}
