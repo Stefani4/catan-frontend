@@ -8,6 +8,7 @@ import purpleS from "../../images/purpleS.png";
 import redS from "../../images/redS.png";
 import yellowS from "../../images/yellowS.png";
 import { useTranslation } from "../i18n.js";
+import { getSkinFilter } from "../constants/cosmetics.js";
 
 import cyanR from "../../images/cyanR.png";
 import dblueR from "../../images/dblueR.png";
@@ -65,7 +66,7 @@ const roadImages = {
   8: lavanderR,
 };
 
-export const BuildingSpot = ({ id, G, ctx, moves, onClick, style, isLegalSpot, isLegalResortTarget, colorIndexById }) => {
+export const BuildingSpot = ({ id, G, ctx, moves, onClick, style, isLegalSpot, isLegalResortTarget, colorIndexById, skinById }) => {
   const { t } = useTranslation();
   if (!G || !G.players || !G.board.intersections[id]) return null;
 
@@ -139,7 +140,7 @@ export const BuildingSpot = ({ id, G, ctx, moves, onClick, style, isLegalSpot, i
                         ? cityImages[pieceColorIdx]
                         : settlementImages[pieceColorIdx]
                   }
-                  style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                  style={{ width: "100%", height: "100%", objectFit: "contain", filter: getSkinFilter(skinById?.[ownerId]) }}
               />
               {isResort && (
                   <span
@@ -175,7 +176,8 @@ export const BuildingSpot = ({ id, G, ctx, moves, onClick, style, isLegalSpot, i
   );
 };
 
-export const RoadSpot = ({ id, G, ctx, onClick, style, rotation, length = 50, colorIndexById }) => {
+export const RoadSpot = ({ id, G, ctx, onClick, style, rotation, length = 50, colorIndexById, skinById, isLegalSpot }) => {
+  const { t } = useTranslation();
   if (!G || !G.players || !G.board.edges || !G.board.edges[id]) return null;
 
   const edgeEntry =
@@ -213,6 +215,7 @@ export const RoadSpot = ({ id, G, ctx, onClick, style, rotation, length = 50, co
   return (
       <div
           onClick={handleRoadClick}
+          title={isLegalSpot ? t("legalRoadSpot") : undefined}
           style={{
             position: "absolute",
             width: `${length}px`,
@@ -234,17 +237,22 @@ export const RoadSpot = ({ id, G, ctx, onClick, style, rotation, length = 50, co
                   paddingTop: "9px",
                   paddingBottom: "9px",
                   boxSizing: "border-box",
+                  filter: getSkinFilter(skinById?.[ownerId]),
                 }}
             />
         ) : (
             <div
+                className={isLegalSpot ? "legal-spot-pulse" : ""}
                 style={{
                   width: "100%",
                   height: "7px",
                   marginTop: "6px",
-                  backgroundColor: "rgba(255,255,255,0.6)",
+                  backgroundColor: isLegalSpot
+                      ? "rgba(46, 204, 113, 0.65)"
+                      : "rgba(255,255,255,0.6)",
                   borderRadius: "4px",
-                  border: "2px dashed #222",
+                  border: isLegalSpot ? "2px solid #2ecc71" : "2px dashed #222",
+                  boxShadow: isLegalSpot ? "0 0 10px 3px rgba(46, 204, 113, 0.7)" : "none",
                 }}
             />
         )}

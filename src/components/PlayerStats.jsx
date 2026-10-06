@@ -5,6 +5,7 @@ import { usePlayerIdentities } from "../hooks/usePlayerIdentities.js";
 import { useReactionBursts } from "../hooks/useReactionBursts.js";
 import { REACTIONS } from "../constants/reactions.js";
 import { useTranslation } from "../i18n.js";
+import { getFrameProps } from "../constants/cosmetics.js";
 
 function StatPill({ icon, value, title }) {
     return (
@@ -78,6 +79,8 @@ export default function PlayerStats({ G, ctx, matchID, moves, playerID }) {
                 const cityCount = player.cities?.length || 0;
                 const isMe = myId !== null && myId === String(playerId);
                 const burst = bursts[String(playerId)];
+                const frame = getFrameProps(identity?.frameId, { compact: true });
+                const avatarSize = identity?.frameId ? 22 : 16; // leave room for the ring
 
                 return (
                     <div
@@ -194,19 +197,22 @@ export default function PlayerStats({ G, ctx, matchID, moves, playerID }) {
                             }}
                         >
               <span
+                  className={frame.className}
+                  data-frame={identity?.frameId || undefined}
                   style={{
-                      width: "16px",
-                      height: "16px",
+                      ...frame.style,
+                      width: `${avatarSize}px`,
+                      height: `${avatarSize}px`,
                       borderRadius: "50%",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       background: `radial-gradient(circle at 30% 30%, ${color.soft}, ${color.accent})`,
-                      border: "1px solid rgba(255,255,255,0.6)",
+                      border: identity?.frameId ? frame.style.border : "1px solid rgba(255,255,255,0.6)",
                       flexShrink: 0,
                   }}
               >
-                  {AvatarIcon && <AvatarIcon size={10} color="#f2e6c9" />}
+                  {AvatarIcon && <AvatarIcon size={identity?.frameId ? 13 : 10} color="#f2e6c9" />}
               </span>
                             <span
                                 title={color.name}

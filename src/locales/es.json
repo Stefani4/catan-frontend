@@ -205,6 +205,7 @@
   "resortCantBeTaken": "Complejo — no puede ser tomado",
   "clickToSeizeCity": "Haz clic para tomar esta ciudad y construir un Complejo",
   "legalSettlementSpot": "Lugar válido para un poblado",
+  "legalRoadSpot": "Lugar válido para un camino",
   "resortTt": "Complejo",
   "muteAllAudioTt": "Silenciar todo el audio",
   "unmuteTt": "Reactivar sonido",
@@ -276,6 +277,10 @@
         {
           "type": "p",
           "text": "El juego termina de inmediato en el momento en que un jugador alcanza 10 o más puntos en su turno."
+        },
+        {
+          "type": "p",
+          "text": "Algunos modos de juego cambian este objetivo: Blitz se juega a 6 Puntos de Victoria (consulta Modos de Juego)."
         }
       ]
     },
@@ -319,6 +324,10 @@
         {
           "type": "p",
           "text": "Después del segundo poblado, recoge una carta de recurso de cada casilla de terreno que lo toque."
+        },
+        {
+          "type": "p",
+          "text": "En el modo Draft esta bonificación se sustituye por las cartas que elegiste (consulta Modos de Juego)."
         }
       ]
     },
@@ -663,6 +672,176 @@
       ]
     },
     {
+      "title": "Modos de Juego",
+      "icon": "🎮",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El anfitrión elige un modo de juego en las Reglas Avanzadas de la sala. Un modo añade un giro a las reglas normales; todo lo demás que hayas configurado sigue aplicándose."
+        },
+        {
+          "type": "list",
+          "items": [
+            "⚡ Blitz — una partida rápida en un tablero pequeño, gana quien llegue primero a 6 puntos",
+            "🃏 Draft — elige tus recursos iniciales y tus hexágonos en un draft de cartas",
+            "🌊 Marea creciente — la costa se inunda y el mapa se hace cada vez más pequeño",
+            "🏝️ Clásico — la partida estándar"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El modo queda fijado al crear la sala, y todos pueden verlo en la cabecera durante la partida."
+        }
+      ]
+    },
+    {
+      "title": "Catan Blitz",
+      "icon": "⚡",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Una partida corta e intensa. Blitz fija tres reglas por ti:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Tablero compacto — solo 12 hexágonos",
+            "Gana el primero en llegar a 6 Puntos de Victoria",
+            "Temporizador de acción de 30 segundos (tu propio ajuste solo puede acortarlo)"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Con menos tierra que repartir, expandirse se complica pronto: coloniza rápido y bloquea a tus rivales desde el principio. Las Estaciones y el resto de opciones funcionan como siempre."
+        }
+      ]
+    },
+    {
+      "title": "Catan Draft — El Draft",
+      "icon": "🃏",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Antes de construir, todos hacen el draft. A cada jugador se le reparte un sobre de 6 cartas. En cada ronda, todos eligen a la vez una carta del sobre que tienen delante y luego pasan el sobre al siguiente asiento."
+        },
+        {
+          "type": "list",
+          "items": [
+            "4 rondas — terminas con 4 cartas",
+            "Solo ves el sobre que tienes delante",
+            "Cada carta es una Reclamación de hexágono o un Lote de recursos",
+            "Si pasas 40 segundos sin elegir, se elige la mejor carta por ti"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Cuando termina el draft, la colocación es la de siempre: dos poblados y dos caminos por jugador, por orden de turno."
+        }
+      ]
+    },
+    {
+      "title": "Catan Draft — Cartas y Bonificaciones",
+      "icon": "🎴",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "Reclamación de hexágono — reclamas ese hexágono (marcado con una bandera de tu color). Cada vez que salga su número recibes +1 de su recurso, aunque no tengas ningún edificio allí. El ladrón y la inundación siguen bloqueándolo.",
+            "Lote de recursos — 3 cartas de recursos (un lote raro da 4), pagadas por el banco al terminar el draft. Si el banco se queda corto, recibes lo que quede."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "El Draft sustituye la bonificación del segundo poblado: ya no recoges recursos por él; las cartas que elegiste son tu mano inicial. El desierto nunca se ofrece."
+        }
+      ]
+    },
+    {
+      "title": "Marea Creciente — La Marea",
+      "icon": "🌊",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "El mar sube. Tras la 4.ª ronda completa, y después cada 4 rondas, la costa se inunda hacia el interior: unos cuantos hexágonos exteriores quedan bajo el agua al final de la ronda."
+        },
+        {
+          "type": "p",
+          "text": "No hay sorpresas: los hexágonos que se inundarán después están marcados con un contorno rojo discontinuo y un 🌊, y la cabecera cuenta las rondas que faltan para la próxima marea."
+        },
+        {
+          "type": "p",
+          "text": "En cada marea se inunda aproximadamente un hexágono de cada nueve del tablero (2 en el tablero estándar). Solo pueden inundarse los hexágonos de la costa, así que la isla se encoge de fuera hacia dentro."
+        }
+      ]
+    },
+    {
+      "title": "Tierra Inundada y la Marea Final",
+      "icon": "🏝️",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "Los hexágonos inundados no producen nada",
+            "El ladrón no puede colocarse en un hexágono inundado; si su hexágono se inunda, el ladrón es arrastrado por el agua hasta el próximo 7 o Caballero",
+            "No puedes construir un poblado en una intersección —ni un camino en una arista— que solo toque hexágonos inundados",
+            "Los edificios y caminos que ya tienes se quedan: siguen contando para los puntos, el Camino Más Largo, etc."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "La inundación se detiene cuando solo quedan el 40 % de los hexágonos iniciales (al menos 6). Tras esa marea final, todos juegan una ronda más y gana el jugador con más Puntos de Victoria. Desempates: más ciudades y complejos turísticos, luego poblados y luego cartas en mano. Alcanzar antes el objetivo de puntos sigue ganando de inmediato."
+        }
+      ]
+    },
+    {
+      "title": "Oro y Recompensas",
+      "icon": "🪙",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Ganas Oro por jugar. Solo sirve para comprar cosméticos en la Tienda y nunca afecta a la jugabilidad."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Terminar una partida: +15",
+            "Ganar una partida: +60 más",
+            "Multiplicador del modo: Blitz ×0,75; Draft y Marea creciente ×1,25",
+            "Las partidas solo contra bots pagan la mitad",
+            "Límite de 300 de Oro al día por partidas",
+            "Los logros dan bonos únicos (lista completa en la Tienda)",
+            "Los jugadores nuevos empiezan con 100 de Oro"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Las recompensas se pagan una vez por partida, al terminar, y se guardan en este dispositivo."
+        }
+      ]
+    },
+    {
+      "title": "La Tienda",
+      "icon": "🛒",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Abre la Tienda desde el menú principal para gastar tu Oro en tres tipos de cosméticos:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "🗺️ Temas de tablero — cambian el aspecto del tablero, solo para ti",
+            "🏠 Aspectos de fichas — un nuevo acabado para tus caminos y edificios, visible para todos (tu color nunca cambia)",
+            "🖼️ Marcos de avatar — un anillo alrededor de tu avatar, visible para todos"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Compra un objeto una vez y equípalo desde la Tienda o el Inventario cuando quieras. Los objetos son solo estéticos y no se pueden intercambiar."
+        }
+      ]
+    },
+    {
       "title": "Generación de Números Alternativa",
       "icon": "🎲",
       "blocks": [
@@ -715,6 +894,10 @@
         {
           "type": "p",
           "text": "El juego termina en el instante en que un jugador alcanza 10 o más Puntos de Victoria — ese jugador gana de inmediato."
+        },
+        {
+          "type": "p",
+          "text": "En el modo Marea creciente la partida también puede terminar tras la marea final: gana el jugador con más Puntos de Victoria (consulta Modos de Juego)."
         }
       ]
     },
@@ -869,5 +1052,122 @@
   "terrainMountainsBtn": "Montañas",
   "terrainDesertBtn": "Desierto",
   "customBoardActive": "Tablero personalizado guardado ✓",
-  "mapType_custom": "Personalizado"
+  "mapType_custom": "Personalizado",
+  "gameMode": "Modo de juego",
+  "lockedByMode": "Definido por el modo de juego",
+  "modeName_classic": "Clásico",
+  "modeName_blitz": "Blitz",
+  "modeName_draft": "Draft",
+  "modeName_shrinking": "Marea creciente",
+  "modeDesc_classic": "La partida estándar con las reglas que elijas.",
+  "modeDesc_blitz": "Partida rápida: tablero más pequeño, temporizador más corto y gana el primero en llegar a 6 puntos.",
+  "modeDesc_draft": "En lugar del bono de inicio habitual, elige recursos iniciales y reclama casillas pasando sobres, como en un draft de cartas.",
+  "modeDesc_shrinking": "La costa se inunda hacia el interior según un calendario visible. Luchad por la tierra que queda: la última marea termina la partida.",
+  "mapType_compact": "Compacto",
+  "phaseDraft": "draft",
+  "draftTitle": "Draft",
+  "draftRound": "Elección {n} de {total}",
+  "draftHint": "Elige una carta. Cuando todos hayan elegido, los sobres se pasan al siguiente.",
+  "draftWaiting": "¡Elegido! Esperando a los demás jugadores…",
+  "draftSpectating": "Estás viendo el draft.",
+  "draftYourPicks": "Tus elecciones",
+  "draftNoPicks": "todavía nada",
+  "draftPicked": "Ya ha elegido",
+  "draftThinking": "Aún eligiendo",
+  "draftCardHex": "Casilla",
+  "draftCardResources": "Recursos",
+  "draftCardRare": "Lote raro",
+  "draftHexBonus": "+{n} carta cada vez que salga su número",
+  "draftHeaderHint": "Elige tu mano inicial",
+  "hexClaimed": "Reclamada en el draft",
+  "bundle_lumberjack": "Leñador",
+  "bundle_brickyard": "Ladrillera",
+  "bundle_shepherd": "Pastor",
+  "bundle_farmhand": "Granjero",
+  "bundle_prospector": "Buscador",
+  "bundle_smithy": "Herrería",
+  "bundle_roadcrew": "Cuadrilla de caminos",
+  "bundle_settlerpack": "Equipo de colono",
+  "bundle_cityfund": "Fondo urbano",
+  "hexFlooded": "Inundada",
+  "hexFloodsNext": "Se inunda en la próxima marea",
+  "tideIn": "La marea sube en {n} ronda(s).",
+  "tideNow": "¡La marea llega al final de esta ronda!",
+  "tideRisk": "{n} casilla(s) en peligro.",
+  "tideFinal": "¡Última marea! La partida termina en {n} turno(s): gana quien tenga más puntos.",
+  "tideEnded": "La última marea puso fin a la partida: gana quien tiene más puntos.",
+  "rewardsTitle": "Recompensas",
+  "rewardParticipation": "Partida terminada",
+  "rewardWin": "Bono de victoria",
+  "rewardModeMult": "Multiplicador del modo",
+  "rewardBotFactor": "Partida solo contra bots",
+  "rewardCapped": "Límite diario de ingresos por partidas alcanzado.",
+  "rewardTotal": "Total",
+  "shop": "Tienda",
+  "shopTabShop": "Tienda",
+  "shopTabInventory": "Inventario",
+  "shopTabAchievements": "Logros",
+  "shopTabHistory": "Historial",
+  "shopCat_boardTheme": "Temas de tablero",
+  "shopCat_pieceSkin": "Aspectos de fichas",
+  "shopCat_avatarFrame": "Marcos de avatar",
+  "shopBuy": "Comprar",
+  "shopConfirm": "Confirmar · 🪙 {price}",
+  "shopNeedMore": "faltan {n}",
+  "shopEquip": "Equipar",
+  "shopEquippedBtn": "Equipado",
+  "shopBought": "¡Has comprado {name}!",
+  "shopEquipped": "{name} equipado.",
+  "shopErr_unknown_item": "Ese objeto no existe.",
+  "shopErr_already_owned": "Ya tienes este objeto.",
+  "shopErr_insufficient_funds": "No tienes suficiente oro.",
+  "shopErr_not_owned": "Aún no tienes este objeto.",
+  "shopThemeHint": "Los temas de tablero solo cambian cómo ves tú el tablero.",
+  "shopVisibleHint": "Los demás jugadores lo ven en la partida. Es solo estético.",
+  "shopEarnHint": "Gana oro terminando partidas (+{part}) y ganando (+{win}). Los ingresos por partidas tienen un límite de {cap} al día.",
+  "shopNoHistory": "Aún no hay transacciones.",
+  "ledger_welcome": "Regalo de bienvenida",
+  "ledger_match": "Recompensa de partida",
+  "ledger_achievement": "Logro",
+  "ledger_purchase": "Compra",
+  "rarity_common": "Común",
+  "rarity_rare": "Raro",
+  "rarity_epic": "Épico",
+  "rarity_legendary": "Legendario",
+  "shopItem_seasonal": "Estacional (por defecto)",
+  "shopItem_parchment": "Mapa de pergamino",
+  "shopItem_midnight": "Islas de medianoche",
+  "shopItem_candy": "Costa golosina",
+  "shopItem_volcanic": "Volcánico",
+  "shopItem_frozen": "Mares helados",
+  "shopItem_classic": "Clásico",
+  "shopItem_gilded": "Dorado",
+  "shopItem_frosted": "Escarchado",
+  "shopItem_shadow": "Sombra",
+  "shopItem_neon": "Neón",
+  "shopItem_none": "Sin marco",
+  "shopItem_laurel": "Corona de laurel",
+  "shopItem_royal": "Real",
+  "shopItem_glacier": "Glaciar",
+  "shopItem_flame": "Llama",
+  "ach_first_win": "Primera victoria",
+  "ach_first_win_desc": "Gana tu primera partida.",
+  "ach_veteran": "Veterano",
+  "ach_veteran_desc": "Termina 10 partidas.",
+  "ach_road_warrior": "Guerrero del camino",
+  "ach_road_warrior_desc": "Gana teniendo la Ruta más larga.",
+  "ach_knight_errant": "Caballero andante",
+  "ach_knight_errant_desc": "Gana teniendo el Ejército más grande.",
+  "ach_metropolis": "Metrópolis",
+  "ach_metropolis_desc": "Gana con 3 o más ciudades o complejos turísticos.",
+  "ach_resort_tycoon": "Magnate turístico",
+  "ach_resort_tycoon_desc": "Termina una partida con un Complejo Turístico.",
+  "ach_silver_tongue": "Pico de oro",
+  "ach_silver_tongue_desc": "Haz 5 intercambios con jugadores en una partida.",
+  "ach_blitz_victor": "Vencedor Blitz",
+  "ach_blitz_victor_desc": "Gana una partida Blitz.",
+  "ach_draft_champion": "Campeón del draft",
+  "ach_draft_champion_desc": "Gana una partida Draft.",
+  "ach_last_island": "Última isla",
+  "ach_last_island_desc": "Gana una partida de Marea creciente."
 }

@@ -1,5 +1,8 @@
 import { usePlayerIdentities } from "../hooks/usePlayerIdentities.js";
 import { useTranslation } from "../i18n.js";
+import { roundsUntilTide } from "../../game/flood.js";
+
+const MODE_ICON = { blitz: "⚡", draft: "🃏", shrinking: "🌊" };
 
 export default function GameHeader({ G, ctx, moves, playerID, matchID }) {
   const { t } = useTranslation();
@@ -88,6 +91,20 @@ export default function GameHeader({ G, ctx, moves, playerID, matchID }) {
   const nextSeason = getSeasonConfig(SEASONS[(SEASONS.indexOf(G.season) + 1) % 4]).name;
   const turnUnitLabel = turnsUntilChange === 1 ? t("turnUnit") : t("turnsUnit");
 
+  const mode = G.settings?.gameMode || "classic";
+  const flood = G.flood;
+  let tideText = null;
+  if (flood) {
+    if (flood.final) {
+      const left = Math.max(0, (flood.endsAtTurnCount ?? 0) - (G.turnCount ?? 0));
+      tideText = t("tideFinal", { n: left });
+    } else {
+      const rounds = roundsUntilTide(G, ctx.numPlayers);
+      const risk = t("tideRisk", { n: flood.pending.length });
+      tideText = rounds === 0 ? `${t("tideNow")} ${risk}` : `${t("tideIn", { n: rounds })} ${risk}`;
+    }
+  }
+
   return (
 
       <div style={{
@@ -162,7 +179,15 @@ export default function GameHeader({ G, ctx, moves, playerID, matchID }) {
 
           <div>
             <div style={{ color: cfg.border, fontWeight: "bold", fontSize: "0.75rem", textTransform: "uppercase" }}>
-              {ctx.phase === "setup" ? t("phaseSetup") : t("phaseMain")}
+              {ctx.phase === "draft" ? t("phaseDraft") : ctx.phase === "setup" ? t("phaseSetup") : t("phaseMain")}
+              {MODE_ICON[mode] && (
+                  <span
+                      data-testid="mode-badge"
+                      style={{ marginLeft: "8px", fontSize: "0.65rem", padding: "1px 7px", borderRadius: 999, border: `1px solid ${cfg.border}`, color: "#f2e6c9" }}
+                  >
+                    {MODE_ICON[mode]} {t(`modeName_${mode}`)}
+                  </span>
+              )}
             </div>
             <div style={{ color: "#c9a96e", fontSize: "0.8rem" }}>
               ⚔️ {currentPlayerName}
@@ -174,7 +199,27 @@ export default function GameHeader({ G, ctx, moves, playerID, matchID }) {
             {getSetupInstruction()}
           </span>
           )}
+          {ctx.phase === "draft" && (
+              <span style={{ color: "#ffc107", fontSize: "0.75rem", fontStyle: "italic", textAlign: "right" }}>
+            {t("draftHeaderHint")}
+          </span>
+          )}
         </div>
+
+        {tideText && (
+            <div
+                data-testid="tide-banner"
+                style={{
+                  background: flood.final ? "linear-gradient(135deg, #5a0d0d, #a31d1d)" : "linear-gradient(135deg, #0a1f3a, #1d5a8c)",
+                  color: "#e6f4ff",
+                  fontSize: "0.74rem",
+                  padding: "6px 14px",
+                  borderTop: "1px solid rgba(255,255,255,0.2)",
+                }}
+            >
+              🌊 {tideText}
+            </div>
+        )}
       </div>
   );
 }

@@ -1,45 +1,28 @@
-import { useEffect, useState } from "react";
 import Hex from "./Hex.jsx";
 import { BuildingSpot, RoadSpot } from "./GamePieces.jsx";
 import HarborMarker from "./HarborMarker.jsx";
 import {
   isDistanceRuleMet,
   isIntersectionConnectedToPlayerRoad,
+  isConnectedToPlayer,
+  isEdgeAdjacentToIntersection,
+  hasEnoughResources,
+  BUILD_COSTS,
+  MAX_ROADS,
 } from "../../game/moves.js";
-import { decodePlayerIdentity } from "../profileStore.js";
+import { usePlayerIdentities } from "../hooks/usePlayerIdentities.js";
+import { isEdgeSubmerged, isIntersectionSubmerged } from "../../game/flood.js";
+import { getColorByIndex } from "../constants/playerColors.js";
 
-const SERVER = import.meta.env.VITE_SERVER_URL || "http://localhost:8000";
-
-function useColorIndexById(matchID) {
-  const [colorIndexById, setColorIndexById] = useState({});
-
-  useEffect(() => {
-    if (!matchID) return;
-    let cancelled = false;
-
-    const fetchIdentities = () => {
-      fetch(`${SERVER}/games/catan/${matchID}`)
-          .then((res) => (res.ok ? res.json() : null))
-          .then((data) => {
-            if (cancelled || !data?.players) return;
-            const next = {};
-            data.players.forEach((p) => {
-              if (p.name) next[String(p.id)] = decodePlayerIdentity(p.name, p.id).colorIndex;
-            });
-            setColorIndexById(next);
-          })
-          .catch(() => {});
-    };
-
-    fetchIdentities();
-    const interval = setInterval(fetchIdentities, 4000);
-    return () => {
-      cancelled = true;
-      clearInterval(interval);
-    };
-  }, [matchID]);
-
-  return colorIndexById;
+function useBoardIdentities(matchID) {
+  const identities = usePlayerIdentities(matchID);
+  const colorIndexById = {};
+  const skinById = {};
+  Object.entries(identities).forEach(([pid, identity]) => {
+    colorIndexById[pid] = identity.colorIndex;
+    if (identity.pieceSkinId) skinById[pid] = identity.pieceSkinId;
+  });
+  return { colorIndexById, skinById };
 }
 
 const RESORT_COST = { ore: 3, lumber: 4, wool: 2, brick: 1 };
@@ -59,8 +42,10 @@ export default function GameBoard({
                                     matchID,
                                     pendingCardAction,
                                     setPendingCardAction,
+                                    hexFilter,
+                                    highlightHexId,
                                   }) {
-  const colorIndexById = useColorIndexById(matchID);
+  const { colorIndexById, skinById } = useBoardIdentities(matchID);
 
   const handleIntersectionClick = (id) => {
     moves.buildSettlement(id);
@@ -116,6 +101,7 @@ export default function GameBoard({
           ),
       );
       if (isOccupied) return;
+      if (isIntersectionSubmerged(G, id)) return;
       if (!isDistanceRuleMet(G, id)) return;
       if (
           ctx.phase !== "setup" &&
@@ -133,10 +119,60 @@ export default function GameBoard({
     }
   }
 
+  const legalRoadSpots = new Set();
+  if (canShowLegalSpots) {
+    const player = G.players[viewingPlayerId];
+    const canStillPlaceRoad =
+        player &&
+        (ctx.phase === "setup"
+            ? player.roads.length < 2 && player.roads.length < player.settlements.length
+            : player.roads.length < MAX_ROADS && hasEnoughResources(player, BUILD_COSTS.road));
+
+    if (canStillPlaceRoad) {
+      Object.keys(edges).forEach((id) => {
+        const isEdgeAlreadyClaimed = Object.values(G.players).some((p) =>
+            p.roads.some((r) => r.id === id),
+        );
+        if (isEdgeAlreadyClaimed) return;
+        if (isEdgeSubmerged(G, id)) return;
+
+        if (ctx.phase === "setup") {
+          const lastSettlement = player.settlements[player.settlements.length - 1];
+          if (!lastSettlement || !isEdgeAdjacentToIntersection(G, id, lastSettlement.id))
+            return;
+        } else if (!isConnectedToPlayer(G, viewingPlayerId, id)) {
+          return;
+        }
+
+        legalRoadSpots.add(id);
+      });
+    }
+  }
+
+  const claims = G.draft?.claims || {};
+  const pending = new Set(G.flood?.pending || []);
+  const claimColor = (hexId) => {
+    const owner = claims[hexId];
+    if (owner === undefined) return undefined;
+    const idx = Number.isInteger(colorIndexById[owner]) ? colorIndexById[owner] : parseInt(owner, 10) % 9;
+    return getColorByIndex(idx).soft;
+  };
+
   return (
       <div style={{ position: "relative", width: `${width}px`, height: `${height}px` }}>
         {hexes.map((hex) => (
-            <Hex key={hex.id} hex={hex} G={G} moves={moves} width={hexWidth} height={hexHeight} />
+            <Hex
+                key={hex.id}
+                hex={hex}
+                G={G}
+                moves={moves}
+                width={hexWidth}
+                height={hexHeight}
+                hexFilter={hexFilter}
+                claimColor={claimColor(hex.id)}
+                highlighted={highlightHexId === hex.id}
+                pending={pending.has(hex.id)}
+            />
         ))}
 
         {Object.values(intersections).map((vertex) => (
@@ -147,6 +183,7 @@ export default function GameBoard({
                 ctx={ctx}
                 moves={moves}
                 colorIndexById={colorIndexById}
+                skinById={skinById}
                 isLegalSpot={legalSettlementSpots.has(vertex.id)}
                 isLegalResortTarget={legalResortSpots.has(vertex.id)}
                 style={{ left: `${vertex.x}px`, top: `${vertex.y}px` }}
@@ -176,8 +213,10 @@ export default function GameBoard({
                   G={G}
                   ctx={ctx}
                   colorIndexById={colorIndexById}
+                  skinById={skinById}
                   rotation={rotation}
                   length={length}
+                  isLegalSpot={legalRoadSpots.has(edge.id)}
                   style={{
                     left: `${midX}px`,
                     top: `${midY}px`,

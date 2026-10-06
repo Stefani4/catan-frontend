@@ -1,5 +1,7 @@
 import { PLAYER_COLORS } from "./constants/playerColors.js";
 import { AVATARS } from "./constants/avatars.jsx";
+import { sanitizeCosmeticId } from "./economy/catalog.js";
+import { getEquippedCosmetics } from "./economy/walletStore.js";
 
 export const PROFILE_KEY = "catan_player_profile";
 const PROFILE_EVENT = "catan-profile-changed";
@@ -41,12 +43,28 @@ export function subscribeToProfile(callback) {
   return () => window.removeEventListener(PROFILE_EVENT, handler);
 }
 
+// Optional fields are only written when set, so a default identity is exactly
+// the same short string as before (the match server may cap its length):
+//   p = piece skin id, f = avatar frame id, b = 1 for AI bots.
 export function encodePlayerIdentity(profile = loadProfile()) {
-  return JSON.stringify({
+  const identity = {
     n: (profile.name || "Player").slice(0, 20),
     c: Number.isInteger(profile.colorIndex) ? profile.colorIndex : 0,
     a: profile.avatarId || AVATARS[0].id,
-  });
+  };
+
+  if (profile.isBot) {
+    identity.b = 1;
+  } else {
+    // Cosmetics come from the wallet (the only place ownership is checked),
+    // unless the caller supplied them explicitly.
+    const equipped = getEquippedCosmetics();
+    const skin = "pieceSkinId" in profile ? profile.pieceSkinId : equipped.pieceSkinId;
+    const frame = "frameId" in profile ? profile.frameId : equipped.frameId;
+    if (skin) identity.p = skin;
+    if (frame) identity.f = frame;
+  }
+  return JSON.stringify(identity);
 }
 
 export function decodePlayerIdentity(rawName, seatId) {
@@ -58,6 +76,10 @@ export function decodePlayerIdentity(rawName, seatId) {
           name: parsed.n,
           colorIndex: Number.isInteger(parsed.c) ? parsed.c : seatColorIndex(seatId),
           avatarId: parsed.a || null,
+          // Ids come from another client, so only known catalog ids are accepted.
+          pieceSkinId: sanitizeCosmeticId("pieceSkin", parsed.p),
+          frameId: sanitizeCosmeticId("avatarFrame", parsed.f),
+          isBot: parsed.b === 1,
           isEncoded: true,
         };
       }
@@ -69,6 +91,9 @@ export function decodePlayerIdentity(rawName, seatId) {
     name: rawName || `Player ${seatId}`,
     colorIndex: seatColorIndex(seatId),
     avatarId: null,
+    pieceSkinId: null,
+    frameId: null,
+    isBot: false,
     isEncoded: false,
   };
 }

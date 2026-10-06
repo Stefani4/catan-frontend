@@ -5,11 +5,14 @@ import joinLobbyImg from "../images/joinloby.png";
 import Settings from "./components/Settings";
 import RulesBook from "./components/RulesBook";
 import Tutorial from "./components/Tutorial";
+import Shop from "./components/Shop";
+import { FramePreview } from "./components/Shop";
+import { subscribeToWallet } from "./economy/walletStore.js";
 import { getThemeImage } from "./theme.js";
 import { subscribeToSettings } from "./settingsStore.js";
 import { loadProfile, saveProfile, subscribeToProfile } from "./profileStore.js";
 import { PLAYER_COLORS } from "./constants/playerColors.js";
-import { AVATARS, getAvatarById } from "./constants/avatars.jsx";
+import { AVATARS } from "./constants/avatars.jsx";
 import { useTranslation } from "./i18n.js";
 
 const TUTORIAL_SEEN_KEY = "catan_tutorial_seen";
@@ -27,6 +30,8 @@ function ProfileChip() {
     const containerRef = useRef(null);
 
     useEffect(() => subscribeToProfile(setProfile), []);
+    const [frameId, setFrameId] = useState(null);
+    useEffect(() => subscribeToWallet((w) => setFrameId(w.equipped.avatarFrame)), []);
 
     useEffect(() => {
         if (!open) return;
@@ -40,7 +45,6 @@ function ProfileChip() {
     }, [open]);
 
     const color = PLAYER_COLORS[profile.colorIndex] ?? PLAYER_COLORS[0];
-    const AvatarIcon = getAvatarById(profile.avatarId).Icon;
 
     return (
         <div ref={containerRef} style={{ position: "absolute", top: "18px", left: "18px", zIndex: 20 }}>
@@ -59,20 +63,8 @@ function ProfileChip() {
                     userSelect: "none",
                 }}
             >
-                <div
-                    style={{
-                        width: "34px",
-                        height: "34px",
-                        borderRadius: "50%",
-                        background: `radial-gradient(circle at 30% 30%, ${color.soft}, ${color.accent})`,
-                        border: "2px solid #f1d38a",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        flexShrink: 0,
-                    }}
-                >
-                    <AvatarIcon size={18} color="#f2e6c9" />
+                <div style={{ flexShrink: 0 }}>
+                    <FramePreview frameId={frameId} size={34} avatarId={profile.avatarId} colorIndex={profile.colorIndex} />
                 </div>
                 <span style={{ color: "#f2e6c9", fontWeight: "bold", fontFamily: "Georgia, serif" }}>
                     {profile.name} ✎
@@ -283,6 +275,8 @@ export default function MainMenu({ onCreateLobby, onJoinLobby }) {
     const [showJoinBox, setShowJoinBox] = useState(false);
     const [infoModal, setInfoModal] = useState(null); // "Tutorial" | "Rules" | "Settings" | null
     const [theme, setTheme] = useState("sunset");
+    const [balance, setBalance] = useState(0);
+    useEffect(() => subscribeToWallet((w) => setBalance(w.balance)), []);
 
     useEffect(() => subscribeToSettings((s) => setTheme(s.theme)), []);
 
@@ -389,6 +383,7 @@ export default function MainMenu({ onCreateLobby, onJoinLobby }) {
             >
                 <FooterButton label={t("tutorial")} onClick={() => setInfoModal("Tutorial")}/>
                 <FooterButton label={t("rules")} onClick={() => setInfoModal("Rules")}/>
+                <FooterButton label={`🛒 ${t("shop")} · 🪙 ${balance}`} onClick={() => setInfoModal("Shop")}/>
                 <FooterButton label={t("settings")} onClick={() => setInfoModal("Settings")}/>
             </div>
 
@@ -398,7 +393,9 @@ export default function MainMenu({ onCreateLobby, onJoinLobby }) {
 
             {infoModal === "Tutorial" && <Tutorial onClose={closeInfoModal}/>}
 
-            {infoModal && infoModal !== "Settings" && infoModal !== "Rules" && infoModal !== "Tutorial" && (
+            {infoModal === "Shop" && <Shop onClose={() => setInfoModal(null)}/>}
+
+            {infoModal && infoModal !== "Settings" && infoModal !== "Rules" && infoModal !== "Tutorial" && infoModal !== "Shop" && (
                 <div
                     onClick={() => setInfoModal(null)}
                     style={{
