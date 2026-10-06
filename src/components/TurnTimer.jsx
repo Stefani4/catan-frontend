@@ -6,8 +6,17 @@ const DEFAULT_ACTION_SECONDS = 60;
 
 export default function TurnTimer({ G, moves }) {
     const isRollPhase = !G.diceRolled;
+    // A mode (e.g. Blitz) can cap the action timer for the whole table; the
+    // player's own preference can only make it shorter, never longer.
+    const modeCap = Number(G.settings?.turnTimerSeconds) || null;
     const actionSeconds = useRef(
-        Math.max(5, Number(loadSettings().turnTimer) || DEFAULT_ACTION_SECONDS),
+        Math.max(
+            5,
+            Math.min(
+                Number(loadSettings().turnTimer) || DEFAULT_ACTION_SECONDS,
+                modeCap || Infinity,
+            ),
+        ),
     ).current;
     const limit = isRollPhase ? ROLL_SECONDS : actionSeconds;
 

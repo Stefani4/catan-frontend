@@ -262,7 +262,7 @@ export default function MatchLoader() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               playerID: bot.seat,
-              playerName: encodePlayerIdentity({ name: bot.name || "Bot" }),
+              playerName: encodePlayerIdentity({ name: bot.name || "Bot", isBot: true }),
             }),
           }).catch(() => null);
           if (res && res.ok) {

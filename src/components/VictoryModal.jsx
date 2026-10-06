@@ -3,6 +3,7 @@ import { getColorByIndex, getPlayerColor } from "../constants/playerColors.js";
 import { usePlayerIdentities } from "../hooks/usePlayerIdentities.js";
 import { useTranslation } from "../i18n.js";
 import PostGameStats from "./PostGameStats.jsx";
+import { useMatchRewards } from "../hooks/useMatchRewards.js";
 
 const SERVER = import.meta.env.VITE_SERVER_URL || "http://localhost:8000";
 const POLL_MS = 2500;
@@ -17,6 +18,7 @@ export default function VictoryModal({ G, ctx, playerID, matchID, bots, onStartR
     const [showStats, setShowStats] = useState(false);
 
     const isOver = winnerId !== undefined && winnerId !== null;
+    const receipt = useMatchRewards({ G, ctx, playerID, matchID, identities });
 
     // Poll for a rematch someone else may have already started, so this
     // client can offer "Join Rematch" instead of spinning up a second match.
@@ -116,6 +118,59 @@ export default function VictoryModal({ G, ctx, playerID, matchID, bots, onStartR
                 <p style={{ margin: "0 0 18px 0", fontSize: "0.95rem", color: "#5a4326" }}>
                     {t("reachedVp", { name: winnerName, vp: winner?.victoryPoints ?? 10 })}
                 </p>
+
+                {ctx.gameover?.reason === "tide" && (
+                    <p data-testid="tide-ended" style={{ margin: "-8px 0 14px 0", fontSize: "0.8rem", color: "#1d5a8c", fontWeight: "bold" }}>
+                        🌊 {t("tideEnded")}
+                    </p>
+                )}
+
+                {receipt && (
+                    <div
+                        data-testid="reward-receipt"
+                        style={{
+                            margin: "0 auto 16px",
+                            maxWidth: "300px",
+                            textAlign: "left",
+                            background: "rgba(255,255,255,0.35)",
+                            border: "2px solid #7a5320",
+                            borderRadius: "10px",
+                            padding: "8px 12px",
+                            fontSize: "0.8rem",
+                        }}
+                    >
+                        <div style={{ fontWeight: "bold", marginBottom: "4px" }}>🪙 {t("rewardsTitle")}</div>
+                        {receipt.lines.map((l) => (
+                            <div key={l.kind} style={{ display: "flex", justifyContent: "space-between" }}>
+                                <span>{t(l.kind === "win" ? "rewardWin" : "rewardParticipation")}</span>
+                                <span>+{l.amount}</span>
+                            </div>
+                        ))}
+                        {receipt.modeMult !== 1 && (
+                            <div style={{ display: "flex", justifyContent: "space-between", color: "#5a4326" }}>
+                                <span>{t("rewardModeMult")}</span>
+                                <span>×{receipt.modeMult}</span>
+                            </div>
+                        )}
+                        {receipt.botFactor !== 1 && (
+                            <div style={{ display: "flex", justifyContent: "space-between", color: "#5a4326" }}>
+                                <span>{t("rewardBotFactor")}</span>
+                                <span>×{receipt.botFactor}</span>
+                            </div>
+                        )}
+                        {receipt.capped && <div style={{ color: "#8a2020", fontSize: "0.72rem" }}>{t("rewardCapped")}</div>}
+                        {receipt.achievements.map((a) => (
+                            <div key={a.id} style={{ display: "flex", justifyContent: "space-between", color: "#2e6b3e", fontWeight: "bold" }}>
+                                <span>🏅 {t(`ach_${a.id}`)}</span>
+                                <span>+{a.reward}</span>
+                            </div>
+                        ))}
+                        <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px solid #7a5320", marginTop: "4px", paddingTop: "4px", fontWeight: "bold" }}>
+                            <span>{t("rewardTotal")}</span>
+                            <span data-testid="reward-total">+{receipt.total} 🪙</span>
+                        </div>
+                    </div>
+                )}
 
                 {rematchInfo && (
                     <p style={{ margin: "0 0 12px 0", fontSize: "0.8rem", color: "#7a5320" }}>

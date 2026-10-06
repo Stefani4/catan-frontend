@@ -205,6 +205,7 @@
   "resortCantBeTaken": "Complexe — ne peut pas être repris",
   "clickToSeizeCity": "Cliquez pour prendre cette ville et construire un Complexe",
   "legalSettlementSpot": "Emplacement valide pour une colonie",
+  "legalRoadSpot": "Emplacement valide pour une route",
   "resortTt": "Complexe",
   "muteAllAudioTt": "Couper tout le son",
   "unmuteTt": "Réactiver le son",
@@ -276,6 +277,10 @@
         {
           "type": "p",
           "text": "La partie se termine immédiatement dès qu'un joueur atteint 10 points ou plus lors de son tour."
+        },
+        {
+          "type": "p",
+          "text": "Certains modes de jeu modifient cet objectif : le Blitz se joue en 6 Points de Victoire (voir Modes de Jeu)."
         }
       ]
     },
@@ -319,6 +324,10 @@
         {
           "type": "p",
           "text": "Après la seconde colonie, récupérez une carte ressource de chaque tuile de terrain qui la touche."
+        },
+        {
+          "type": "p",
+          "text": "En mode Draft, ce bonus est remplacé par les cartes que vous avez draftées (voir Modes de Jeu)."
         }
       ]
     },
@@ -663,6 +672,176 @@
       ]
     },
     {
+      "title": "Modes de Jeu",
+      "icon": "🎮",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "L'hôte choisit un mode de jeu dans les Règles Avancées du salon. Un mode ajoute une variante aux règles normales ; tout le reste de ce que vous avez réglé continue de s'appliquer."
+        },
+        {
+          "type": "list",
+          "items": [
+            "⚡ Blitz — une partie rapide sur un petit plateau, le premier à 6 points gagne",
+            "🃏 Draft — choisissez vos ressources de départ et vos hexagones lors d'un draft de cartes",
+            "🌊 Marée montante — le littoral est submergé et la carte rétrécit",
+            "🏝️ Classique — la partie standard"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Le mode est fixé à la création du salon, et tout le monde le voit dans l'en-tête pendant la partie."
+        }
+      ]
+    },
+    {
+      "title": "Catan Blitz",
+      "icon": "⚡",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Une partie courte et intense. Le Blitz fixe trois règles pour vous :"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Plateau compact — seulement 12 hexagones",
+            "Le premier à 6 Points de Victoire gagne",
+            "Minuteur d'action de 30 secondes (votre propre réglage ne peut que le raccourcir)"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Avec moins de terres à partager, l'expansion devient vite difficile : colonisez vite et bloquez vos rivaux dès le début. Les Saisons et les autres options fonctionnent comme d'habitude."
+        }
+      ]
+    },
+    {
+      "title": "Catan Draft — Le Draft",
+      "icon": "🃏",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Avant de construire, tout le monde fait le draft. Chaque joueur reçoit un paquet de 6 cartes. À chaque tour de draft, tous choisissent en même temps une carte du paquet placé devant eux, puis passent le paquet au siège suivant."
+        },
+        {
+          "type": "list",
+          "items": [
+            "4 tours — vous finissez avec 4 cartes",
+            "Vous ne voyez que le paquet placé devant vous",
+            "Chaque carte est soit une Revendication d'hexagone, soit un Lot de ressources",
+            "Si vous restez inactif 40 secondes, la meilleure carte est choisie pour vous"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "À la fin du draft, la mise en place est la même que d'habitude : deux colonies et deux routes par joueur, dans l'ordre du tour."
+        }
+      ]
+    },
+    {
+      "title": "Catan Draft — Cartes et Bonus",
+      "icon": "🎴",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "Revendication d'hexagone — vous revendiquez cet hexagone (marqué d'un drapeau de votre couleur). Chaque fois que son numéro sort, vous recevez +1 de sa ressource, même sans bâtiment dessus. Le voleur et l'inondation le bloquent toujours.",
+            "Lot de ressources — 3 cartes ressource (un lot rare en donne 4), versées par la banque à la fin du draft. Si la banque est à court, vous recevez ce qu'il reste."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Le Draft remplace le bonus de la seconde colonie : vous ne récupérez plus de ressources pour elle ; vos cartes draftées sont votre main de départ. Le désert n'est jamais proposé."
+        }
+      ]
+    },
+    {
+      "title": "Marée Montante — La Marée",
+      "icon": "🌊",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "La mer monte. Après le 4e tour complet, puis tous les 4 tours, le littoral est submergé vers l'intérieur : quelques hexagones extérieurs disparaissent sous l'eau à la fin du tour."
+        },
+        {
+          "type": "p",
+          "text": "Aucune surprise : les hexagones qui seront submergés ensuite sont entourés d'un contour rouge en pointillés avec un 🌊, et l'en-tête décompte les tours avant la prochaine marée."
+        },
+        {
+          "type": "p",
+          "text": "Environ un hexagone sur neuf du plateau est submergé à chaque marée (2 sur le plateau standard). Seuls les hexagones côtiers peuvent être submergés : l'île rétrécit donc de l'extérieur vers l'intérieur."
+        }
+      ]
+    },
+    {
+      "title": "Terres Submergées et Marée Finale",
+      "icon": "🏝️",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "Les hexagones submergés ne produisent rien",
+            "Le voleur ne peut pas aller sur un hexagone submergé ; si le sien est submergé, il est emporté jusqu'au prochain 7 ou Chevalier",
+            "Pas de colonie sur une intersection ni de route sur une arête qui ne touche que des hexagones submergés",
+            "Vos bâtiments et routes existants restent : ils comptent toujours pour les points, la Route la Plus Longue, etc."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "L'inondation s'arrête quand il ne reste que 40 % des hexagones de départ (au moins 6). Après cette marée finale, tout le monde joue encore un tour, puis le joueur ayant le plus de Points de Victoire gagne. Égalités : villes et complexes touristiques, puis colonies, puis cartes en main. Atteindre l'objectif avant cela fait toujours gagner immédiatement."
+        }
+      ]
+    },
+    {
+      "title": "Or et Récompenses",
+      "icon": "🪙",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Vous gagnez de l'Or en jouant. Il ne sert qu'à acheter des cosmétiques dans la Boutique et n'influence jamais le jeu."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Terminer une partie : +15",
+            "Gagner une partie : +60 de plus",
+            "Multiplicateur de mode : Blitz ×0,75 ; Draft et Marée montante ×1,25",
+            "Parties contre des bots uniquement : moitié moins",
+            "Gains de parties plafonnés à 300 d'Or par jour",
+            "Les succès donnent des bonus uniques (liste complète dans la Boutique)",
+            "Les nouveaux joueurs commencent avec 100 d'Or"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Les récompenses sont versées une seule fois par partie, à sa fin, et sont enregistrées sur cet appareil."
+        }
+      ]
+    },
+    {
+      "title": "La Boutique",
+      "icon": "🛒",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Ouvrez la Boutique depuis le menu principal pour dépenser votre Or en trois types de cosmétiques :"
+        },
+        {
+          "type": "list",
+          "items": [
+            "🗺️ Thèmes de plateau — changent l'aspect du plateau, pour vous seul",
+            "🏠 Apparences de pièces — une nouvelle finition pour vos routes et bâtiments, visible par tous (votre couleur ne change jamais)",
+            "🖼️ Cadres d'avatar — un anneau autour de votre avatar, visible par tous"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Achetez un objet une fois, puis équipez-le depuis la Boutique ou l'Inventaire quand vous voulez. Les objets sont purement cosmétiques et ne peuvent pas être échangés."
+        }
+      ]
+    },
+    {
       "title": "Génération de Nombres Alternative",
       "icon": "🎲",
       "blocks": [
@@ -715,6 +894,10 @@
         {
           "type": "p",
           "text": "La partie se termine dès qu'un joueur atteint 10 Points de Victoire ou plus — ce joueur gagne immédiatement."
+        },
+        {
+          "type": "p",
+          "text": "En mode Marée montante, la partie peut aussi se terminer après la marée finale : le joueur ayant le plus de Points de Victoire gagne (voir Modes de Jeu)."
         }
       ]
     },
@@ -869,5 +1052,122 @@
   "terrainMountainsBtn": "Montagnes",
   "terrainDesertBtn": "Désert",
   "customBoardActive": "Plateau personnalisé enregistré ✓",
-  "mapType_custom": "Personnalisé"
+  "mapType_custom": "Personnalisé",
+  "gameMode": "Mode de jeu",
+  "lockedByMode": "Défini par le mode de jeu",
+  "modeName_classic": "Classique",
+  "modeName_blitz": "Blitz",
+  "modeName_draft": "Draft",
+  "modeName_shrinking": "Marée montante",
+  "modeDesc_classic": "La partie standard avec les règles de votre choix.",
+  "modeDesc_blitz": "Partie rapide : plateau réduit, minuteur plus court, premier à 6 points de victoire.",
+  "modeDesc_draft": "À la place du bonus de départ habituel, draftez des ressources et revendiquez des hexagones en vous passant des paquets, comme dans un draft de cartes.",
+  "modeDesc_shrinking": "Le littoral est submergé vers l'intérieur selon un calendrier visible. Battez-vous pour les terres restantes : la dernière marée met fin à la partie.",
+  "mapType_compact": "Compact",
+  "phaseDraft": "draft",
+  "draftTitle": "Draft",
+  "draftRound": "Choix {n} sur {total}",
+  "draftHint": "Choisissez une carte. Quand tout le monde a choisi, les paquets sont passés.",
+  "draftWaiting": "Choix fait ! En attente des autres joueurs…",
+  "draftSpectating": "Vous regardez le draft.",
+  "draftYourPicks": "Vos choix",
+  "draftNoPicks": "rien pour l'instant",
+  "draftPicked": "A choisi",
+  "draftThinking": "Choisit encore",
+  "draftCardHex": "Hexagone",
+  "draftCardResources": "Ressources",
+  "draftCardRare": "Lot rare",
+  "draftHexBonus": "+{n} carte à chaque fois que son numéro sort",
+  "draftHeaderHint": "Draftez votre main de départ",
+  "hexClaimed": "Revendiqué lors du draft",
+  "bundle_lumberjack": "Bûcheron",
+  "bundle_brickyard": "Briqueterie",
+  "bundle_shepherd": "Berger",
+  "bundle_farmhand": "Fermier",
+  "bundle_prospector": "Prospecteur",
+  "bundle_smithy": "Forge",
+  "bundle_roadcrew": "Équipe de route",
+  "bundle_settlerpack": "Paquet du colon",
+  "bundle_cityfund": "Fonds de la ville",
+  "hexFlooded": "Inondé",
+  "hexFloodsNext": "Sera submergé à la prochaine marée",
+  "tideIn": "La marée monte dans {n} tour(s).",
+  "tideNow": "La marée arrive à la fin de ce tour !",
+  "tideRisk": "{n} hexagone(s) menacé(s).",
+  "tideFinal": "Dernière marée ! La partie se termine dans {n} tour(s) — le plus de points gagne.",
+  "tideEnded": "La dernière marée a mis fin à la partie — le plus de points gagne.",
+  "rewardsTitle": "Récompenses",
+  "rewardParticipation": "Partie terminée",
+  "rewardWin": "Bonus de victoire",
+  "rewardModeMult": "Multiplicateur du mode",
+  "rewardBotFactor": "Partie contre bots uniquement",
+  "rewardCapped": "Limite quotidienne de gains atteinte.",
+  "rewardTotal": "Total",
+  "shop": "Boutique",
+  "shopTabShop": "Boutique",
+  "shopTabInventory": "Inventaire",
+  "shopTabAchievements": "Succès",
+  "shopTabHistory": "Historique",
+  "shopCat_boardTheme": "Thèmes de plateau",
+  "shopCat_pieceSkin": "Apparences de pièces",
+  "shopCat_avatarFrame": "Cadres d'avatar",
+  "shopBuy": "Acheter",
+  "shopConfirm": "Confirmer · 🪙 {price}",
+  "shopNeedMore": "il manque {n}",
+  "shopEquip": "Équiper",
+  "shopEquippedBtn": "Équipé",
+  "shopBought": "{name} acheté !",
+  "shopEquipped": "{name} équipé.",
+  "shopErr_unknown_item": "Cet objet n'existe pas.",
+  "shopErr_already_owned": "Vous possédez déjà cet objet.",
+  "shopErr_insufficient_funds": "Pas assez d'or.",
+  "shopErr_not_owned": "Vous ne possédez pas encore cet objet.",
+  "shopThemeHint": "Les thèmes de plateau ne changent que votre propre affichage.",
+  "shopVisibleHint": "Les autres joueurs le voient en partie. C'est purement cosmétique.",
+  "shopEarnHint": "Gagnez de l'or en terminant des parties (+{part}) et en gagnant (+{win}). Les gains de parties sont limités à {cap} par jour.",
+  "shopNoHistory": "Aucune transaction pour l'instant.",
+  "ledger_welcome": "Cadeau de bienvenue",
+  "ledger_match": "Récompense de partie",
+  "ledger_achievement": "Succès",
+  "ledger_purchase": "Achat",
+  "rarity_common": "Commun",
+  "rarity_rare": "Rare",
+  "rarity_epic": "Épique",
+  "rarity_legendary": "Légendaire",
+  "shopItem_seasonal": "Saisonnier (par défaut)",
+  "shopItem_parchment": "Carte en parchemin",
+  "shopItem_midnight": "Îles de minuit",
+  "shopItem_candy": "Côte bonbon",
+  "shopItem_volcanic": "Volcanique",
+  "shopItem_frozen": "Mers gelées",
+  "shopItem_classic": "Classique",
+  "shopItem_gilded": "Doré",
+  "shopItem_frosted": "Givré",
+  "shopItem_shadow": "Ombre",
+  "shopItem_neon": "Néon",
+  "shopItem_none": "Sans cadre",
+  "shopItem_laurel": "Couronne de laurier",
+  "shopItem_royal": "Royal",
+  "shopItem_glacier": "Glacier",
+  "shopItem_flame": "Flamme",
+  "ach_first_win": "Première victoire",
+  "ach_first_win_desc": "Remportez votre première partie.",
+  "ach_veteran": "Vétéran",
+  "ach_veteran_desc": "Terminez 10 parties.",
+  "ach_road_warrior": "Guerrier de la route",
+  "ach_road_warrior_desc": "Gagnez en détenant la Route la plus longue.",
+  "ach_knight_errant": "Chevalier errant",
+  "ach_knight_errant_desc": "Gagnez en détenant la Plus grande armée.",
+  "ach_metropolis": "Métropole",
+  "ach_metropolis_desc": "Gagnez avec 3 villes ou complexes ou plus.",
+  "ach_resort_tycoon": "Magnat des complexes",
+  "ach_resort_tycoon_desc": "Terminez une partie avec un complexe.",
+  "ach_silver_tongue": "Langue d'argent",
+  "ach_silver_tongue_desc": "Faites 5 échanges entre joueurs dans une partie.",
+  "ach_blitz_victor": "Vainqueur Blitz",
+  "ach_blitz_victor_desc": "Gagnez une partie Blitz.",
+  "ach_draft_champion": "Champion du draft",
+  "ach_draft_champion_desc": "Gagnez une partie Draft.",
+  "ach_last_island": "Dernière île",
+  "ach_last_island_desc": "Gagnez une partie Marée montante."
 }

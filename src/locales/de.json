@@ -205,6 +205,7 @@
   "resortCantBeTaken": "Ferienanlage — kann nicht übernommen werden",
   "clickToSeizeCity": "Klicken, um diese Stadt zu übernehmen und eine Ferienanlage zu bauen",
   "legalSettlementSpot": "Gültiger Siedlungsplatz",
+  "legalRoadSpot": "Gültiger Straßenplatz",
   "resortTt": "Ferienanlage",
   "muteAllAudioTt": "Gesamten Ton stummschalten",
   "unmuteTt": "Stummschaltung aufheben",
@@ -276,6 +277,10 @@
         {
           "type": "p",
           "text": "Das Spiel endet sofort, sobald ein Spieler in seinem Zug 10 oder mehr Punkte erreicht."
+        },
+        {
+          "type": "p",
+          "text": "Manche Spielmodi ändern dieses Ziel: Blitz wird auf 6 Siegpunkte gespielt (siehe Spielmodi)."
         }
       ]
     },
@@ -319,6 +324,10 @@
         {
           "type": "p",
           "text": "Nach der zweiten Siedlung erhältst du eine Rohstoffkarte von jedem angrenzenden Geländefeld."
+        },
+        {
+          "type": "p",
+          "text": "Im Draft-Modus wird dieser Bonus durch die gedrafteten Karten ersetzt (siehe Spielmodi)."
         }
       ]
     },
@@ -663,6 +672,176 @@
       ]
     },
     {
+      "title": "Spielmodi",
+      "icon": "🎮",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Der Gastgeber wählt in den Erweiterten Regeln der Lobby einen Spielmodus. Ein Modus fügt den normalen Regeln eine Besonderheit hinzu; alles andere, was du eingestellt hast, gilt weiterhin."
+        },
+        {
+          "type": "list",
+          "items": [
+            "⚡ Blitz — ein schnelles Spiel auf einem kleinen Brett, wer zuerst 6 Punkte hat, gewinnt",
+            "🃏 Draft — wähle deine Startrohstoffe und Felder in einem Kartendraft",
+            "🌊 Steigende Flut — die Küste wird überflutet und die Karte schrumpft",
+            "🏝️ Klassisch — das normale Spiel"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Der Modus wird beim Erstellen der Lobby festgelegt, und alle sehen ihn während des Spiels in der Kopfzeile."
+        }
+      ]
+    },
+    {
+      "title": "Blitz-Catan",
+      "icon": "⚡",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Ein kurzes, knackiges Spiel. Blitz legt drei Regeln für dich fest:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Kompaktes Brett — nur 12 Felder",
+            "Wer zuerst 6 Siegpunkte erreicht, gewinnt",
+            "30-Sekunden-Aktionstimer (deine eigene Einstellung kann ihn nur verkürzen)"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Bei weniger Land wird das Expandieren schnell eng: Siedle zügig und blockiere deine Gegner früh. Jahreszeiten und die übrigen Optionen funktionieren wie gewohnt."
+        }
+      ]
+    },
+    {
+      "title": "Draft-Catan — Der Draft",
+      "icon": "🃏",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Vor dem Bauen draftet jeder. Jeder Spieler erhält ein Pack mit 6 Karten. In jeder Runde wählen alle gleichzeitig eine Karte aus dem Pack vor sich und reichen das Pack dann an den nächsten Platz weiter."
+        },
+        {
+          "type": "list",
+          "items": [
+            "4 Runden — du hast am Ende 4 Karten",
+            "Du siehst immer nur das Pack vor dir",
+            "Jede Karte ist entweder ein Feldanspruch oder ein Rohstoffbündel",
+            "Bist du 40 Sekunden untätig, wird die beste Karte für dich gewählt"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Nach dem Draft läuft die Platzierung wie gewohnt ab: zwei Siedlungen und zwei Straßen pro Spieler, in Zugreihenfolge."
+        }
+      ]
+    },
+    {
+      "title": "Draft-Catan — Karten & Boni",
+      "icon": "🎴",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "Feldanspruch — du beanspruchst dieses Feld (markiert mit einer Flagge in deiner Farbe). Immer wenn seine Zahl gewürfelt wird, erhältst du +1 seines Rohstoffs, auch ohne Gebäude darauf. Räuber und Überflutung blockieren es weiterhin.",
+            "Rohstoffbündel — 3 Rohstoffkarten (ein seltenes Bündel gibt 4), von der Bank ausgezahlt, wenn der Draft endet. Reicht die Bank nicht, erhältst du, was übrig ist."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Der Draft ersetzt den Bonus der zweiten Siedlung: Du erhältst dafür keine Rohstoffe mehr — deine gedrafteten Karten sind deine Starthand. Die Wüste wird nie angeboten."
+        }
+      ]
+    },
+    {
+      "title": "Steigende Flut — Die Flut",
+      "icon": "🌊",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Das Meer steigt. Nach der 4. vollständigen Runde und dann alle 4 Runden wird die Küste von außen nach innen überflutet: Am Ende der Runde versinken einige Randfelder im Wasser."
+        },
+        {
+          "type": "p",
+          "text": "Nichts kommt überraschend: Die Felder, die als Nächstes überflutet werden, sind mit einem roten gestrichelten Rand und einem 🌊 markiert, und die Kopfzeile zählt die Runden bis zur nächsten Flut herunter."
+        },
+        {
+          "type": "p",
+          "text": "Pro Flut versinkt etwa ein Feld von je neun Feldern des Bretts (2 auf dem Standardbrett). Nur Küstenfelder können überflutet werden, die Insel schrumpft also von außen nach innen."
+        }
+      ]
+    },
+    {
+      "title": "Überflutetes Land & die letzte Flut",
+      "icon": "🏝️",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "Überflutete Felder produzieren nichts",
+            "Der Räuber kann nicht auf überflutete Felder ziehen; versinkt sein Feld, wird er bis zur nächsten 7 oder zum nächsten Ritter weggespült",
+            "Keine Siedlung auf Kreuzungen und keine Straße auf Kanten, die nur an überflutete Felder grenzen",
+            "Vorhandene Gebäude und Straßen bleiben: Sie zählen weiter für Punkte, Längste Handelsstraße usw."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Die Überflutung endet, wenn nur noch 40 % der Startfelder (mindestens 6) übrig sind. Nach dieser letzten Flut spielen alle noch eine Runde, dann gewinnt, wer die meisten Siegpunkte hat. Gleichstand: meiste Städte und Ferienanlagen, dann Siedlungen, dann Handkarten. Wer das Punkteziel vorher erreicht, gewinnt weiterhin sofort."
+        }
+      ]
+    },
+    {
+      "title": "Gold & Belohnungen",
+      "icon": "🪙",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Fürs Spielen verdienst du Gold. Es dient nur zum Kauf von Kosmetik im Shop und beeinflusst nie das Spiel."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Ein Spiel beenden: +15",
+            "Ein Spiel gewinnen: weitere +60",
+            "Modus-Multiplikator: Blitz ×0,75; Draft und Steigende Flut ×1,25",
+            "Spiele nur gegen Bots zahlen die Hälfte",
+            "Spielerträge sind auf 300 Gold pro Tag begrenzt",
+            "Erfolge geben einmalige Boni — die vollständige Liste findest du im Shop",
+            "Neue Spieler starten mit 100 Gold"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Belohnungen werden einmal pro Spiel nach dessen Ende ausgezahlt und auf diesem Gerät gespeichert."
+        }
+      ]
+    },
+    {
+      "title": "Der Shop",
+      "icon": "🛒",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Öffne den Shop im Hauptmenü, um dein Gold für drei Arten von Kosmetik auszugeben:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "🗺️ Brett-Designs — ändern das Aussehen des Bretts, nur für dich",
+            "🏠 Spielstein-Skins — eine neue Optik für deine Straßen und Gebäude, für alle sichtbar (deine Farbe ändert sich nie)",
+            "🖼️ Avatar-Rahmen — ein Ring um deinen Avatar, für alle sichtbar"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Kaufe einen Gegenstand einmal und rüste ihn jederzeit im Shop oder Inventar aus. Gegenstände sind rein kosmetisch und können nicht getauscht werden."
+        }
+      ]
+    },
+    {
       "title": "Alternative Zahlengenerierung",
       "icon": "🎲",
       "blocks": [
@@ -715,6 +894,10 @@
         {
           "type": "p",
           "text": "Das Spiel endet in dem Moment, in dem ein Spieler 10 oder mehr Siegpunkte erreicht — dieser Spieler gewinnt sofort."
+        },
+        {
+          "type": "p",
+          "text": "Im Modus Steigende Flut kann das Spiel auch nach der letzten Flut enden: Der Spieler mit den meisten Siegpunkten gewinnt (siehe Spielmodi)."
         }
       ]
     },
@@ -869,5 +1052,122 @@
   "terrainMountainsBtn": "Berge",
   "terrainDesertBtn": "Wüste",
   "customBoardActive": "Individuelles Spielfeld gespeichert ✓",
-  "mapType_custom": "Individuell"
+  "mapType_custom": "Individuell",
+  "gameMode": "Spielmodus",
+  "lockedByMode": "Vom Spielmodus festgelegt",
+  "modeName_classic": "Klassisch",
+  "modeName_blitz": "Blitz",
+  "modeName_draft": "Draft",
+  "modeName_shrinking": "Steigende Flut",
+  "modeDesc_classic": "Das normale Spiel mit den gewählten Regeln.",
+  "modeDesc_blitz": "Schnelles Spiel: kleineres Brett, kürzerer Zugtimer, wer zuerst 6 Siegpunkte hat, gewinnt.",
+  "modeDesc_draft": "Statt des üblichen Startbonus wählt ihr Startrohstoffe und beansprucht Felder, indem ihr Packs weiterreicht – wie bei einem Kartendraft.",
+  "modeDesc_shrinking": "Die Küste wird nach einem sichtbaren Plan überflutet. Kämpft um das verbleibende Land – die letzte Flut beendet das Spiel.",
+  "mapType_compact": "Kompakt",
+  "phaseDraft": "draft",
+  "draftTitle": "Draft",
+  "draftRound": "Wahl {n} von {total}",
+  "draftHint": "Wähle eine Karte. Wenn alle gewählt haben, werden die Packs weitergereicht.",
+  "draftWaiting": "Gewählt! Warte auf die anderen Spieler…",
+  "draftSpectating": "Du schaust dem Draft zu.",
+  "draftYourPicks": "Deine Wahlen",
+  "draftNoPicks": "noch nichts",
+  "draftPicked": "Hat gewählt",
+  "draftThinking": "Wählt noch",
+  "draftCardHex": "Feld",
+  "draftCardResources": "Rohstoffe",
+  "draftCardRare": "Seltenes Bündel",
+  "draftHexBonus": "+{n} Karte, wenn seine Zahl gewürfelt wird",
+  "draftHeaderHint": "Wähle deine Starthand",
+  "hexClaimed": "Im Draft beansprucht",
+  "bundle_lumberjack": "Holzfäller",
+  "bundle_brickyard": "Ziegelei",
+  "bundle_shepherd": "Schäfer",
+  "bundle_farmhand": "Landarbeiter",
+  "bundle_prospector": "Schürfer",
+  "bundle_smithy": "Schmiede",
+  "bundle_roadcrew": "Straßenbautrupp",
+  "bundle_settlerpack": "Siedlerpaket",
+  "bundle_cityfund": "Stadtkasse",
+  "hexFlooded": "Überflutet",
+  "hexFloodsNext": "Wird bei der nächsten Flut überflutet",
+  "tideIn": "Die Flut steigt in {n} Runde(n).",
+  "tideNow": "Die Flut kommt nach dieser Runde!",
+  "tideRisk": "{n} Feld(er) in Gefahr.",
+  "tideFinal": "Letzte Flut! Das Spiel endet in {n} Zug/Zügen – die meisten Siegpunkte gewinnen.",
+  "tideEnded": "Die letzte Flut hat das Spiel beendet – die meisten Siegpunkte gewinnen.",
+  "rewardsTitle": "Belohnungen",
+  "rewardParticipation": "Match beendet",
+  "rewardWin": "Siegbonus",
+  "rewardModeMult": "Modus-Multiplikator",
+  "rewardBotFactor": "Nur Bots als Gegner",
+  "rewardCapped": "Tageslimit für Spielerträge erreicht.",
+  "rewardTotal": "Gesamt",
+  "shop": "Shop",
+  "shopTabShop": "Shop",
+  "shopTabInventory": "Inventar",
+  "shopTabAchievements": "Erfolge",
+  "shopTabHistory": "Verlauf",
+  "shopCat_boardTheme": "Brett-Designs",
+  "shopCat_pieceSkin": "Spielstein-Skins",
+  "shopCat_avatarFrame": "Avatar-Rahmen",
+  "shopBuy": "Kaufen",
+  "shopConfirm": "Bestätigen · 🪙 {price}",
+  "shopNeedMore": "noch {n} nötig",
+  "shopEquip": "Ausrüsten",
+  "shopEquippedBtn": "Ausgerüstet",
+  "shopBought": "{name} gekauft!",
+  "shopEquipped": "{name} ausgerüstet.",
+  "shopErr_unknown_item": "Diesen Gegenstand gibt es nicht.",
+  "shopErr_already_owned": "Du besitzt diesen Gegenstand bereits.",
+  "shopErr_insufficient_funds": "Nicht genug Gold.",
+  "shopErr_not_owned": "Diesen Gegenstand besitzt du noch nicht.",
+  "shopThemeHint": "Brett-Designs ändern nur, wie du das Brett siehst.",
+  "shopVisibleHint": "Andere Spieler sehen das im Spiel. Rein kosmetisch.",
+  "shopEarnHint": "Verdiene Gold durch beendete Spiele (+{part}) und Siege (+{win}). Spielerträge sind auf {cap} pro Tag begrenzt.",
+  "shopNoHistory": "Noch keine Transaktionen.",
+  "ledger_welcome": "Willkommensgeschenk",
+  "ledger_match": "Spielbelohnung",
+  "ledger_achievement": "Erfolg",
+  "ledger_purchase": "Kauf",
+  "rarity_common": "Gewöhnlich",
+  "rarity_rare": "Selten",
+  "rarity_epic": "Episch",
+  "rarity_legendary": "Legendär",
+  "shopItem_seasonal": "Jahreszeiten (Standard)",
+  "shopItem_parchment": "Pergamentkarte",
+  "shopItem_midnight": "Mitternachtsinseln",
+  "shopItem_candy": "Zuckerküste",
+  "shopItem_volcanic": "Vulkanisch",
+  "shopItem_frozen": "Eismeere",
+  "shopItem_classic": "Klassisch",
+  "shopItem_gilded": "Vergoldet",
+  "shopItem_frosted": "Gefrostet",
+  "shopItem_shadow": "Schatten",
+  "shopItem_neon": "Neon",
+  "shopItem_none": "Kein Rahmen",
+  "shopItem_laurel": "Lorbeerkranz",
+  "shopItem_royal": "Königlich",
+  "shopItem_glacier": "Gletscher",
+  "shopItem_flame": "Flamme",
+  "ach_first_win": "Erster Sieg",
+  "ach_first_win_desc": "Gewinne dein erstes Spiel.",
+  "ach_veteran": "Veteran",
+  "ach_veteran_desc": "Beende 10 Spiele.",
+  "ach_road_warrior": "Straßenkrieger",
+  "ach_road_warrior_desc": "Gewinne mit der Längsten Handelsstraße.",
+  "ach_knight_errant": "Fahrender Ritter",
+  "ach_knight_errant_desc": "Gewinne mit der Größten Rittermacht.",
+  "ach_metropolis": "Metropole",
+  "ach_metropolis_desc": "Gewinne mit 3 oder mehr Städten oder Ferienanlagen.",
+  "ach_resort_tycoon": "Ferienanlagen-Tycoon",
+  "ach_resort_tycoon_desc": "Beende ein Spiel mit einer Ferienanlage.",
+  "ach_silver_tongue": "Silberzunge",
+  "ach_silver_tongue_desc": "Mache 5 Spielerhandel in einem Spiel.",
+  "ach_blitz_victor": "Blitz-Sieger",
+  "ach_blitz_victor_desc": "Gewinne ein Blitz-Spiel.",
+  "ach_draft_champion": "Draft-Champion",
+  "ach_draft_champion_desc": "Gewinne ein Draft-Spiel.",
+  "ach_last_island": "Letzte Insel",
+  "ach_last_island_desc": "Gewinne ein Spiel mit Steigender Flut."
 }

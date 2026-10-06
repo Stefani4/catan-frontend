@@ -205,6 +205,7 @@
   "resortCantBeTaken": "Resort — cannot be taken over",
   "clickToSeizeCity": "Click to seize this city and build a Resort",
   "legalSettlementSpot": "Legal settlement spot",
+  "legalRoadSpot": "Legal road spot",
   "resortTt": "Resort",
   "muteAllAudioTt": "Mute all audio",
   "unmuteTt": "Unmute",
@@ -276,6 +277,10 @@
         {
           "type": "p",
           "text": "The game ends immediately the moment a player reaches 10 or more points on their turn."
+        },
+        {
+          "type": "p",
+          "text": "Some game modes change this target — Blitz is played to 6 Victory Points (see Game Modes)."
         }
       ]
     },
@@ -319,6 +324,10 @@
         {
           "type": "p",
           "text": "After the second settlement, collect one resource card from every terrain tile touching it."
+        },
+        {
+          "type": "p",
+          "text": "In Draft mode this bonus is replaced by the cards you drafted (see Game Modes)."
         }
       ]
     },
@@ -663,6 +672,176 @@
       ]
     },
     {
+      "title": "Game Modes",
+      "icon": "🎮",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "The host chooses a game mode in the lobby's Advanced Rules. A mode adds a twist on top of the normal rules; everything else you set still applies."
+        },
+        {
+          "type": "list",
+          "items": [
+            "⚡ Blitz — a fast game on a small board, first to 6 points",
+            "🃏 Draft — pick your starting resources and hexes in a card draft",
+            "🌊 Shrinking — the coastline floods and the map gets smaller",
+            "🏝️ Classic — the standard game"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "The mode is locked in when the lobby is created, and everyone can see it in the header during the game."
+        }
+      ]
+    },
+    {
+      "title": "Blitz Catan",
+      "icon": "⚡",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "A short, sharp game. Blitz sets three rules for you:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Compact board — only 12 hexes",
+            "First to 6 Victory Points wins",
+            "30-second action timer (your own timer setting can only make it shorter)"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "With less land to share, expansion gets tight quickly — settle fast and block your rivals early. Seasons and the other options work as usual."
+        }
+      ]
+    },
+    {
+      "title": "Draft Catan — The Draft",
+      "icon": "🃏",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Before building, everyone drafts. Each player is dealt a pack of 6 cards. Each round, every player picks one card from the pack in front of them at the same time, then passes the pack to the next seat."
+        },
+        {
+          "type": "list",
+          "items": [
+            "4 rounds — you end up with 4 cards",
+            "You only ever see the pack in front of you",
+            "Each card is either a Hex Claim or a Resource Bundle",
+            "If you are idle for 40 seconds, the best card is picked for you"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "When the draft ends, placement works as usual: two settlements and two roads each, in turn order."
+        }
+      ]
+    },
+    {
+      "title": "Draft Catan — Cards & Bonuses",
+      "icon": "🎴",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "Hex Claim — you claim that hex (marked with a flag in your colour). Whenever its number is rolled, you receive +1 of its resource, even with no building on it. The robber and flooding still block it.",
+            "Resource Bundle — 3 resource cards (a rare bundle gives 4), paid from the bank when the draft ends. If the bank runs short, you get what is left."
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Draft replaces the bonus from the second settlement: you no longer collect resources for it — your drafted cards are your starting hand. The desert is never offered."
+        }
+      ]
+    },
+    {
+      "title": "Shrinking Board — The Tide",
+      "icon": "🌊",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "The sea is rising. After the 4th full round, and then every 4 rounds, the coastline floods inward: a few outer hexes go under at the end of the round."
+        },
+        {
+          "type": "p",
+          "text": "Nothing is a surprise: the hexes that will flood next are marked with a red dashed outline and a 🌊, and the header counts down the rounds until the next tide."
+        },
+        {
+          "type": "p",
+          "text": "About one hex in every nine on the board floods per tide (2 on the standard board). Only coastal hexes can flood, so the island shrinks from the outside in."
+        }
+      ]
+    },
+    {
+      "title": "Flooded Land & the Final Tide",
+      "icon": "🏝️",
+      "blocks": [
+        {
+          "type": "list",
+          "items": [
+            "Flooded hexes produce nothing",
+            "The robber cannot be placed on a flooded hex; if its hex floods, the robber is washed away until the next 7 or Knight",
+            "You cannot build a settlement on an intersection — or a road on an edge — that touches only flooded hexes",
+            "Buildings and roads you already own stay: they keep counting for points, Longest Road, and so on"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Flooding stops when only 40% of the starting hexes (at least 6) remain. After that final tide, everyone plays one more round, and then the player with the most Victory Points wins. Ties: most cities and resorts, then settlements, then cards in hand. Reaching the point target before then still wins immediately."
+        }
+      ]
+    },
+    {
+      "title": "Gold & Rewards",
+      "icon": "🪙",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "You earn Gold for playing. It is only used to buy cosmetics in the Shop and never affects gameplay."
+        },
+        {
+          "type": "list",
+          "items": [
+            "Finish a match: +15",
+            "Win a match: +60 more",
+            "Game mode multiplier: Blitz ×0.75; Draft and Shrinking ×1.25",
+            "Matches against bots only pay half",
+            "Match income is capped at 300 Gold per day",
+            "Achievements give one-time bonuses — the full list is in the Shop",
+            "New players start with 100 Gold"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Rewards are paid once per match when it ends and are saved on this device."
+        }
+      ]
+    },
+    {
+      "title": "The Shop",
+      "icon": "🛒",
+      "blocks": [
+        {
+          "type": "p",
+          "text": "Open the Shop from the main menu to spend your Gold on three kinds of cosmetics:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "🗺️ Board themes — change how the board looks, for you only",
+            "🏠 Piece skins — a new finish for your roads and buildings, seen by everyone (your colour never changes)",
+            "🖼️ Avatar frames — a ring around your avatar, seen by everyone"
+          ]
+        },
+        {
+          "type": "p",
+          "text": "Buy an item once, then equip it from the Shop or your Inventory whenever you like. Items are purely cosmetic and cannot be traded."
+        }
+      ]
+    },
+    {
       "title": "Alternative Number Generation",
       "icon": "🎲",
       "blocks": [
@@ -715,6 +894,10 @@
         {
           "type": "p",
           "text": "The game ends the instant a player reaches 10 or more Victory Points — that player wins immediately."
+        },
+        {
+          "type": "p",
+          "text": "In Shrinking mode the game can also end after the final tide: the player with the most Victory Points wins (see Game Modes)."
         }
       ]
     },
@@ -869,5 +1052,122 @@
   "terrainMountainsBtn": "Mountains",
   "terrainDesertBtn": "Desert",
   "customBoardActive": "Custom board saved ✓",
-  "mapType_custom": "Custom"
+  "mapType_custom": "Custom",
+  "gameMode": "Game Mode",
+  "lockedByMode": "Set by the game mode",
+  "modeName_classic": "Classic",
+  "modeName_blitz": "Blitz",
+  "modeName_draft": "Draft",
+  "modeName_shrinking": "Shrinking",
+  "modeDesc_classic": "The standard game with your chosen rules.",
+  "modeDesc_blitz": "Fast game: smaller board, shorter turn timer, first to 6 victory points.",
+  "modeDesc_draft": "Instead of the usual setup bonus, draft starting resources and claim hexes by passing packs, like a card draft.",
+  "modeDesc_shrinking": "The coastline floods inward on a visible schedule. Fight over the land that remains — the last tide ends the game.",
+  "mapType_compact": "Compact",
+  "phaseDraft": "draft",
+  "draftTitle": "Draft",
+  "draftRound": "Pick {n} of {total}",
+  "draftHint": "Pick one card. After everyone has picked, the packs are passed on.",
+  "draftWaiting": "Picked! Waiting for the other drafters…",
+  "draftSpectating": "You are watching the draft.",
+  "draftYourPicks": "Your picks",
+  "draftNoPicks": "nothing yet",
+  "draftPicked": "Has picked",
+  "draftThinking": "Still choosing",
+  "draftCardHex": "Hex claim",
+  "draftCardResources": "Resources",
+  "draftCardRare": "Rare bundle",
+  "draftHexBonus": "+{n} card whenever its number is rolled",
+  "draftHeaderHint": "Draft your starting hand",
+  "hexClaimed": "Claimed in the draft",
+  "bundle_lumberjack": "Lumberjack",
+  "bundle_brickyard": "Brickyard",
+  "bundle_shepherd": "Shepherd",
+  "bundle_farmhand": "Farmhand",
+  "bundle_prospector": "Prospector",
+  "bundle_smithy": "Smithy",
+  "bundle_roadcrew": "Road Crew",
+  "bundle_settlerpack": "Settler's Pack",
+  "bundle_cityfund": "City Fund",
+  "hexFlooded": "Flooded",
+  "hexFloodsNext": "Floods at the next tide",
+  "tideIn": "Tide rises in {n} round(s).",
+  "tideNow": "The tide comes in after this round!",
+  "tideRisk": "{n} hex(es) at risk.",
+  "tideFinal": "Final tide! The game ends in {n} turn(s) — most victory points wins.",
+  "tideEnded": "The final tide ended the game — most victory points wins.",
+  "rewardsTitle": "Rewards",
+  "rewardParticipation": "Finished a match",
+  "rewardWin": "Victory bonus",
+  "rewardModeMult": "Game mode multiplier",
+  "rewardBotFactor": "Bot-only match",
+  "rewardCapped": "Daily match income limit reached.",
+  "rewardTotal": "Total",
+  "shop": "Shop",
+  "shopTabShop": "Shop",
+  "shopTabInventory": "Inventory",
+  "shopTabAchievements": "Achievements",
+  "shopTabHistory": "History",
+  "shopCat_boardTheme": "Board themes",
+  "shopCat_pieceSkin": "Piece skins",
+  "shopCat_avatarFrame": "Avatar frames",
+  "shopBuy": "Buy",
+  "shopConfirm": "Confirm · 🪙 {price}",
+  "shopNeedMore": "need {n} more",
+  "shopEquip": "Equip",
+  "shopEquippedBtn": "Equipped",
+  "shopBought": "Purchased {name}!",
+  "shopEquipped": "Equipped {name}.",
+  "shopErr_unknown_item": "That item doesn't exist.",
+  "shopErr_already_owned": "You already own this item.",
+  "shopErr_insufficient_funds": "Not enough gold.",
+  "shopErr_not_owned": "You don't own this item yet.",
+  "shopThemeHint": "Board themes only change how the board looks for you.",
+  "shopVisibleHint": "Other players see this in the match. It's purely cosmetic.",
+  "shopEarnHint": "Earn gold by finishing matches (+{part}) and winning (+{win}). Match income is capped at {cap} per day.",
+  "shopNoHistory": "No transactions yet.",
+  "ledger_welcome": "Welcome gift",
+  "ledger_match": "Match reward",
+  "ledger_achievement": "Achievement",
+  "ledger_purchase": "Purchase",
+  "rarity_common": "Common",
+  "rarity_rare": "Rare",
+  "rarity_epic": "Epic",
+  "rarity_legendary": "Legendary",
+  "shopItem_seasonal": "Seasonal (default)",
+  "shopItem_parchment": "Parchment Map",
+  "shopItem_midnight": "Midnight Isles",
+  "shopItem_candy": "Candy Coast",
+  "shopItem_volcanic": "Volcanic",
+  "shopItem_frozen": "Frozen Seas",
+  "shopItem_classic": "Classic",
+  "shopItem_gilded": "Gilded",
+  "shopItem_frosted": "Frosted",
+  "shopItem_shadow": "Shadow",
+  "shopItem_neon": "Neon",
+  "shopItem_none": "No frame",
+  "shopItem_laurel": "Laurel Wreath",
+  "shopItem_royal": "Royal",
+  "shopItem_glacier": "Glacier",
+  "shopItem_flame": "Flame",
+  "ach_first_win": "First Victory",
+  "ach_first_win_desc": "Win your first match.",
+  "ach_veteran": "Veteran",
+  "ach_veteran_desc": "Finish 10 matches.",
+  "ach_road_warrior": "Road Warrior",
+  "ach_road_warrior_desc": "Win while holding Longest Road.",
+  "ach_knight_errant": "Knight Errant",
+  "ach_knight_errant_desc": "Win while holding Largest Army.",
+  "ach_metropolis": "Metropolis",
+  "ach_metropolis_desc": "Win with 3 or more cities or resorts.",
+  "ach_resort_tycoon": "Resort Tycoon",
+  "ach_resort_tycoon_desc": "End a match owning a Resort.",
+  "ach_silver_tongue": "Silver Tongue",
+  "ach_silver_tongue_desc": "Make 5 player trades in one match.",
+  "ach_blitz_victor": "Blitz Victor",
+  "ach_blitz_victor_desc": "Win a Blitz match.",
+  "ach_draft_champion": "Draft Champion",
+  "ach_draft_champion_desc": "Win a Draft match.",
+  "ach_last_island": "Last Island",
+  "ach_last_island_desc": "Win a Shrinking match."
 }

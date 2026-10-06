@@ -630,6 +630,10 @@ export default function Settings({ onClose }) {
                 onClick={(e) => e.stopPropagation()}
                 style={{
                     width: "min(920px, 96vw)",
+                    // A fixed height (maxHeight only clamps it on short screens): the
+                    // panel must not resize when you switch sections — they scroll
+                    // inside it instead.
+                    height: "680px",
                     maxHeight: "90vh",
                     overflow: "hidden",
                     borderRadius: "16px",

@@ -4,6 +4,8 @@ import {
   getBestBankRatio,
 } from "../../game/moves.js";
 import { DEV_CARD_COST } from "../../game/constants.js";
+import { bestDraftCard, getCurrentPack, hasPickedThisRound } from "../../game/draft.js";
+import { isEdgeSubmerged, isIntersectionSubmerged } from "../../game/flood.js";
 
 const PIP_VALUE = {
   2: 1, 3: 2, 4: 3, 5: 4, 6: 5, 8: 5, 9: 4, 10: 3, 11: 2, 12: 1,
@@ -50,11 +52,14 @@ function intersectionProductionScore(G, intersectionId) {
   if (!intersection) return -Infinity;
   const seenResources = new Set();
   let score = 0;
+  const doomed = new Set(G.flood?.pending || []);
   (intersection.adjacentHexes || []).forEach((hexId) => {
     const hex = hexById(G, hexId);
-    if (!hex || hex.terrain === "desert" || hex.number == null) return;
-    score += PIP_VALUE[hex.number] || 0;
-    if (hex.resource) seenResources.add(hex.resource);
+    if (!hex || hex.terrain === "desert" || hex.number == null || hex.flooded) return;
+    // Shrinking board: a hex that is about to go under is worth far less.
+    const survival = doomed.has(hexId) ? 0.3 : 1;
+    score += (PIP_VALUE[hex.number] || 0) * survival;
+    if (hex.resource && survival === 1) seenResources.add(hex.resource);
   });
   score += seenResources.size * 0.75;
   if (intersection.harbor) {
@@ -97,6 +102,7 @@ function blockingBonus(G, playerID, intersectionId, difficulty) {
 function bestOpenIntersection(G, playerID, { requireRoadConnection, difficulty = DEFAULT_DIFFICULTY }) {
   const candidates = Object.keys(G.board.intersections).filter((id) => {
     if (isIntersectionOccupied(G, id)) return false;
+    if (isIntersectionSubmerged(G, id)) return false;
     if (!isDistanceRuleMet(G, id)) return false;
     if (requireRoadConnection && !isIntersectionConnectedToPlayerRoad(G, playerID, id)) {
       return false;
@@ -155,6 +161,7 @@ function bestSetupRoad(G, settlement, difficulty = DEFAULT_DIFFICULTY) {
   edges.forEach((edgeId) => {
     const edge = G.board.edges[edgeId];
     if (!edge) return;
+    if (isEdgeSubmerged(G, edgeId)) return;
     const other = edge.endpoints.find((e) => e !== settlement.id);
     const score = other ? intersectionProductionScore(G, other) : 0;
     if (score > bestScore) {
@@ -189,8 +196,8 @@ function edgesConnectedToPlayer(G, playerID) {
 function bestExpansionRoad(G, playerID, difficulty = DEFAULT_DIFFICULTY) {
   const player = G.players[playerID];
   const owned = new Set(allBuildings(player).map((b) => b.id));
-  const candidates = [...edgesConnectedToPlayer(G, playerID)].filter((id) =>
-      isEdgeFree(G, id),
+  const candidates = [...edgesConnectedToPlayer(G, playerID)].filter(
+      (id) => isEdgeFree(G, id) && !isEdgeSubmerged(G, id),
   );
 
   if (difficulty === "easy") {
@@ -335,7 +342,7 @@ function decidePlayerTradeOffer(G, playerID, difficulty = DEFAULT_DIFFICULTY) {
 
 function decideRobberPlacement(G, playerID, difficulty = DEFAULT_DIFFICULTY) {
   const candidates = G.board.hexes.filter(
-      (h) => h.id !== G.board.robberPosition,
+      (h) => h.id !== G.board.robberPosition && !h.flooded,
   );
 
   if (difficulty === "easy") {
@@ -470,6 +477,20 @@ function decideSetupAction(G, playerID, difficulty = DEFAULT_DIFFICULTY) {
   return edge ? { move: "buildRoad", args: [edge] } : null;
 }
 
+function decideDraftAction(G, playerID, difficulty = DEFAULT_DIFFICULTY) {
+  const draft = G.draft;
+  if (!draft || draft.complete) return null;
+  // Already picked this round — wait for the table (re-sending would just be rejected).
+  if (hasPickedThisRound(draft, playerID)) return null;
+
+  const pack = getCurrentPack(draft, playerID);
+  if (!pack || pack.cards.length === 0) return null;
+
+  // Easy bots grab whatever; everyone else takes the best-scoring card.
+  const card = difficulty === "easy" ? pickRandom(pack.cards) : bestDraftCard(pack);
+  return card ? { move: "draftPick", args: [card.id] } : null;
+}
+
 function decidePlayingAction(G, ctx, playerID, difficulty = DEFAULT_DIFFICULTY) {
   if (!G.diceRolled) return { move: "rollDice", args: [] };
   if (G.activeOffer && String(G.activeOffer.from) === String(playerID)) {
@@ -524,6 +545,11 @@ function decidePlayingAction(G, ctx, playerID, difficulty = DEFAULT_DIFFICULTY) 
 export function decideAction({ G, ctx, playerID, stage, difficulty }) {
   if (!G || !ctx) return null;
   const level = normalizeDifficulty(difficulty);
+
+  if (ctx.phase === "draft") {
+    if (stage !== "drafting") return null;
+    return decideDraftAction(G, playerID, level);
+  }
 
   if (ctx.phase === "setup") {
     if (stage !== "placing") return null;

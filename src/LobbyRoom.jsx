@@ -4,6 +4,7 @@ import { getColorByIndex, PLAYER_COLORS } from "./constants/playerColors.js";
 
 import { getAvatarById, AVATARS } from "./constants/avatars.jsx";
 import GameSetupModal from "./GameSetupModal.jsx";
+import { getFrameProps } from "./constants/cosmetics.js";
 import { GAME_SETTINGS_DEFAULTS } from "../game/constants.js";
 import { getThemeImage } from "./theme.js";
 import { subscribeToSettings } from "./settingsStore.js";
@@ -59,6 +60,12 @@ function AdvancedRulesPanel({ matchID, isMobile }) {
                 color: "#3a2409",
                 boxSizing: "border-box",
                 flexShrink: 0,
+                // Never taller than the space the lobby gives it: the title stays
+                // put and the rules scroll (on mobile the whole page scrolls).
+                display: "flex",
+                flexDirection: "column",
+                maxHeight: isMobile ? "none" : "calc(100% - 4px)",
+                minHeight: 0,
             }}
         >
             <div
@@ -69,20 +76,33 @@ function AdvancedRulesPanel({ matchID, isMobile }) {
                     marginBottom: "10px",
                     borderBottom: "2px solid #7a5320",
                     paddingBottom: "6px",
+                    flexShrink: 0,
                 }}
             >
                 📜 {t("advancedRules")}
             </div>
-            {settings ? (
-                <GameSetupModal settings={settings} readOnly />
-            ) : (
-                <p style={{ textAlign: "center", fontSize: "0.85rem", fontStyle: "italic" }}>
-                    {t("loadingRules")}
+            <div
+                data-testid="rules-scroll"
+                style={{
+                    flex: "1 1 auto",
+                    minHeight: 0,
+                    overflowY: isMobile ? "visible" : "auto",
+                    overflowX: "hidden",
+                    paddingRight: isMobile ? 0 : "4px",
+                    WebkitOverflowScrolling: "touch",
+                }}
+            >
+                {settings ? (
+                    <GameSetupModal settings={settings} readOnly />
+                ) : (
+                    <p style={{ textAlign: "center", fontSize: "0.85rem", fontStyle: "italic" }}>
+                        {t("loadingRules")}
+                    </p>
+                )}
+                <p style={{ fontSize: "0.62rem", color: "#8a7458", fontStyle: "italic", marginTop: "8px", marginBottom: 0, textAlign: "center" }}>
+                    {t("lockedByHost")}
                 </p>
-            )}
-            <p style={{ fontSize: "0.62rem", color: "#8a7458", fontStyle: "italic", marginTop: "8px", marginBottom: 0, textAlign: "center" }}>
-                {t("lockedByHost")}
-            </p>
+            </div>
         </div>
     );
 }
@@ -133,6 +153,7 @@ function SettlersPanel({ matchID, numPlayers, mySeat, players, bots, onCopyLink,
                     const identity = joined ? decodePlayerIdentity(joined.name, seat) : null;
                     const color = getColorByIndex(identity ? identity.colorIndex : (parseInt(seat, 10) % 9));
                     const AvatarIcon = identity?.avatarId ? getAvatarById(identity.avatarId).Icon : null;
+                    const frame = getFrameProps(identity?.frameId, { compact: true });
                     const isMe = seat === mySeat;
                     const botInfo = (bots || []).find((b) => String(b.seat) === seat);
                     return (
@@ -148,6 +169,7 @@ function SettlersPanel({ matchID, numPlayers, mySeat, players, bots, onCopyLink,
                             }}
                         >
               <span
+                  className={frame.className}
                   style={{
                       width: "22px",
                       height: "22px",
@@ -160,6 +182,7 @@ function SettlersPanel({ matchID, numPlayers, mySeat, players, bots, onCopyLink,
                           : "rgba(0,0,0,0.15)",
                       border: "1px solid rgba(0,0,0,0.3)",
                       flexShrink: 0,
+                      ...frame.style,
                   }}
               >
                   {joined && AvatarIcon && <AvatarIcon size={13} color="#f2e6c9" />}
@@ -570,7 +593,7 @@ export default function LobbyRoom({ matchID, numPlayers, mySeat, onLeave, onStar
             usedColorIdx.add(colorIndex);
             const avatar = pickRandomAvatar();
             usedAvatarId.add(avatar.id);
-            const identity = encodePlayerIdentity({ name: botName, colorIndex, avatarId: avatar.id });
+            const identity = encodePlayerIdentity({ name: botName, colorIndex, avatarId: avatar.id, isBot: true });
             try {
                 const res = await fetch(`${SERVER}/games/catan/${matchID}/join`, {
                     method: "POST",

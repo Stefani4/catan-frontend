@@ -7,6 +7,10 @@ import DiceRoller from "./DiceRoller.jsx";
 import ResourceHand from "./ResourceHand.jsx";
 import BuildCostsPanel from "./BuildCostsPanel.jsx";
 import VictoryModal from "./VictoryModal.jsx";
+import DraftPanel from "./DraftPanel.jsx";
+import ThemeBackdrop from "./ThemeBackdrop.jsx";
+import { subscribeToWallet } from "../economy/walletStore.js";
+import { getBoardTheme } from "../economy/catalog.js";
 import { useState, useEffect } from "react";
 import { clearMatchSession } from "../matchSession.js";
 import { useGameSounds } from "../hooks/useGameSounds.js";
@@ -31,6 +35,11 @@ export default function Board({ G, ctx, moves, events, playerID, matchID, bots, 
     const [sidePanelTab, setSidePanelTab] = useState("trades");
     const [exitConfirmOpen, setExitConfirmOpen] = useState(false);
     const [mobilePanel, setMobilePanel] = useState(null); // null | "stats" | "trade"
+    const [hoverHexId, setHoverHexId] = useState(null); // draft: hex card being hovered
+    const [boardThemeId, setBoardThemeId] = useState("seasonal");
+
+    // The equipped board theme is a purely local, per-viewer preference.
+    useEffect(() => subscribeToWallet((w) => setBoardThemeId(w.equipped.boardTheme)), []);
 
     const handleExitGame = () => {
         clearMatchSession();
@@ -93,6 +102,11 @@ export default function Board({ G, ctx, moves, events, playerID, matchID, bots, 
         return <div>{t("loadingPlayerData")}</div>;
     }
 
+    // The draft happens before any building, so it shares setup's stripped-down HUD.
+    const inPreGame = ctx.phase === "setup" || ctx.phase === "draft";
+    const boardTheme = getBoardTheme(boardThemeId);
+    const hexFilter = boardTheme.hexFilter;
+
     const boardLayout = G.board?.layout || { width: 550, height: 513 };
     // On narrow/short screens (phones), shrink the fit budget to the real
     // viewport instead of always assuming a desktop-sized window — this is
@@ -133,12 +147,14 @@ export default function Board({ G, ctx, moves, events, playerID, matchID, bots, 
                 height: "100vh",
                 width: "100vw",
                 overflow: "hidden",
-                backgroundImage: `url(${
-                    G.settings?.seasonsEnabled !== false
-                        ? seasonBackgrounds[G.season]
-                        : seasonBackgrounds.Spring
-                })`,
-                backgroundSize: "contain",
+                backgroundImage: boardTheme.backdrop
+                    ? boardTheme.backdrop
+                    : `url(${
+                        G.settings?.seasonsEnabled !== false
+                            ? seasonBackgrounds[G.season]
+                            : seasonBackgrounds.Spring
+                    })`,
+                backgroundSize: boardTheme.backdrop ? "cover" : "contain",
                 backgroundPosition: "center",
                 backgroundRepeat: "no-repeat",
                 backgroundColor: "#000",
@@ -147,6 +163,13 @@ export default function Board({ G, ctx, moves, events, playerID, matchID, bots, 
                 left: 0,
             }}
         >
+            {/* Animated theme backdrop: z-index -1 inside this fixed (stacking-context)
+                root, so it sits above the background but below all game UI. */}
+            <ThemeBackdrop
+                themeId={boardTheme.id}
+                season={G.settings?.seasonsEnabled !== false ? G.season : "Spring"}
+            />
+
             {notification && (
                 <div
                     style={{
@@ -290,6 +313,8 @@ export default function Board({ G, ctx, moves, events, playerID, matchID, bots, 
                                 matchID={matchID}
                                 pendingCardAction={pendingCardAction}
                                 setPendingCardAction={setPendingCardAction}
+                                hexFilter={hexFilter}
+                                highlightHexId={hoverHexId}
                             />
 
                             {G.settings?.robberPayToClear !== false &&
@@ -375,7 +400,7 @@ export default function Board({ G, ctx, moves, events, playerID, matchID, bots, 
                             background: "linear-gradient(0deg, rgba(0,0,0,0.62), rgba(0,0,0,0.05))",
                         }}
                     >
-                        {ctx.phase !== "setup" && (
+                        {!inPreGame && (
                             <div
                                 style={{
                                     overflowX: "auto",
@@ -450,7 +475,7 @@ export default function Board({ G, ctx, moves, events, playerID, matchID, bots, 
                                 )}
                             </button>
 
-                            {ctx.phase !== "setup" &&
+                            {!inPreGame &&
                                 G.diceRolled &&
                                 (playerID === undefined || ctx.currentPlayer === playerID) && (
                                     <button
@@ -472,7 +497,7 @@ export default function Board({ G, ctx, moves, events, playerID, matchID, bots, 
                                 )}
                         </div>
 
-                        {ctx.phase !== "setup" && (
+                        {!inPreGame && (
                             <TurnTimer
                                 key={`${ctx.currentPlayer}-${G.diceRolled}`}
                                 G={G}
@@ -529,7 +554,7 @@ export default function Board({ G, ctx, moves, events, playerID, matchID, bots, 
                                 {mobilePanel === "stats" && (
                                     <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                                         <PlayerStats G={G} ctx={ctx} matchID={matchID} moves={moves} playerID={playerID} />
-                                        {ctx.phase !== "setup" && <BuildCostsPanel G={G} playerID={playerID} />}
+                                        {!inPreGame && <BuildCostsPanel G={G} playerID={playerID} />}
                                     </div>
                                 )}
 
@@ -568,6 +593,8 @@ export default function Board({ G, ctx, moves, events, playerID, matchID, bots, 
                             matchID={matchID}
                             pendingCardAction={pendingCardAction}
                             setPendingCardAction={setPendingCardAction}
+                            hexFilter={hexFilter}
+                            highlightHexId={hoverHexId}
                         />
 
                         <div
@@ -653,7 +680,7 @@ export default function Board({ G, ctx, moves, events, playerID, matchID, bots, 
                         }}
                     >
                         <PlayerStats G={G} ctx={ctx} matchID={matchID} moves={moves} playerID={playerID} />
-                        {ctx.phase !== "setup" && <BuildCostsPanel G={G} playerID={playerID} />}
+                        {!inPreGame && <BuildCostsPanel G={G} playerID={playerID} />}
                     </div>
 
                     <div
@@ -680,7 +707,7 @@ export default function Board({ G, ctx, moves, events, playerID, matchID, bots, 
                             tab={sidePanelTab}
                             onTabChange={setSidePanelTab}
                         />
-                        {ctx.phase !== "setup" && (
+                        {!inPreGame && (
                             <>
                                 <TurnTimer
                                     key={`${ctx.currentPlayer}-${G.diceRolled}`}
@@ -711,7 +738,7 @@ export default function Board({ G, ctx, moves, events, playerID, matchID, bots, 
                         )}
                     </div>
 
-                    {ctx.phase !== "setup" && (
+                    {!inPreGame && (
                         <div
                             style={{
                                 position: "fixed",
@@ -734,6 +761,17 @@ export default function Board({ G, ctx, moves, events, playerID, matchID, bots, 
                         </div>
                     )}
                 </>
+            )}
+
+            {ctx.phase === "draft" && G.draft && (
+                <DraftPanel
+                    G={G}
+                    moves={moves}
+                    playerID={playerID}
+                    matchID={matchID}
+                    onHoverHex={setHoverHexId}
+                    isMobile={isMobile}
+                />
             )}
 
             <VictoryModal

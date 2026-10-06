@@ -2,6 +2,9 @@ import {
     VICTORY_POINTS_OPTIONS,
     MAP_TYPES,
     DICE_MODES,
+    GAME_MODES,
+    GAME_MODE_IDS,
+    normalizeGameSettings,
 } from "../game/constants.js";
 import { useState } from "react";
 import { useTranslation } from "./i18n.js";
@@ -13,6 +16,8 @@ const cardStyle = {
     padding: "8px 10px",
     background: "rgba(255,255,255,0.25)",
 };
+
+const MODE_ICON = { classic: "🏝️", blitz: "⚡", draft: "🃏", shrinking: "🌊" };
 
 const SHAPE_ICON = {
     hexagon: "⬡",
@@ -115,6 +120,22 @@ export default function GameSetupModal({ settings, onChange, readOnly }) {
     const set = (patch) => onChange && onChange({ ...settings, ...patch });
     const disabled = readOnly || !onChange;
 
+    // What the engine will actually use. A mode can force some settings (e.g.
+    // Blitz owns the VP target and the board), so show those as locked while
+    // keeping the host's own picks in `settings` in case they switch back.
+    const effective = normalizeGameSettings(settings);
+    const forced = GAME_MODES[effective.gameMode].forced;
+    const lockVp = "victoryPointsTarget" in forced;
+    const lockMap = "mapType" in forced;
+    // The normaliser falls back to "standard" for "custom" until a board has
+    // been designed, so the host's own pick must come from the raw settings —
+    // otherwise the editor button could never appear. A mode-locked map wins.
+    const selectedMap = lockMap
+        ? effective.mapType
+        : Object.keys(MAP_TYPES).includes(settings.mapType)
+            ? settings.mapType
+            : effective.mapType;
+
     return (
         <div
             style={{
@@ -125,14 +146,39 @@ export default function GameSetupModal({ settings, onChange, readOnly }) {
                 boxSizing: "border-box",
             }}
         >
+            <div style={cardStyle} data-testid="mode-picker">
+                <span style={labelStyle}>🎮 {t("gameMode")}</span>
+                <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
+                    {GAME_MODE_IDS.map((id) => (
+                        <Pill
+                            key={id}
+                            active={effective.gameMode === id}
+                            disabled={disabled}
+                            onClick={() => set({ gameMode: id })}
+                            title={t(`modeDesc_${id}`)}
+                        >
+                            {MODE_ICON[id]} {t(`modeName_${id}`)}
+                        </Pill>
+                    ))}
+                </div>
+                <p data-testid="mode-description" style={{ margin: "6px 0 0 0", fontSize: "0.68rem", color: "#5a4326", lineHeight: 1.35 }}>
+                    {t(`modeDesc_${effective.gameMode}`)}
+                </p>
+            </div>
+
             <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
                 <div style={{ ...cardStyle, flex: "1 1 140px" }}>
-                    <span style={labelStyle}>🏆 {t("victoryPoints")}</span>
+                    <span style={labelStyle}>🏆 {t("victoryPoints")}{lockVp ? ` 🔒` : ""}</span>
                     <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
-                        {VICTORY_POINTS_OPTIONS.map((v) => (
+                        {lockVp && (
+                            <Pill active disabled title={t("lockedByMode")}>
+                                {effective.victoryPointsTarget}
+                            </Pill>
+                        )}
+                        {!lockVp && VICTORY_POINTS_OPTIONS.map((v) => (
                             <Pill
                                 key={v}
-                                active={settings.victoryPointsTarget === v}
+                                active={effective.victoryPointsTarget === v}
                                 disabled={disabled}
                                 onClick={() => set({ victoryPointsTarget: v })}
                                 title={v > 10 ? t("longerGame") : t("standardGame")}
@@ -144,13 +190,13 @@ export default function GameSetupModal({ settings, onChange, readOnly }) {
                 </div>
 
                 <div style={{ ...cardStyle, flex: "1 1 140px" }}>
-                    <span style={labelStyle}>🗺️ {t("boardShape")}</span>
+                    <span style={labelStyle}>🗺️ {t("boardShape")}{lockMap ? ` 🔒` : ""}</span>
                     <div style={{ display: "flex", gap: "6px", flexWrap: "wrap" }}>
                         {Object.entries(MAP_TYPES).map(([key, cfg]) => (
                             <Pill
                                 key={key}
-                                active={settings.mapType === key}
-                                disabled={disabled}
+                                active={selectedMap === key}
+                                disabled={disabled || lockMap}
                                 onClick={() => set({ mapType: key })}
                                 title={t("tilesCount", { n: cfg.hexCount })}
                             >
@@ -158,7 +204,7 @@ export default function GameSetupModal({ settings, onChange, readOnly }) {
                             </Pill>
                         ))}
                     </div>
-                    {settings.mapType === "custom" && !disabled && (
+                    {selectedMap === "custom" && !disabled && (
                         <button
                             type="button"
                             onClick={() => setEditorOpen(true)}
@@ -181,7 +227,7 @@ export default function GameSetupModal({ settings, onChange, readOnly }) {
                             {settings.customBoard ? t("customBoardActive") : t("editBoardBtn")}
                         </button>
                     )}
-                    {settings.mapType === "custom" && disabled && settings.customBoard && (
+                    {selectedMap === "custom" && disabled && settings.customBoard && (
                         <p style={{ margin: "8px 0 0 0", fontSize: "0.68rem", color: "#2e6b3e", fontWeight: "bold" }}>
                             {t("customBoardActive")}
                         </p>
